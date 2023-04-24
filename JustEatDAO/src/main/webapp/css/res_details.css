@@ -1,0 +1,220 @@
+.full-screen-container {
+	height: auto;
+	min-height: 100vh;
+	width: auto;
+}
+
+.main-page-container {
+    flex-direction: column;
+    align-items: flex-start;
+    --restaurant-container-height: 53vh;
+    min-height: var(--main-page-height);
+    height: auto;
+    margin: 0;
+}
+
+#like{
+	 height: 8vh;
+	 width: 5vw;
+}
+
+.restaurant-pic {
+    background-size:cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 97vw;
+    height: 40vh;
+    margin: 1vh;
+    border-radius: var(--border-radius);
+}
+
+.restaurant-container, .dishes-container {
+	position: absolute;
+	background-color: sandybrown;
+	border-radius: 10px;
+	border-width: 5px;
+	border-style: solid;
+    border-color: white;
+    margin-top: calc(calc(var(--main-page-height) / 2) - calc(var(--restaurant-container-height) / 2));
+}
+
+#dishPic {
+	margin: 0;
+	margin-top: .5vh;
+	margin-left: .5vw;
+	margin-right: .5vw;
+	max-width: 13vw;
+	border-radius: 10px;
+}
+
+.restaurant-container {
+    min-width: 45vw;
+    min-height: var(--restaurant-container-height);
+    margin-left: 1vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.number-value, #take-orders {
+	color: green;
+}
+
+.restaurant-text {
+	font-size: 130%;
+	color: brown;
+	margin-bottom: 0;
+	margin-top: 1vh;
+}
+
+#grade-average {
+    margin-left: 10vw;
+    position: absolute;
+    font-size: 35px;
+}
+
+#bike-parking-lot {
+	font-size: 25px;
+}
+
+.manage-restaurant, .order-buttons {
+	text-decoration: none;
+	background-color: hsl(var(--button-hsl));
+	border-radius: 100px;
+	color: white;
+	padding: .5%;
+	width: 15vw;
+	text-align: center;
+	cursor: pointer;
+	margin-top: 2vh;
+}
+
+.manage-restaurant:hover, .order-buttons:hover {
+	opacity: 0.7;
+}
+
+.dishes-container {
+	margin-left: calc(calc(var(--main-page-width) / 2) - 1vw);
+	display: grid;
+	grid-template-columns: auto auto auto;
+	justify-content: center;
+}
+
+.individual-dish {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: .5vw;
+	background-color: hsl(var(--input-hsl));
+	padding-left: 2vw;
+	padding-right: 2vw;
+	border-radius: 10px;
+	max-width: 15vw;
+	height: auto;
+}
+
+#manage-reviews, #back-to-my-restaurants {
+	position: absolute;
+	margin-top: 90vh;
+}
+
+#back-to-my-restaurants {
+	margin-left: 1vw;
+}
+
+#manage-reviews {
+	margin-left: 40vw;
+}
+
+.order-buttons {
+	position: absolute;
+	margin-left: 82vw;
+	margin-top: 90vh;
+}
+
+#make-order-button {
+	margin-left: 82vw;
+	margin-top: 48vh;
+}
+
+.restaurant-grid-container {
+	background-color: var(--restaurant-background-color);
+    border-radius: var(--border-radius);
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    padding-left: 0.1vw;
+    padding-right: 0.1vw;
+    margin: 5vh;
+}
+
+.single-restaurant {
+	--single-restaurant-height: 25vh;
+	--single-restaurant-width: 17vw;
+    background-color: hsl(var(--input-hsl));
+    border: 1px solid black;
+    border-radius: var(--border-radius);
+    height: var(--single-restaurant-height);
+    width: var(--single-restaurant-width);
+    margin: .5vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.single-restaurant:hover {
+    border: 4px solid orange;
+}
+
+.restaurant-photo {
+    border-radius: var(--border-radius);
+    height: calc(var(--single-restaurant-height)*2/3);
+    width: calc(var(--single-restaurant-width)-1vw);
+    margin-top: 5px;
+}
+
+.restaurant-state-radio {
+	display: flex;
+	align-items: center;
+	margin: 0;
+	margin-bottom: 1vh;
+	margin-left: 5vw;
+}
+
+.state-label {
+	color: white;
+	font-size: 3vh;
+	margin: 0;
+	margin-left: 5vw;
+}
+
+input[type=radio] {
+	background-color: hsl(var(--button-hsl));
+}
+
+input[type=radio]:hover {
+	cursor: pointer;
+}
+
+h1 {
+	color: white;
+	margin: 0;
+	margin-top: 5vh;
+	margin-bottom: 5vh;
+}
+
+#related-search {
+	background-color: hsl(var(--button-hsl));
+    cursor: pointer;
+    border: none;
+    color: white;
+    font-size: x-large;
+    border-radius: 20vh;
+}
+
+#related-title, #related-search {
+	margin-left: 10vw;
+}
+
+#related-search:hover {
+	background-color: hsl(var(--button-hsl), 0.7);
+}

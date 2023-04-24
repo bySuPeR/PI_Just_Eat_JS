@@ -1,0 +1,97 @@
+.login-container {
+    --color: hsl(var(--background-orange-hsl));
+    background-color: var(--color);
+    padding-top: 60px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    width: 40%;
+    border-radius: 20px;
+}
+  
+.login-title {
+    margin-bottom: -40px;
+    color: white;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: normal;
+}
+  
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 40px;
+}
+  
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+  
+.input-group label, .question-text {
+	color: white;
+    font-weight: lighter;
+}
+  
+.input-group input, textarea {
+    font-size: 1.25rem;
+    padding: .5em;
+    background-color: hsl(var(--input-hsl), .3);
+    border: none;
+    outline: none;
+    border-radius: .25em;
+    color: white;
+    font-weight: lighter;
+}
+  
+.input-group input:focus, textarea:focus {
+    box-shadow: 0 0 0 1px hsl(var(--button-hsl));
+}
+
+.login-button, #manage-dishes-link {
+    padding: .5em 1em;
+    font-size: 1.5rem;
+    font-weight: lighter;
+    color: white;
+    background-color: hsl(var(--button-hsl), 0.8);
+    border: none;
+    border-radius: .25em;
+    cursor: pointer;
+}
+  
+.login-button:hover, .login-button:focus, #manage-dishes-link:hover, #manage-dishes-link:focus {
+    background-color: hsl(var(--button-hsl), 0.5);
+}
+
+.question-text, .question-link, .delete-link, #manage-dishes-link, #make-order-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+}
+
+.question-link {
+    color: hsl(var(--link-hsl));
+}
+
+.question-link:hover, .question-link:focus {
+    color: hsl(var(--button-hsl));
+}
+  
+.delete-link, .error {
+  	color: red;
+}
+  
+.delete-link:hover {
+  	color: hsl(0, 100%, 70%);
+}
+
+#restaurant-select {
+	border-radius: 10%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}

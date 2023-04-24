@@ -1,0 +1,193 @@
+.full-screen-container {
+	min-width: 90vw;
+	min-height: 100vh;
+    width: auto;
+    height: auto;
+}
+
+.main-page-container {
+    flex-direction: column;
+    align-items: center;
+    min-height: var(--main-page-height);
+    height: auto;
+}
+
+.pages-link {
+	text-decoration: none;
+	background-color: hsl(var(--button-hsl));
+	border-radius: 100px;
+	color: white;
+	padding: 10px;
+	margin-left: 90vw;
+	position: absolute;
+}
+
+.pages-link:hover {
+	background-color: hsl(var(--button-hsl), 0.7);
+}
+
+#account-link {
+	margin-top: 5vh;
+}
+
+#my-restaurants-link {
+	margin-top: 15vh;
+}
+
+#my-orders-link {
+	margin-top: 25vh;
+}
+
+.pic-container {
+    background: url(../images/fondobusqueda.jpg);
+    background-size:cover;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80vw;
+    height: 40vh;
+    margin-top: 5vh;
+    border-radius: var(--border-radius);
+}
+
+.search-input-container {
+	position: absolute;
+    background-color: brown;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50vw;
+    min-height: 20vh;
+    margin-top: 30vh;
+    border-radius: 100px;
+    border-width: 5px;
+    border-style: solid;
+    border-color:white;
+}
+
+h1 {
+    color: hsl(var(--button-hsl));
+}
+
+input {
+    border-radius: var(--border-radius);
+    padding: 10px;
+}
+
+input[type=text] {
+    border: 5px solid;
+    border-color: hsl(var(--link-hsl));
+    width: 15vw;
+}
+
+input[type=text]:focus {
+    outline: none;
+    border-color: orange;
+}
+
+input[type=submit] {
+    background-color: hsl(var(--button-hsl));
+    cursor: pointer;
+    border: none;
+    color: white;
+    font-size: x-large;
+}
+
+
+input[type=submit]:hover, input[type=button]:active {
+    background-color: hsl(var(--button-hsl), 0.7);
+}
+
+.category-prev-text {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+    color: white;
+    white-space: nowrap;
+    margin-top: 15vh;
+}
+
+.categories-list {
+	max-width: 80vw;
+    border-radius: var(--border-radius);
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto;
+}
+
+.single-category {
+    height: 10vh;
+    width: 10vw;
+    margin: 0;
+    margin-left: 1vw;
+    margin-right: 1vw;
+}
+
+.single-category:hover {
+	opacity: 0.7;
+}
+
+.restaurant-grid-container {
+	background-color: var(--restaurant-background-color);
+    border-radius: var(--border-radius);
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    padding-left: 0.1vw;
+    padding-right: 0.1vw;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+}
+
+.single-restaurant {
+	--single-restaurant-height: 25vh;
+	--single-restaurant-width: 17vw;
+    background-color: hsl(var(--input-hsl));
+    border: 1px solid black;
+    border-radius: var(--border-radius);
+    height: var(--single-restaurant-height);
+    width: var(--single-restaurant-width);
+    margin: .5vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.single-restaurant:hover {
+    border: 4px solid orange;
+}
+
+.restaurant-photo {
+    border-radius: var(--border-radius);
+    height: calc(var(--single-restaurant-height)*2/3);
+    width: calc(var(--single-restaurant-width)-1vw);
+    margin-top: 5px;
+}
+
+h2 {
+	margin-bottom: 1vh;
+}
+
+.state-entry {
+	margin-left: 3vw;
+	margin-right: 3vw;
+}
+
+.restaurant-state-radio {
+	display: flex;
+	align-items: center;
+	margin-top: 10vh;
+	margin-bottom: 1vh;
+}
+
+.state-label {
+	color: white;
+	font-size: 3vh;
+}
+
+input[type=radio] {
+	background-color: hsl(var(--button-hsl));
+}
+
+input[type=radio]:hover {
+	cursor: pointer;
+}

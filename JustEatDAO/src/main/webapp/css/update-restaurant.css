@@ -1,0 +1,52 @@
+@charset "UTF-8";
+.full-screen-container {
+	min-height: 100vh;
+	min-width: 90vw;
+	height: auto;
+	width: auto;
+	align-items: flex-start;
+}
+
+.login-container {
+	padding-top: 0px;
+	padding-bottom: 0px;
+	margin-top: 5vh;
+	margin-bottom: 5vh;
+}
+
+.login-title, #bike-parking-question {
+	margin-bottom: 0px;
+}
+
+#bike-parking-question {
+	padding: 0px;
+	margin-top: 0px;
+}
+
+.category-container, .bike-friendly-radio, .available-radio {
+	display: flex;
+	justify-content: center;
+	margin-top: 1vh;
+}
+
+.features-text {
+	font-size: 20px;
+}
+
+input[type=radio] {
+	color: hsl(var(--button-hsl));
+}
+
+input[type=radio]:hover {
+	cursor: pointer;
+}
+
+#manage-dishes-link {
+	margin-left: 20%;
+	width: 60%;
+	margin-top: 2%;
+}
+
+input[type=checkbox]:hover {
+	cursor: pointer;
+}
