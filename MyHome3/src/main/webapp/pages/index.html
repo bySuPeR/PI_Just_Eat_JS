@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang = "en" data-ng-app="MyHome">
+<head>
+    <meta charset = "utf-8">
+    <title>MyHome</title>
+    <script src="../js/angular/angular.js"></script>
+    <script src="../js/angular/angular-route.js"></script>
+    <script src="../js/app.js"></script>
+    <script src="../js/controller/HostingCtrl.js"></script>
+    <script src="../js/controller/UsersCtrl.js"></script>
+    <script src="../js/controller/DetailsCtrl.js"></script>
+    <script src="../js/controller/GraphicsCtrl.js"></script>
+    <script src="../js/factory/HostingFactory.js"></script>
+    <script src="../js/factory/UsersFactory.js"></script>
+    <script src="../js/factory/DetailsFactory.js"></script>
+    <script src="../js/factory/GraphicsFactory.js"></script>
+    <link rel = "stylesheet" href = "../css/stylesheet.css">
+    <link rel = "stylesheet" href = "../css/Webpage.css">
+    <link rel = "stylesheet" href = "../css/Favourites.css">
+    <link rel = "stylesheet" href = "../css/Profile.css">
+    <link rel = "stylesheet" href = "../css/Status.css">
+    <link rel = "stylesheet" href = "../css/MyHosts.css">
+    <link rel = "stylesheet" href = "../css/AddHost.css">
+    <link rel = "stylesheet" href = "../css/Details.css">
+    <link rel = "stylesheet" href = "../css/DeleteHost.css">
+    <link rel = "stylesheet" href = "../css/NotAvailable.css">
+    <link rel = "stylesheet" href = "../css/Service.css">
+    <link rel = "stylesheet" href = "../css/Graphics.css">
+    <link rel = "icon" href = "images/house.PNG">
+</head>
+<body>
+	<div class = "square">
+        <header>
+            <div>My<span>Home</span></div>
+            <a id = "first" href = "/MyHome3/LogoutServlet.do">Log&nbsp;out</a>
+            <a id = "second" href = "#!/Profile">Profile</a>
+        </header>
+        <nav>
+            <ul>
+            	<li><a href = "#!/" id = "hostButton">Hosts</a></li>
+            	<li><a href = "#!/Status">Status</a></li>
+            	<li><a href = "#!/Favourites">Favourites</a></li>
+            	<li><a href = "#!/Services">Services</a></li>
+            	<li><a href = "#!/MyHosts">My Hosts</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div data-ng-view></div>
+</body>
+</html>

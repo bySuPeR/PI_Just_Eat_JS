@@ -1,0 +1,145 @@
+.nameDescriptionText {
+	position: absolute;
+	color: gray;
+	margin-left: 30px;
+	font-family: "fantasy";
+	width: 200px;
+	height: 20px;
+	margin-top: -25px;
+	border-color: white;
+	border-radius: 10px;
+}
+
+.nameDescriptionText:focus {
+	border-color: darkgreen;
+}
+
+.nameDescriptionButton, #categorySearch, #priceRangeSearch {
+	position: absolute;
+	margin-left: 250px;
+	margin-top: -23px;
+	background-color: darkgreen;
+	color: white;
+	border-radius: 20px;
+	border-color: darkgreen;
+	transition: transform .2s;
+	cursor: pointer;
+}
+
+.nameDescriptionButton:focus, #categorySearch:focus {
+	background-color: darkgreen;
+	color: white;
+}
+
+.grid-container {
+    display: grid;
+    margin-top: 45px;
+    grid-template-columns: 25% 25% 25% 25%;
+    justify-content: center;
+}
+
+.grid-container figure {
+	background-color: white;
+	padding: 5px;
+	height: 300px;
+	margin: 3%;
+}
+
+.hostPicture {
+    margin-top: 0;
+    height: 60%;
+    width: 100%;
+    transition: transform .2s;
+}
+
+.grid-container figure, .hostPicture {
+	border-radius: 20px;
+}
+
+.hostPicture:hover, .nameDescriptionButton:hover {
+	--scale_factor: 1.1;
+	-ms-transform: scale(var(--scale_factor));
+	-webkit-transform: scale(var(--scale_factor));
+	transform: scale(var(--scale_factor));
+}
+
+.grid-container figure p {
+	font-weight: bold;
+	font-size: 20px;
+	color: black;
+	text-align: center;
+	margin-top: 3%;
+}
+
+#location {
+	margin-top: -6%;
+	font-size: 15px;
+	color: gray;
+}
+
+#precio {
+	margin-top: -1%;
+	font-size: 25px;
+	color: darkgreen;
+}
+
+#likes {
+	text-align: center;
+	margin-top: -41px;
+	color: gray;
+	font-size: 15px;
+	margin-left: 6%;
+}
+
+#heart {
+	margin-top: -7%;
+	text-align: center;
+	color: gray;
+	font-size: 20px;
+	margin-left: -7%;
+}
+
+#categorySearch {
+	margin-left: 520px;
+	margin-top: -23px;
+}
+
+#categorySelect {
+	position: absolute;
+	margin-top: -25px;
+	margin-left: 390px;
+	border-radius: 20px;
+	background-color: white;
+}
+
+input[type=range] {
+	-webkit-appearance: none;
+	width: 25%;
+	position: absolute;
+	margin-left: 70%;
+	margin-top: -15px;
+	border-radius: 20px;
+	height: 10px;
+}
+
+input[type=range]:hover {
+	opacity: 1;
+}
+
+input[type=range]::-moz-range-thumb {
+	width: 25px;
+	height: 25px;
+	background: darkgreen;
+	cursor: pointer;
+}
+
+#priceRangeSearch {
+	margin-left: 1450px;
+}
+
+#priceWord {
+	position: absolute;
+	font-size: 20px;
+	margin-left: 63%;
+	margin-top: -23px;
+}

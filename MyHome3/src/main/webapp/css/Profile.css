@@ -1,0 +1,86 @@
+.profileSquare {
+	position: absolute;
+    background: white;
+    margin-top: 8%;
+    margin-left: 38%;
+    padding-top: 15%;
+    padding-left: 22%;
+    padding-bottom: 5%;
+    border-radius: 30px;
+    box-shadow: 10px 10px 8px black;
+}
+
+.profileSquare input[type=text], .profileSquare input[type=email], .profileSquare input[type=password] {
+	position: absolute;
+    width: 250px;
+    height: 30px;
+    background: gray;
+    color: white;
+    font-family: "fantasy";
+    font-size: 16px;
+    font-weight: 400;
+    padding: 4px;
+    margin-left: -300px;
+    margin-top: -190px;
+}
+
+.profileSquare input[type=email] {
+	margin-top: -150px;
+}
+
+.profileSquare input[type=password] {
+	margin-top: -110px;
+}
+
+.profileSquare input[type=text]:focus, .profileSquare input[type=email]:focus, .profileSquare input[type=password]:focus {
+    outline: none;
+    border: 2px solid darkgreen;
+}
+
+.profileSquare input[type=submit] {
+	position: absolute;
+    width: 128px;
+    height: 35px;
+    background: darkgreen;
+    border-color: darkgreen;
+    cursor: pointer;
+    border-radius: 20px;
+    color: white;
+    font-family: "fantasy";
+    font-size: 16px;
+    font-weight: 400;
+    margin-top: -70px;
+    margin-left: -240px;
+    transition: transform .2s;
+}
+
+.profileSquare input[type=submit]:hover, .graphics:hover {
+    --scale_factor: 0.9;
+	-ms-transform: scale(var(--scale_factor));
+	-webkit-transform: scale(var(--scale_factor));
+	transform: scale(var(--scale_factor));
+}
+
+#delete {
+	background: red;
+	border-color: red;
+	margin-top: -30px;
+}
+
+.graphics {
+	position: absolute;
+	margin-top: 25px;
+	margin-left: -215px;
+	text-decoration: none;
+	background-color: yellow;
+	color: black;
+	padding: 10px;
+	border-radius: 30px;
+	cursor: pointer;
+	font-size: 16px;
+	transition: transform .2s;
+}
+
+.graphics:focus {
+	color: white;
+}

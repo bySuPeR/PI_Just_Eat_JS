@@ -1,0 +1,52 @@
+<div class = full-square>
+	<div class="grid-container">
+    	<img data-ng-src="../images/{{ DetailsVM.host.foto }}" alt = "House picture" id = "hostPicture">
+    	<img src = "../images/Extra1.jpg" alt = "Selected home Pic1">
+      	<img src = "../images/Extra2.jpg" alt = "Selected home Pic2">
+      	<img src = "../images/Extra3.jpg" alt = "Selected home Pic3">
+    	<img src = "../images/Extra4.jpg" alt = "Selected home Pic4">
+    </div>
+    <div class = "text">
+   		<p id = price>{{ DetailsVM.host.precio }} €/noche</p>
+   		<div class = "in-text">
+   			<span><span class = "hostData">Name: </span>{{ DetailsVM.host.title }}</span><br>
+	    	<span><span class = "hostData">Location: </span>{{ DetailsVM.host.location }}</span><br>
+			<span><span class = "hostData">Description: </span>{{ DetailsVM.host.description }}</span><br>
+			<span><span class = "hostData">Category: </span>
+			<span class = "serviceCategoryData" data-ng-repeat="category in DetailsVM.categoryList">
+				{{ category }}
+			</span>
+			</span><br>
+			<span><span id = "services">Services: </span>
+			<span class = "serviceCategoryData" data-ng-repeat="service in DetailsVM.serviceList">
+				{{ service }}
+			</span>
+			</span><br>
+			<span><span id = "phone">Phone number: </span>{{ DetailsVM.host.telephone }}</span><br>
+			<span><span id = "email">Contact email: </span>{{ DetailsVM.host.contactEmail }}</span><br>
+			<span><span id = "available">Available: </span>
+				<span class = "serviceCategoryData" data-ng-if="DetailsVM.host.available == 1">
+					available
+				</span>
+				<span class = "serviceCategoryData" data-ng-if="DetailsVM.host.available == 0">
+					not available
+				</span>
+			</span>
+   		</div>
+    </div>
+</div>
+<form method = "post" data-ng-submit="DetailsVM.functions.likeHost ()">
+    <div data-ng-if="DetailsVM.heartLike == true">
+    	<input type="image" src="../images/red_heart.png" id = "red_heart">
+    </div>
+    <div data-ng-if="DetailsVM.heartLike == false">
+    	<input type="image" src="../images/gray_heart.png" id = "gray_heart">
+    </div>
+</form>
+<div data-ng-if="DetailsVM.belongsToMe == true">
+	<form method = "post" data-ng-submit="DetailsVM.functions.bookHost ()">
+    	<input type = "submit" value = "Book" id = "book_button">
+	</form>
+	<a href = "#!/DeleteHost/{{ DetailsVM.host.id }}" id = "delete_link">Delete host</a>
+    <a href = "#!/EditHost/{{ DetailsVM.host.id }}" id = "edit_link">Edit host</a>
+</div>

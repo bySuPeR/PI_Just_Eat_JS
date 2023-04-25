@@ -1,0 +1,38 @@
+.deleteForm {
+	position: absolute;
+	background-color: white;
+	border-radius: 20px;
+	padding: 5px;
+	height: 120px;
+	margin-left: 500px;
+	margin-top: 250px;
+	width: 500px;
+}
+
+.deleteHostText {
+	font-size: 30px;
+	color: darkgreen;
+	text-align:center;
+}
+
+.deleteHostButtonPage {
+	font-size: 20px;
+	background-color: red;
+	color: white;
+	border-color: red;
+	border-radius: 20px;
+	margin-left: 200px;
+	cursor: pointer;
+	transition: transform .2s;
+}
+
+.deleteHostButtonPage:hover {
+	--scale_factor: 0.9;
+	-ms-transform: scale(var(--scale_factor));
+	-webkit-transform: scale(var(--scale_factor));
+	transform: scale(var(--scale_factor));
+}
+
+.deleteHostButtonPage:focus {
+	color: gray;
+}

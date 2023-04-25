@@ -1,0 +1,13 @@
+<div class = "profileSquare">
+    <form method = "post" data-ng-submit="UsersVM.functions.updateCurrentUser ()">
+        <input type = "text" placeholder = "Name" data-ng-model="UsersVM.currentUser.username" required><br>
+        <input type = "email" placeholder = "name@something.com" data-ng-model="UsersVM.currentUser.email" required><br>
+        <input type = "password" placeholder = "Introduce password" data-ng-model="UsersVM.currentUser.password" required><br>
+    	<input type = "submit" value = "Update">
+    	<p id="error"></p>
+    </form>
+    <form method = "post" data-ng-submit="UsersVM.functions.deleteCurrentUser ()">
+    	<input id = "delete" type = "submit" value = "Delete account">
+    </form>
+    <a class = "graphics" href = "#!/Graphics">Graphics</a>
+</div>

@@ -1,0 +1,47 @@
+.graph-square {
+    position: absolute;
+    background: white;
+    margin-top: 8%;
+    margin-left: 38%;
+    padding-top: 15%;
+    padding-left: 22%;
+    padding-bottom: 5%;
+    border-radius: 30px;
+    box-shadow: 10px 10px 8px black;
+}
+
+.graph-text {
+    position: absolute;
+    top: 10%;
+    left: 26%;
+    font-family: "fantasy";
+    font-size: 40px;
+    font-weight: 500;
+    color: gray;
+}
+
+.graph-text span {
+    color: darkgreen !important;
+}
+
+.H1, .P {
+	position: absolute;
+	color: black;
+}
+
+.H1 {
+	font-size: 20px;
+	margin-left: -210px;
+	margin-top: -100px;
+}
+
+.P {
+	position: absolute;
+	font-size: 18px;
+	margin-left: -290px;
+	margin-top: -50px;
+}
+
+.customSpanGraph {
+	font-weight: bold;
+}

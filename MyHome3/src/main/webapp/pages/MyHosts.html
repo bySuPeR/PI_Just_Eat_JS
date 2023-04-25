@@ -1,0 +1,15 @@
+<a id = "addNewHostId" href = "#!/AddHost">Add new host</a>
+<div class="grid-container">
+	<div data-ng-repeat="hosting in HostingVM.myHostsList">
+		<figure>
+			<a data-ng-href = "#!/Details/{{ hosting.id }}">
+				<img data-ng-src="../images/{{ hosting.foto }}" alt = "House picture" class = "hostPicture">
+			</a>
+			<p>{{ hosting.title }}</p>
+			<p id = "location">{{ hosting.location }}</p>
+			<p id = "precio">{{ hosting.precio }}€/noche</p>
+			<p id = heart>&hearts;</p>
+			<p id = "likes">{{ hosting.likes }}</p>
+		</figure>
+	</div>
+</div>
