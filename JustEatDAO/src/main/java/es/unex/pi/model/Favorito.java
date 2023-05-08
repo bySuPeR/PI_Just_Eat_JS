@@ -1,5 +1,8 @@
 package es.unex.pi.model;
 
+import jakarta.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Favorito {
 	private long idRestaurant;
 	private long idUser;
