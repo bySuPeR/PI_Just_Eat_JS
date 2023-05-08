@@ -4,6 +4,7 @@ angular.module ('JustEatDAO')
 		var restaurantInterface = {
 			loadAllRestaurantsFactory: function () {
 				var extraUrl = url + 'loadAllRestaurants';
+				console.log ("Requesting 'loadAllRestaurantsFactory' at ", extraUrl);
 				return $http.get (extraUrl)
 					.then (function (response) {
 						return response.data;

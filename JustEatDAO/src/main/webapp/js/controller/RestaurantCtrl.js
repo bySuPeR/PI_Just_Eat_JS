@@ -9,8 +9,9 @@ angular.module ('JustEatDAO')
 						restaurantViewModel.allRestaurants = response;
 					},
 					function (response) {
-						console.log ("'allRestaurants' could not be fetched: ", response);
+						console.log ("'allRestaurants' could not be fetched: ", response.status);
 					})
 			}
 		}
+		restaurantViewModel.functions.loadAllRestaurants ();
 	}])
