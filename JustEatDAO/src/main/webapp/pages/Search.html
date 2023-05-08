@@ -1,13 +1,13 @@
 <div class = "full-screen-container">
 	<div class = "main-page-container">
-    	<a class = "pages-link" id = "account-link" data-ng-ref = "#!/UpdateUser">Account</a>
+    	<a class = "pages-link" id = "account-link" data-ng-href = "#!/UpdateUser">Account</a>
         <a class = "pages-link" id = "my-restaurants-link" data-ng-href = "#!/Restaurants">My Rests.</a>
         <a class = "pages-link" id = "my-orders-link" data-ng-href = "#!/MyOrders">My orders</a>
         <div class = "pic-container">
         	<div class = "search-input-container">
             	<h1>Search for our best restaurants!</h1>
-                <form class = "form" data-ng-submit = "RestaurantVM.functions.searchByName ()">
-                	<input type = "text" name = "search">
+                <form class = "form" data-ng-submit = "RestaurantVM.functions.searchAmongRestaurants ()">
+                	<input type = "text" name = "search" data-ng-model = "RestaurantVM.searchPrompt" required>
                     <input type = "submit" value = "Search">
                 </form>
            	</div>
@@ -17,39 +17,40 @@
             <h4>Get what you want from our best restaurants</h4>
 		</div>
         <div class = "categories-list">
-        	<div data-ng-repeat = "cat in RestaurantVM.allCategories">
-        		<form data-ng-submit = "RestaurantVM.functions.searchByCategory ()">
-        			<input type = "submit" class = "single-category" value = "{{ cat.name }}">
-        		</form>
-        	</div>
+        	<form>
+        		<div data-ng-repeat = "cat in RestaurantVM.allCategories">
+        			<label for = "{{ cat.name }}">{{ cat.name }}</label>
+        			<input id = "{{ cat.name }}" name = "categoryName" type = "radio" class = "single-category" value = "{{ cat.name }}" data-ng-click = "RestaurantVM.functions.searchByCategory (cat.id)" required>
+        		</div>
+        	</form>
 		</div>
-        <form class = "restaurant-state-radio" action = "StateServlet.do" method = "post">
+        <form class = "restaurant-state-radio" data-ng-submit = "RestaurantVM.functions.searchByState ()">
         	<div class = "state-entry">
             	<label class = "state-label" for = "state-value">All restaurants</label>
-                <input type = "radio" value = "all-restaurants" name = "state-value" ${allrestaurants}>
+                <input type = "radio" value = "all-restaurants" name = "state-value" data-ng-model = "RestaurantVM.restState">
             </div>
             <div class = "state-entry">
             	<label class = "state-label" for = "state-value">Take orders</label>
-                <input type = "radio" value = "take-orders" name = "state-value" ${takeorders}>
+                <input type = "radio" value = "take-orders" name = "state-value" data-ng-model = "RestaurantVM.restState">
             </div>
             <div class = "state-entry">
             	<label class = "state-label" for = "state-value">No take orders</label>
-                <input type = radio value = "no-take-orders" name = "state-value" ${notakeorders}>
+                <input type = radio value = "no-take-orders" name = "state-value" data-ng-model = "RestaurantVM.restState">
             </div>
             <div class = "state-entry">
             	<label class = "state-label" for = "state-value">Sort on reviews</label>
-                <input type = "radio" value = "reviews" name = "state-value" ${reviews}>
+                <input type = "radio" value = "reviews" name = "state-value" data-ng-model = "RestaurantVM.restState">
             </div>
             <div class = "state-entry">
             	<label class = "state-label" for = "state-value">My Favorites</label>
-                <input type = "radio" value = "myfavorites" name = "state-value" ${myfavorites}>
+                <input type = "radio" value = "myfavorites" name = "state-value" data-ng-model = "RestaurantVM.restState">
             </div>
             <input type = "submit" value = "Search" class = "search-state">
         </form>
         <div class = "restaurant-grid-container">
         	<div data-ng-repeat = "rest in RestaurantVM.allRestaurants">
         		<div class = "single-restaurant">
-        			<a data-ng-href = ""><img data-ng-src = "images/{{ rest.restaurantPic }}" class = "restaurant-photo"></a>
+        			<a data-ng-href = ""><img data-ng-src = "../images/{{ rest.restaurantPic }}" class = "restaurant-photo"></a>
         			<h3>{{ rest.name }}</h3>
         		</div>
         	</div>

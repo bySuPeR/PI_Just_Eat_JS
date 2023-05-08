@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Logger;
 
 import es.unex.pi.model.Favorito;
@@ -16,7 +15,7 @@ public class JDBCFavoritoDAOImpl implements FavoritoDAO{
 	private static final Logger logger = Logger.getLogger(JDBCFavoritoDAOImpl.class.getName());
 	
 	@Override
-	public List<Favorito> getAll() {
+	public ArrayList<Favorito> getAll() {
 
 		if (conn == null) return null;
 						
@@ -44,7 +43,7 @@ public class JDBCFavoritoDAOImpl implements FavoritoDAO{
 	
 	
 	@Override
-	public List<Favorito> getAllByUser(long idUser) {
+	public ArrayList<Favorito> getAllByUser(long idUser) {
 		
 		if (conn == null) return null;
 						
@@ -71,7 +70,7 @@ public class JDBCFavoritoDAOImpl implements FavoritoDAO{
 	}
 	
 	@Override
-	public List<Favorito> getAllByRestaurant(long idRestaurant) {
+	public ArrayList<Favorito> getAllByRestaurant(long idRestaurant) {
 		
 		if (conn == null) return null;
 						
