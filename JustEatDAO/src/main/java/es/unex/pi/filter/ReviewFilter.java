@@ -42,23 +42,23 @@ public class ReviewFilter implements jakarta.servlet.Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		Connection conn = (Connection) filtro.getServletContext().getAttribute("dbConn");
-		HttpServletRequest req = (HttpServletRequest) request;
-		HttpServletResponse res = (HttpServletResponse) response;
-		long restid = Long.parseLong(req.getParameter("idR"));
-		HttpSession sesion = req.getSession(true);
-		User user = (User) sesion.getAttribute("user");
-		long userid = Long.parseLong(req.getParameter("idU"));
-		Restaurant_UserDAO restUserBD = new JDBCRestaurant_UserDAOImpl();
-		restUserBD.setConnection(conn);
-		Restaurant_User RestUser = new Restaurant_User();
-		RestUser = restUserBD.get(restid, userid);
-		
-		if( user.getId() == userid && user!=null && RestUser!=null) {
-			chain.doFilter(request, response);
-		} else {
-			res.sendError (403);
-		}
+//		Connection conn = (Connection) filtro.getServletContext().getAttribute("dbConn");
+//		HttpServletRequest req = (HttpServletRequest) request;
+//		HttpServletResponse res = (HttpServletResponse) response;
+//		long restid = Long.parseLong(req.getParameter("idR"));
+//		HttpSession sesion = req.getSession(true);
+//		User user = (User) sesion.getAttribute("user");
+//		long userid = Long.parseLong(req.getParameter("idU"));
+//		Restaurant_UserDAO restUserBD = new JDBCRestaurant_UserDAOImpl();
+//		restUserBD.setConnection(conn);
+//		Restaurant_User RestUser = new Restaurant_User();
+//		RestUser = restUserBD.get(restid, userid);
+//		
+//		if( user.getId() == userid && user!=null && RestUser!=null) {
+//			chain.doFilter(request, response);
+//		} else {
+//			res.sendError (403);
+//		}
 		
 	}
 

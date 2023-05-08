@@ -1,7 +1,7 @@
 package es.unex.pi.dao;
 
 import java.sql.Connection;
-import java.util.List;
+import java.util.ArrayList;
 import es.unex.pi.model.Favorito;
 
 public interface FavoritoDAO {
@@ -10,13 +10,13 @@ public interface FavoritoDAO {
 
 	
 	
-	public List<Favorito> getAll();
+	public ArrayList<Favorito> getAll();
 
 	
-	public List<Favorito> getAllByUser(long idUser);
+	public ArrayList<Favorito> getAllByUser(long idUser);
 	
 	
-	public List<Favorito> getAllByRestaurant(long idRestaurant);
+	public ArrayList<Favorito> getAllByRestaurant(long idRestaurant);
 
 	
 	

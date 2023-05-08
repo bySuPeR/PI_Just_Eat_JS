@@ -1,5 +1,5 @@
 angular.module('JustEatDAO', ['ngRoute'])
-.config(function($routeProvider){
+.config (function ($routeProvider) {
 	$routeProvider
     	.when("/", {
     		controller: "RestaurantCtrl",
