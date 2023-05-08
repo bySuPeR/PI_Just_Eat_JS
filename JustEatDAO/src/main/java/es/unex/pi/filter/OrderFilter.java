@@ -41,18 +41,18 @@ public class OrderFilter implements jakarta.servlet.Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		HttpServletRequest req = (HttpServletRequest) request;
-		HttpServletResponse res = (HttpServletResponse) response;
-		long id = Long.parseLong(req.getParameter("id"));
-		HttpSession sesion = req.getSession(true);
-
-		User user = (User) sesion.getAttribute("user");
-		
-		if (user.getId() == id && user != null) {
-			chain.doFilter(request, response);
-		} else {
-			res.sendError(403);
-		}
+//		HttpServletRequest req = (HttpServletRequest) request;
+//		HttpServletResponse res = (HttpServletResponse) response;
+//		long id = Long.parseLong(req.getParameter("id"));
+//		HttpSession sesion = req.getSession(true);
+//
+//		User user = (User) sesion.getAttribute("user");
+//		
+//		if (user.getId() == id && user != null) {
+//			chain.doFilter(request, response);
+//		} else {
+//			res.sendError(403);
+//		}
 	}
 
 	/**

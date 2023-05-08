@@ -2,8 +2,8 @@ angular.module('JustEatDAO', ['ngRoute'])
 .config (function ($routeProvider) {
 	$routeProvider
     	.when("/", {
-    		controller: "UserCtrl",
-    		controllerAs: "UserVM",
+    		controller: "RestaurantCtrl",
+    		controllerAs: "RestaurantVM",
     		templateUrl: "Search.html",
     		resolve: {
     			delay: function($q, $timeout) {

@@ -1,12 +1,12 @@
 <div class = "full-screen-container">
 	<div class = "main-page-container">
-    	<a class = "pages-link" id = "account-link" data-ng-ref = "#!/User/UpdateUser">Account</a>
-        <a class = "pages-link" id = "my-restaurants-link" href = "#!/Restaurants">My Rests.</a>
-        <a class = "pages-link" id = "my-orders-link" href = "#!/MyOrders">My orders</a>
+    	<a class = "pages-link" id = "account-link" data-ng-ref = "#!/UpdateUser">Account</a>
+        <a class = "pages-link" id = "my-restaurants-link" data-ng-href = "#!/Restaurants">My Rests.</a>
+        <a class = "pages-link" id = "my-orders-link" data-ng-href = "#!/MyOrders">My orders</a>
         <div class = "pic-container">
         	<div class = "search-input-container">
             	<h1>Search for our best restaurants!</h1>
-                <form class = "form" action = "SearchServlet.do" method = "post">
+                <form class = "form" data-ng-submit = "RestaurantVM.functions.searchByName ()">
                 	<input type = "text" name = "search">
                     <input type = "submit" value = "Search">
                 </form>
@@ -17,11 +17,11 @@
             <h4>Get what you want from our best restaurants</h4>
 		</div>
         <div class = "categories-list">
-        	<c:forEach var = "category" items = "${categoryList}">
-            	<form action = "CategoryServlet.do?idC=${category.id}" method = "post">
-                	<input type = "submit" class = "single-category" value = "${category.name}">
-	            </form>
-                </c:forEach>
+        	<div data-ng-repeat = "cat in RestaurantVM.allCategories">
+        		<form data-ng-submit = "RestaurantVM.functions.searchByCategory ()">
+        			<input type = "submit" class = "single-category" value = "{{ cat.name }}">
+        		</form>
+        	</div>
 		</div>
         <form class = "restaurant-state-radio" action = "StateServlet.do" method = "post">
         	<div class = "state-entry">
@@ -47,12 +47,12 @@
             <input type = "submit" value = "Search" class = "search-state">
         </form>
         <div class = "restaurant-grid-container">
-        	<c:forEach var = "restaurant" items = "${restaurantList}">
-            	<div class = "single-restaurant">
-                	<a href = "RestaurantDetailsServlet.do?id=${restaurant.id}"><img src = "images/${restaurant.restaurantPic}" class = "restaurant-photo"></a>
-                    <h3>${restaurant.name}</h3>
-                </div>
-            </c:forEach>
+        	<div data-ng-repeat = "rest in RestaurantVM.allRestaurants">
+        		<div class = "single-restaurant">
+        			<a data-ng-href = ""><img data-ng-src = "images/{{ rest.restaurantPic }}" class = "restaurant-photo"></a>
+        			<h3>{{ rest.name }}</h3>
+        		</div>
+        	</div>
         </div>
     </div>
 </div>

@@ -44,22 +44,22 @@ public class RestaurantFilter implements jakarta.servlet.Filter{
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		Connection conn = (Connection) filtro.getServletContext().getAttribute("dbConn");
-		HttpServletRequest req = (HttpServletRequest) request;
-		HttpServletResponse res = (HttpServletResponse) response;
-		long idR = Long.parseLong(req.getParameter("idR"));
-		long idU = Long.parseLong(req.getParameter("idU"));
-		HttpSession sesion = req.getSession(true);
-		RestaurantDAO restaurantBD = new JDBCRestaurantDAOImpl();
-		restaurantBD.setConnection(conn);
-
-		User user = (User) sesion.getAttribute("user");
-		Restaurant rest = restaurantBD.get(idR);
-		if (user.getId() == rest.getIdu() && user != null && user.getId()== idU) {
-			chain.doFilter(request, response);
-		} else {
-			res.sendError(403);
-		}
+//		Connection conn = (Connection) filtro.getServletContext().getAttribute("dbConn");
+//		HttpServletRequest req = (HttpServletRequest) request;
+//		HttpServletResponse res = (HttpServletResponse) response;
+//		long idR = Long.parseLong(req.getParameter("idR"));
+//		long idU = Long.parseLong(req.getParameter("idU"));
+//		HttpSession sesion = req.getSession(true);
+//		RestaurantDAO restaurantBD = new JDBCRestaurantDAOImpl();
+//		restaurantBD.setConnection(conn);
+//
+//		User user = (User) sesion.getAttribute("user");
+//		Restaurant rest = restaurantBD.get(idR);
+//		if (user.getId() == rest.getIdu() && user != null && user.getId()== idU) {
+//			chain.doFilter(request, response);
+//		} else {
+//			res.sendError(403);
+//		}
 	}
 
 	/**

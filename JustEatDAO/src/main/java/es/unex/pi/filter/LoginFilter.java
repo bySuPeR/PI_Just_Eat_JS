@@ -31,16 +31,16 @@ public class LoginFilter  implements jakarta.servlet.Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 
-		HttpServletRequest req = (HttpServletRequest) request;
-		HttpServletResponse res = (HttpServletResponse) response;
-
-		HttpSession session = req.getSession(true);
-
-		if (session.getAttribute("user") == null) {
-			res.sendRedirect(req.getContextPath() + "/LoginServlet.do");
-		} else {
-			chain.doFilter(request, response);
-		}
+//		HttpServletRequest req = (HttpServletRequest) request;
+//		HttpServletResponse res = (HttpServletResponse) response;
+//
+//		HttpSession session = req.getSession(true);
+//
+//		if (session.getAttribute("user") == null) {
+//			res.sendRedirect(req.getContextPath() + "/LoginServlet.do");
+//		} else {
+//			chain.doFilter(request, response);
+//		}
 
 
 	}
