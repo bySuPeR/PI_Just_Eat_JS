@@ -9,7 +9,7 @@
         <link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/login.css">
     </head>
     <body>
-        <div class = "full-screen-container">
+        <div class = "full-screen-container"></div>
             <div class = "login-container">
                 <h1 class = "login-title">Welcome</h1>
                 <form class = "form" action = "LoginServlet.do" method = "post">
