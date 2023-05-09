@@ -24,7 +24,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
 
-@Path ("/User")
+@Path ("/UpdateUser")
 public class UserResource {
 	@Context
 	ServletContext sc;
@@ -34,114 +34,89 @@ public class UserResource {
 	
 	
 	@GET
-	@Path ("/loadUser")
+	@Path ("/")
 	@Produces(MediaType.APPLICATION_JSON)
-	public User loadUserData (@Context HttpServletRequest request) {
-		return (User) request.getSession().getAttribute ("usuario");
+	public User loadUserResource (@Context HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		User currentUser = (User) session.getAttribute("user");
+		return currentUser;
 	}
 	
-	
+	/**
 	@DELETE //Para los DELETE, POST y PUT se tiene que devolver un objeto Response.
 	@Path ("/deleteUser")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteCurrentUser (@Context HttpServletRequest request) {
-//		Connection conn = (Connection) sc.getAttribute("dbConn"); //Abrir DB
-//		
-//		UserDAO userDAO = new JDBCUserDAOImpl(); //Conecta a tabla users
-//		HostingDAO hostDAO = new JDBCHostingDAOImpl ();
-//		UserLikesDAO usrLkDAO = new JDBCUserLikesDAOImpl ();
-//		HostingCategoriesDAO hostCatDAO = new JDBCHostingCategoriesDAOImpl ();
-//		userDAO.setConnection(conn);
-//		usrLkDAO.setConnection (conn);
-//		hostDAO.setConnection (conn);
-//		hostCatDAO.setConnection (conn);
-//		
-//		HttpSession currentSession = request.getSession();
-//		User currentUser = (User) currentSession.getAttribute("usuario");
-//		
-//		//Borrar todos los likes que ha dado el usuario.
-//		List <UserLikes> user_likes = usrLkDAO.getAllByLike (currentUser.getId ());
-//		for (UserLikes singleUserLike: user_likes) {
-//			usrLkDAO.delete (singleUserLike.getIdhost (), singleUserLike.getIdLike ());
-//			Hosting auxHost = hostDAO.get (singleUserLike.getIdhost ());
-//			auxHost.setLikes (auxHost.getLikes () - 1);
-//			hostDAO.save (auxHost);
-//		}
-//		
-//		//Borrar todos los alojamientos del usuario.
-//		List <Hosting> user_hosts = hostDAO.getAllByUser (currentUser.getId ());
-//		for (Hosting auxHost: user_hosts) {
-//			
-//			//Borrar los likes de los alojamientos del usuario.
-//			List <UserLikes> userHosts_likes = usrLkDAO.getAllByHosting (auxHost.getId ());
-//			for (UserLikes auxUserLikes: userHosts_likes) {
-//				usrLkDAO.delete (auxUserLikes.getIdhost (), auxUserLikes.getIdLike ());
-//				//Los likes de este alojamiento no se actualizan porque �stos se van a borrar de su tabla.
-//			}
-//			
-//			//Borrar las categor�as de los alojamientos.
-//			List <HostingCategories> hostCat = hostCatDAO.getAllByHosting (auxHost.getId ());
-//			for (HostingCategories auxHostCat: hostCat) {
-//				hostCatDAO.delete (auxHostCat.getIdh (), auxHostCat.getIdct ());
-//			}
-//			
-//			hostDAO.delete (auxHost.getId ());
-//		}
-//		
-//		userDAO.delete(currentUser.getId());
-				
-		return Response.accepted (uriInfo.getAbsolutePathBuilder ().build ())
-                .contentLocation (uriInfo.getAbsolutePathBuilder ().build ()).build ();
+
 	}
+	**/
 	
 	@PUT
-	@Path ("/UpdateUser")
+	@Path ("/{currentUserID}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response updateUserData (@Context HttpServletRequest request, User currentUser) {
-//		Connection conn = (Connection) sc.getAttribute("dbConn"); //Abrir DB.
-//		UserDAO userDAO = new JDBCUserDAOImpl(); //Conecta a tabla users
-//		userDAO.setConnection(conn);
-//		
-//		//El usuario actual se elimina de la lista de usuarios para que no se encuentre
-//		List <User> userList = userDAO.getAll();
-//		int userListLength = userList.size ();
-//		boolean found = false;
-//		HttpSession sesion = request.getSession ();
-//		User thisUser = (User) sesion.getAttribute ("usuario");
-//		for (int i = 0; (i < userListLength) && (!found); i++) {
-//			if (thisUser.getUsername ().equals (userList.get (i).getUsername ())) {
-//				userList.remove (i);
-//				found = true;
-//			}
-//		}
-//		
-//		userListLength = userList.size ();
-//		found = false;
-//		for (int i = 0; (i < userListLength) && (!found); i++) {
-//			System.out.println (userList.get (i).getUsername ());
-//			if (currentUser.getUsername ().equals (userList.get (i).getUsername ())) {
-//				found = true;
-//			}
-//		}
-//		if (found) {throw new WebApplicationException (Response.Status.BAD_GATEWAY);}
-//		
-//		userListLength = userList.size ();
-//		found = false;
-//		for (int i = 0; (i < userListLength) && (!found); i++) {
-//			if (currentUser.getEmail ().equals (userList.get (i).getEmail ())) {
-//				found = true;
-//			}
-//		}
-//		if (found) {throw new WebApplicationException (Response.Status.BAD_REQUEST);}
-//		
-//		String validation = "^(?=.*[0-9])" + "(?=.*[a-z])(?=.*[A-Z])" + "(?=\\S+$).{8,20}$";
-//		if (!currentUser.getPassword ().matches(validation)) {
-//			throw new WebApplicationException (Response.Status.CONFLICT);
-//		}
-//		
-//		userDAO.save (currentUser);
-//		
-//		return Response.accepted (uriInfo.getAbsolutePathBuilder ().build ()).contentLocation (uriInfo.getAbsolutePathBuilder ().build ()).build ();
-		return null;
+	public Response updateCurrentUser (@Context HttpServletRequest request, User newUser) {
+		Connection conn = (Connection) sc.getAttribute("dbConn");
+		HttpSession sesion = request.getSession();
+		User user = (User) sesion.getAttribute("user");
+		UserDAO userDAO = new JDBCUserDAOImpl();
+		userDAO.setConnection(conn);
+		User userUpdated = new User();
+		String password = newUser.getPassword();
+		String error;
+		userUpdated.setName(newUser.getName());
+		userUpdated.setSurname(newUser.getSurname());
+		userUpdated.setEmail(newUser.getEmail());
+		userUpdated.setPassword(password);
+		List<User> UserList = userDAO.getAll();
+		boolean enc = false;
+		for (User usu : UserList) {
+			if (user.getId() != usu.getId() && usu.getEmail().equals(userUpdated.getEmail())
+					&& usu != null) {
+				enc = true;
+			}
+		}
+		if (enc) {
+			throw new WebApplicationException(Response.Status.PRECONDITION_FAILED);
+		}
+
+		// Validar contraseña
+		else if (password.length() >= 8) {
+
+			int numeros = 0;
+			int mayusculas = 0;
+			int minusculas = 0;
+			int especial = 0;
+			for (int x = 0; x < password.length(); x++) {
+				if (password.charAt(x) > 47 && password.charAt(x) < 58) {
+					numeros++;
+				}
+				if (password.charAt(x) > 64 && password.charAt(x) < 91 || password.charAt(x) == 165) {
+					mayusculas++;
+				}
+				if (password.charAt(x) > 96 && password.charAt(x) < 123 || password.charAt(x) == 164) {
+					minusculas++;
+				}
+				if ((password.charAt(x) > 32 && password.charAt(x) < 48)
+						|| (password.charAt(x) > 57 && password.charAt(x) < 65)
+						|| (password.charAt(x) > 90 && password.charAt(x) < 97)
+						|| (password.charAt(x) > 122 && password.charAt(x) <= 126)) {
+					especial++;
+				}
+			}
+			if (numeros < 1 || mayusculas < 1 || minusculas < 1 || especial < 1) {
+				throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
+			} else {
+				userUpdated.setId(user.getId());
+				sesion.removeAttribute("user");
+				sesion.setAttribute("user", userUpdated);
+				userDAO.update(userUpdated);
+				return Response.accepted(uriInfo.getAbsolutePathBuilder().build()).contentLocation(uriInfo.getAbsolutePathBuilder().build()).build();
+
+			}
+		} else {
+			throw new WebApplicationException(Response.Status.LENGTH_REQUIRED);
+		}
+
 	}
+	
 }

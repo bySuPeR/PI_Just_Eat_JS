@@ -26,6 +26,19 @@ angular.module('JustEatDAO', ['ngRoute'])
                     }
                 }
             })
+            
+            .when("/UpdateUser", {
+                controller: "UserCtrl",
+                controllerAs: "UserVM",
+                templateUrl: "UpdateUser.html",
+                resolve: {
+                    delay: function($q, $timeout) {
+                        var delay = $q.defer();
+                        $timeout(delay.resolve,0);
+                        return delay.promise;
+                    }
+                }
+            })
 		
 		
 	})
