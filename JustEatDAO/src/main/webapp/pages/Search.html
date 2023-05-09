@@ -50,7 +50,7 @@
         <div class = "restaurant-grid-container">
         	<div data-ng-repeat = "rest in RestaurantVM.allRestaurants">
         		<div class = "single-restaurant">
-        			<a data-ng-href = ""><img data-ng-src = "../images/{{ rest.restaurantPic }}" class = "restaurant-photo"></a>
+        			<a data-ng-href = "#!/restaurantDetails/{{ rest.id }}"><img data-ng-src = "../images/{{ rest.restaurantPic }}" class = "restaurant-photo"></a>
         			<h3>{{ rest.name }}</h3>
         		</div>
         	</div>
