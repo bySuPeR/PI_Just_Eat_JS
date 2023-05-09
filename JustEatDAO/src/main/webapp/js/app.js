@@ -13,4 +13,19 @@ angular.module('JustEatDAO', ['ngRoute'])
     			}
     		}
 		})
+		
+		.when("/restaurantDetails/:ID", {
+                controller: "DetailsCtrl",
+                controllerAs: "DetailsVM",
+                templateUrl: "Res_details.html",
+                resolve: {
+                    delay: function($q, $timeout) {
+                        var delay = $q.defer();
+                        $timeout(delay.resolve,0);
+                        return delay.promise;
+                    }
+                }
+            })
+		
+		
 	})
