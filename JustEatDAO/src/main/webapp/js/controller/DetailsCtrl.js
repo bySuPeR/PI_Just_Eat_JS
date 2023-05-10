@@ -1,10 +1,11 @@
 angular.module('JustEatDAO')
-	.controller('DetailsCtrl', ['DetailsFactory','$routeParams',function(DetailsFactory, $routeParams) {
+	.controller('DetailsCtrl', ['DetailsFactory','$routeParams', 'RestaurantFactory', function (DetailsFactory, $routeParams, RestaurantFactory) {
 		var detailsViewModel = this;
 		detailsViewModel.restaurant = {};
 		detailsViewModel.allCategories = [];
 		detailsViewModel.belongsToMe = false;
 		detailsViewModel.allDishes = [];
+		detailsViewModel.error = "";
 		detailsViewModel.functions = {
 			getRestaurant: function() {
 				DetailsFactory.getRestaurantFact($routeParams.ID)
@@ -18,9 +19,6 @@ angular.module('JustEatDAO')
 				DetailsFactory.loadRestaurantCategoriesFactory ($routeParams.ID)
 					.then (function (response) {
 						detailsViewModel.allCategories = response;
-						if (detailsViewModel.allCategories != null) {
-							console.log ("Todo OK");
-						}
 					},
 					function (response) {
 						console.log ("'loadRestaurantCategories' could not be fetched: ", response.status);
@@ -43,10 +41,23 @@ angular.module('JustEatDAO')
 					function (response) {
 						console.log ("'loadAllDishes' could not be fetched: ", response.status);
 					})
+			},
+			updateCurrentRestaurant: function () {
+				
+			},
+			loadAllCategories: function () {
+				RestaurantFactory.loadAllCategoriesFactory ()
+					.then (function (response) {
+						detailsViewModel.allCategories = response;
+					},
+					function (response) {
+						console.log ("'loadAllCategories' could not be fetched: ", response.status);
+					})
 			}
 		}
 		detailsViewModel.functions.getRestaurant();
 		detailsViewModel.functions.loadRestaurantCategories ();
 		detailsViewModel.functions.loadBelongsToMe ();
 		detailsViewModel.functions.loadAllDishes ();
+		detailsViewModel.functions.loadAllCategories ();
 	}])

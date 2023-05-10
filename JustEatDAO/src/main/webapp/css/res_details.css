@@ -218,3 +218,8 @@ h1 {
 #related-search:hover {
 	background-color: hsl(var(--button-hsl), 0.7);
 }
+
+#manage-restaurant-link {
+	text-decoration: none;
+	color: white;
+}

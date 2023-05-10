@@ -23,7 +23,13 @@
 	margin-top: 0px;
 }
 
-.category-container, .bike-friendly-radio, .available-radio {
+.category-container {
+	display: flex;
+	justify-content: center;
+	margin-top: 1vh;
+}
+
+.bike-friendly-checkbox, .available-checkbox {
 	display: flex;
 	justify-content: center;
 	margin-top: 1vh;
