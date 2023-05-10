@@ -41,7 +41,7 @@ angular.module('JustEatDAO', ['ngRoute'])
             })
             
             
-                .when("/delteUser", {
+                .when("/deleteUser", {
                 controller: "UserCtrl",
                 controllerAs: "UserVM",
                 templateUrl: "ConfirmDelete.html",

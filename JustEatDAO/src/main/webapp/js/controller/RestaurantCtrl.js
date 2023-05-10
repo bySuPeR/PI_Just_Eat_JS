@@ -3,6 +3,7 @@ angular.module ('JustEatDAO')
 		var restaurantViewModel = this;
 		restaurantViewModel.allRestaurants = [];
 		restaurantViewModel.allCategories = [];
+		restaurantViewModel.tipoBorrado=0;
 		restaurantViewModel.searchPrompt = "";
 		restaurantViewModel.restState = "all-restaurants";
 		restaurantViewModel.functions = {

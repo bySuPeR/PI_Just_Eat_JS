@@ -1,8 +1,9 @@
 angular.module ('JustEatDAO')
-	.controller ('UserCtrl', ['UserFactory', '$location', $window, function (UserFactory, $location, $window) {
+	.controller ('UserCtrl', ['UserFactory', '$location', '$window', function (UserFactory, $location, $window) {
 		var userViewModel = this;
 		userViewModel.currentUser = {};
 		userViewModel.confirm='';
+		userViewModel.tipoBorrado=0;
 		userViewModel.error = "";
 		userViewModel.functions = {
 			getCurrentUser: function () {
@@ -15,7 +16,7 @@ angular.module ('JustEatDAO')
 			},
 			updateCurrentUser: function () {
 				UserFactory.updateCurrentUserFactory (userViewModel.currentUser)
-					.then (function (response) {
+					.then (function () {
 						$location.path("/UpdateUser");
 				}, function (response) {
 					if(response.status==412){
@@ -31,18 +32,14 @@ angular.module ('JustEatDAO')
 			},
 			
 			deleteCurrentUser: function(){
-				if(userViewModel.confirm === 'Si'){
+				
 					UserFactory.deleteCurrentUserFactory()
-				.then ( function (response){
+				.then ( function (){
 					$window.location.href='/JustEatDAO/LogOutServlet.do';
 				}, function (response) {
 					console.log ("Error fetching this user in UserCtrl: ", response)
 				})
-			}
-			else if (userViewModel.confirm === 'No'){	
-				$location.path('/UpdateUser');
-				}	
-		}
+			 }
 	}
 		userViewModel.functions.getCurrentUser ();
 	}])

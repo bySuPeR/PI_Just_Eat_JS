@@ -1,38 +1,34 @@
+<link rel = "stylesheet" href = "../css/delete.css">
 <div class="full-screen-container">
 	<div class="main-page-container">
-		<c:if test="${requestScope.delete eq 0}">
-			<form>
-				<label>Are you sure you want to delete your account?</label> <input
-					type="submit" value="Yes, delete">
+		<div data-ng-if = "UserVM.tipoBorrado == 0">
+			<form data-ng-submit="UserVM.functions.deleteCurrentUser()">
+				<label>Are you sure you want to delete your account?</label> 
+				<input type="submit" value="Yes">
 			</form>
-			<a href="<c:url value = 'UpdateUserServlet.do'/>">No, go back</a>
-		</c:if>
-		<c:if test="${requestScope.delete eq 1}">
+			<a href="#!/UpdateUser">No, go back</a>
+		</div>
+		<div data-ng-if = "RestaurantVM.tipoBorrado == 0">
 			<form>
-				<label>Are you sure you want to delete this restaurant?</label> <input
-					type="submit" value="Yes, delete">
+				<label>Are you sure you want to delete this restaurant?</label> 
+				<input type="submit" value="Yes">
 			</form>
 			<a
-				href="<c:url value = 'UpdateRestaurantServlet.do?idR=${resID}&idU=${user.id}'/>">No,
-				go back</a>
-		</c:if>
-		<c:if test="${requestScope.delete eq 2}">
-			<form action="DeleteDishServlet.do?id=${dishID}" method="post">
-				<label>Are you sure you want to delete this dish?</label> <input
-					type="submit" value="Yes, delete">
-			</form>
-			<a
-				href="<c:url value = 'UpdateDishesServlet.do?idR=${resID}&idU=${user.id}'/>">No,
-				go back</a>
-		</c:if>
-		<c:if test="${requestScope.delete eq 3}">
+				href="">No,go back</a>
+		</div>
+		<div data-ng-if = "DishVM.tipoBorrado ==0">
 			<form>
-				<label>Are you sure you want to delete this review?</label> <input
-					type="submit" value="Yes, delete">
+				<label>Are you sure you want to delete this dish?</label> 
+				<input type="submit" value="Yes">
 			</form>
-			<a
-				href="<c:url value = 'UpdateReviewServlet.do?idR=${resID}&idU=${user.id}'/>">No,
-				go back</a>
-		</c:if>
+			<a href="">No, go back</a>
+		</div>
+		<div data-ng-if = "ReviewVM.tipoBorrado == 0">
+			<form>
+				<label>Are you sure you want to delete this review?</label> 
+				<input type="submit" value="Yes" data-ng-model="">
+			</form>
+			<a href="">No,go back</a>
+		</div>
 	</div>
 </div>
