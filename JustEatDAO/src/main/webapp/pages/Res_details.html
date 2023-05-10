@@ -41,7 +41,7 @@
 			</form>
 			-->
 			<div class = "manage-restaurant" data-ng-if = "DetailsVM.belongsToMe == true">
-				<a data-ng-href = "#!/UpdateRestaurant" id = "manage-restaurant-link">Manage restaurant</a>
+				<a data-ng-href = "#!/UpdateRestaurant/{{ DetailsVM.restaurant.id }}" id = "manage-restaurant-link">Manage restaurant</a>
 			</div>
 		</div>
 		<div class="dishes-container">

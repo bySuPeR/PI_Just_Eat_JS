@@ -37,7 +37,7 @@ angular.module('JustEatDAO', ['ngRoute'])
                 }
             }
         })
-        .when ("/UpdateRestaurant", {
+        .when ("/UpdateRestaurant/:ID", {
 			controller: "DetailsCtrl",
 			controllerAs: "DetailsVM",
 			templateUrl: "UpdateRestaurant.html",
