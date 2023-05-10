@@ -38,21 +38,22 @@
           			</c:otherwise>
           		</c:choose>
 			</form>-->
-			<div data-ng-if = "DetailsVM.belongsToMe == true">
-				<a class = "manage-restaurant" data-ng-href = "">Manage restaurant</a>
+			<div class = "manage-restaurant" data-ng-if = "DetailsVM.belongsToMe == true">
+				<a data-ng-href = "">Manage restaurant</a>
 			</div>
 		</div>
-		<!--		<div class = "dishes-container">
-					<c:forEach var = "dish" items = "${dishList}">
-						<div class = "individual-dish">
-							<img src = "images/${dish.dishPic}" id = "dishPic">
-							<h2>${dish.name}
-								<span class = "number-value">${dish.price}€</span>
-							</h2>
-							<h3>${dish.description}</h3>
-						</div>
-					</c:forEach>
+		<div class="dishes-container">
+			<div data-ng-repeat="dish in DetailsVM.allDishes">
+				<div class="individual-dish">
+					<img data-ng-src="../images/{{ dish.dishPic }}" id="dishPic">
+					<h2>
+						{{ dish.name }} <span class="number-value">{{ dish.price }}</span>
+					</h2>
+					<h3>{{ dish.description }}</h3>
 				</div>
+			</div>
+		</div>
+		<!--
 				<a class = "manage-restaurant" id = "back-to-my-restaurants" href = "<c:url value = 'SearchServlet.do'/>">Back</a>
 				<a class = "manage-restaurant" id = "manage-reviews" href = "<c:url value = 'LoadReviewsServlet.do?idR=${restaurant.id}'/>">Rate this restaurant</a>
 				<a class = "manage-restaurant" id = "make-order-button" href = "<c:url value = 'MakeOrderServlet.do?id=${restaurant.id}'/>">Make order</a>

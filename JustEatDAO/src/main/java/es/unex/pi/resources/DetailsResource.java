@@ -11,14 +11,17 @@ import es.unex.pi.model.Category;
 import es.unex.pi.model.Favorito;
 import es.unex.pi.model.Restaurant_Category;
 import es.unex.pi.model.User;
+import es.unex.pi.model.Dish;
 import es.unex.pi.dao.RestaurantDAO;
 import es.unex.pi.dao.CategoryDAO;
 import es.unex.pi.dao.Restaurant_CategoryDAO;
 import es.unex.pi.dao.FavoritoDAO;
+import es.unex.pi.dao.DishDAO;
 import es.unex.pi.dao.JDBCRestaurantDAOImpl;
 import es.unex.pi.dao.JDBCCategoryDAOImpl;
 import es.unex.pi.dao.JDBCRestaurant_CategoryDAOImpl;
 import es.unex.pi.dao.JDBCFavoritoDAOImpl;
+import es.unex.pi.dao.JDBCDishDAOImpl;
 import es.unex.pi.util.RestaurantComparator;
 
 import jakarta.servlet.RequestDispatcher;
@@ -85,5 +88,15 @@ public class DetailsResource {
 		HttpSession session = request.getSession ();
 		User currentUser = (User) session.getAttribute ("user");
 		return (currentUser.getId () == restDAO.get (restID).getIdu ());
+	}
+	
+	@GET
+	@Path ("/loadAllDishes/{restID}")
+	@Produces (MediaType.APPLICATION_JSON)
+	public ArrayList <Dish> loadAllDishesResource (@Context HttpServletRequest request, @PathParam ("restID") long restID) {
+		Connection conn = (Connection) sc.getAttribute("dbConn");
+		DishDAO dishDAO = new JDBCDishDAOImpl ();
+		dishDAO.setConnection (conn);
+		return dishDAO.getAllByRestaurant (restID);
 	}
 }

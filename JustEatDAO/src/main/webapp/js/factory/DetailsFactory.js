@@ -22,6 +22,13 @@ angular.module('JustEatDAO')
 					.then (function (response) {
 						return response.data;
 					})
+			},
+			loadAllDishesFactory: function (restID) {
+				var extraUrl = url + "loadAllDishes/" + restID;
+				return $http.get (extraUrl)
+					.then (function (response) {
+						return response.data;
+					})
 			}
 		}
 		return detailsInterface;

@@ -4,6 +4,7 @@ angular.module('JustEatDAO')
 		detailsViewModel.restaurant = {};
 		detailsViewModel.allCategories = [];
 		detailsViewModel.belongsToMe = false;
+		detailsViewModel.allDishes = [];
 		detailsViewModel.functions = {
 			getRestaurant: function() {
 				DetailsFactory.getRestaurantFact($routeParams.ID)
@@ -33,9 +34,19 @@ angular.module('JustEatDAO')
 					function (response) {
 						console.log ("'loadBelongsToMe' could not be fetched: ", response.status);
 					})
+			},
+			loadAllDishes: function  () {
+				DetailsFactory.loadAllDishesFactory ($routeParams.ID)
+					.then (function (response) {
+						detailsViewModel.allDishes = response;
+					},
+					function (response) {
+						console.log ("'loadAllDishes' could not be fetched: ", response.status);
+					})
 			}
 		}
 		detailsViewModel.functions.getRestaurant();
 		detailsViewModel.functions.loadRestaurantCategories ();
 		detailsViewModel.functions.loadBelongsToMe ();
+		detailsViewModel.functions.loadAllDishes ();
 	}])
