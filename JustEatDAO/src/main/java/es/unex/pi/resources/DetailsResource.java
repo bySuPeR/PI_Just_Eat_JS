@@ -74,4 +74,16 @@ public class DetailsResource {
 		}
 		return catList;
 	}
+	
+	@GET
+	@Path ("/loadBelongsToMe/{restID}")
+	@Produces (MediaType.APPLICATION_JSON)
+	public boolean loadBelongsToMeResource (@Context HttpServletRequest request, @PathParam ("restID") long restID) {
+		Connection conn = (Connection) sc.getAttribute("dbConn");
+		RestaurantDAO restDAO = new JDBCRestaurantDAOImpl ();
+		restDAO.setConnection (conn);
+		HttpSession session = request.getSession ();
+		User currentUser = (User) session.getAttribute ("user");
+		return (currentUser.getId () == restDAO.get (restID).getIdu ());
+	}
 }

@@ -2,7 +2,7 @@
 <div class = "full-screen-container">
 	<div class = "main-page-container">
     	<img data-ng-src = "../images/{{ DetailsVM.restaurant.restaurantPic }}" class = "restaurant-pic">
-		<div class = "restaurant-container">	
+		<div class = "restaurant-container">
 			<h1 class = "restaurant-text">{{ DetailsVM.restaurant.name }}
 				<span class = "number-value" id = "grade-average">{{ DetailsVM.restaurant.gradesAverage }}</span>
 			</h1>
@@ -22,31 +22,27 @@
 					Sorry, no :(
 				</div>
 			</div>
-						
-						
-					
-			<!--  		
-					<c:if test = "${restaurant.available eq 1}">
-						<h1 class = "restaurant-text" id = "take-orders">We take orders!</h1>
-					</c:if>
-					<c:if test = "${restaurant.available eq 0}">
-						<h1 class = "restaurant-text">Sorry, no orders now</h1>
-					</c:if>
-					<form method = "post" action = "?">
-						<c:choose>
-          					<c:when test = "${requestScope.like eq 'emptyH'}">
-          						<button><img src = "images/notlike.png" id = "like"></button>
-          					</c:when>
-          					<c:otherwise>
-          						<button><img src = "images/like.png " id = "like"></button>
-          					</c:otherwise>
-          				</c:choose>
-					</form>							
-					<c:if test = "${restaurant.idu eq requestScope.currentUser.id}">
-						<a class = "manage-restaurant" href = "<c:url value = 'UpdateRestaurantServlet.do?idR=${restaurant.id}&idU=${currentUser.id}'/>">Manage restaurant</a>
-					</c:if>
-				</div>
-				<div class = "dishes-container">
+			<div data-ng-if = "DetailsVM.restaurant.available == 1">
+				<h1 class = "restaurant-text" id = "take-orders">We take orders!</h1>
+			</div>
+			<div data-ng-if = "DetailsVM.restaurant.available == 0">
+				<h1 class = "restaurant-text">Sorry, no orders now</h1>
+			</div>		
+			<!--  <form method = "post" action = "?">
+				<c:choose>
+          			<c:when test = "${requestScope.like eq 'emptyH'}">
+          				<button><img src = "images/notlike.png" id = "like"></button>
+          			</c:when>
+          			<c:otherwise>
+          				<button><img src = "images/like.png " id = "like"></button>
+          			</c:otherwise>
+          		</c:choose>
+			</form>-->
+			<div data-ng-if = "DetailsVM.belongsToMe == true">
+				<a class = "manage-restaurant" data-ng-href = "">Manage restaurant</a>
+			</div>
+		</div>
+		<!--		<div class = "dishes-container">
 					<c:forEach var = "dish" items = "${dishList}">
 						<div class = "individual-dish">
 							<img src = "images/${dish.dishPic}" id = "dishPic">
@@ -87,9 +83,6 @@
                         	<h3>${restaurant.name}</h3>
                     	</div>
             		</c:forEach>
-            		   -->
-            	</div>
-            	
-            </div>
-         
-        </div>
+            	</div>-->
+	</div>   
+</div>

@@ -3,6 +3,7 @@ angular.module('JustEatDAO')
 		var detailsViewModel = this;
 		detailsViewModel.restaurant = {};
 		detailsViewModel.allCategories = [];
+		detailsViewModel.belongsToMe = false;
 		detailsViewModel.functions = {
 			getRestaurant: function() {
 				DetailsFactory.getRestaurantFact($routeParams.ID)
@@ -23,8 +24,18 @@ angular.module('JustEatDAO')
 					function (response) {
 						console.log ("'loadRestaurantCategories' could not be fetched: ", response.status);
 					})
+			},
+			loadBelongsToMe: function () {
+				DetailsFactory.loadBelongsToMeFactory ($routeParams.ID)
+					.then (function (response) {
+						detailsViewModel.belongsToMe = response;
+					},
+					function (response) {
+						console.log ("'loadBelongsToMe' could not be fetched: ", response.status);
+					})
 			}
 		}
 		detailsViewModel.functions.getRestaurant();
 		detailsViewModel.functions.loadRestaurantCategories ();
+		detailsViewModel.functions.loadBelongsToMe ();
 	}])

@@ -15,6 +15,13 @@ angular.module('JustEatDAO')
 					.then (function (response) {
 						return response.data;
 					})
+			},
+			loadBelongsToMeFactory: function (restID) {
+				var extraUrl = url + "loadBelongsToMe/" + restID;
+				return $http.get (extraUrl)
+					.then (function (response) {
+						return response.data;
+					})
 			}
 		}
 		return detailsInterface;

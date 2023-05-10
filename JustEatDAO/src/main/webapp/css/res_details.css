@@ -82,7 +82,7 @@
 	background-color: hsl(var(--button-hsl));
 	border-radius: 100px;
 	color: white;
-	padding: .5%;
+	padding: 1%;
 	width: 15vw;
 	text-align: center;
 	cursor: pointer;
