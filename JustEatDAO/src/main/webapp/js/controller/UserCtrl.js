@@ -2,6 +2,7 @@ angular.module ('JustEatDAO')
 	.controller ('UserCtrl', ['UserFactory', '$location', $window, function (UserFactory, $location, $window) {
 		var userViewModel = this;
 		userViewModel.currentUser = {};
+		userViewModel.confirm='';
 		userViewModel.error = "";
 		userViewModel.functions = {
 			getCurrentUser: function () {
