@@ -1,3 +1,4 @@
+/**
 package es.unex.pi.filter;
 
 
@@ -25,6 +26,7 @@ public class OrderFilter implements jakarta.servlet.Filter {
 	/**
 	 * @see HttpFilter#HttpFilter()
 	 */
+/**
 	public OrderFilter() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -33,6 +35,7 @@ public class OrderFilter implements jakarta.servlet.Filter {
 	/**
 	 * @see Filter#destroy()
 	 */
+/**
 	public void destroy() {
 		// TODO Auto-generated method stub
 	}
@@ -40,6 +43,7 @@ public class OrderFilter implements jakarta.servlet.Filter {
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
+/**
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 //		HttpServletRequest req = (HttpServletRequest) request;
 //		HttpServletResponse res = (HttpServletResponse) response;
@@ -58,9 +62,12 @@ public class OrderFilter implements jakarta.servlet.Filter {
 	/**
 	 * @see Filter#init(FilterConfig)
 	 */
+/**
 	public void init(FilterConfig fConfig) throws ServletException {
 		filtro = fConfig;
 	}
 
 }
+
+**/
 

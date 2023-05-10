@@ -32,10 +32,15 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession sesion = request.getSession ();
+		System.out.println("antes if login");
 		if (sesion.getAttribute ("user") != null) {
+			System.out.println("if login");
+
 			response.sendRedirect (request.getContextPath () + "/pages/index.html#!/");
         }
         else {
+    		System.out.println("else login");
+
         	RequestDispatcher view = request.getRequestDispatcher ("WEB-INF/Login.jsp");
     		view.forward (request, response);
         }
