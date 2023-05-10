@@ -1,3 +1,4 @@
+/**
 package es.unex.pi.filter;
 
 import java.io.IOException;
@@ -27,6 +28,7 @@ public class RestaurantFilter implements jakarta.servlet.Filter{
 	/**
 	 * @see HttpFilter#HttpFilter()
 	 */
+/**
 	public RestaurantFilter() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -35,6 +37,7 @@ public class RestaurantFilter implements jakarta.servlet.Filter{
 	/**
 	 * @see Filter#destroy()
 	 */
+/**
 	public void destroy() {
 		// TODO Auto-generated method stub
 	}
@@ -42,6 +45,7 @@ public class RestaurantFilter implements jakarta.servlet.Filter{
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
+/**
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 //		Connection conn = (Connection) filtro.getServletContext().getAttribute("dbConn");
@@ -65,8 +69,10 @@ public class RestaurantFilter implements jakarta.servlet.Filter{
 	/**
 	 * @see Filter#init(FilterConfig)
 	 */
+/**
 	public void init(FilterConfig fConfig) throws ServletException {
 		filtro = fConfig;
 	}
 
 }
+**/
