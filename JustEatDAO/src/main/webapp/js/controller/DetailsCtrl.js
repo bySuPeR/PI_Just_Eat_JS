@@ -3,6 +3,7 @@ angular.module('JustEatDAO')
 		var detailsViewModel = this;
 		detailsViewModel.restaurant = {};
 		detailsViewModel.allCategories = [];
+		detailsViewModel.restaurantCategories = [];
 		detailsViewModel.belongsToMe = false;
 		detailsViewModel.allDishes = [];
 		detailsViewModel.error = "";
@@ -18,7 +19,7 @@ angular.module('JustEatDAO')
 			loadRestaurantCategories: function () {
 				DetailsFactory.loadRestaurantCategoriesFactory ($routeParams.ID)
 					.then (function (response) {
-						detailsViewModel.allCategories = response;
+						detailsViewModel.restaurantCategories = response;
 					},
 					function (response) {
 						console.log ("'loadRestaurantCategories' could not be fetched: ", response.status);

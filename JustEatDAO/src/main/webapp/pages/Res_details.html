@@ -9,7 +9,7 @@
 			<h1 class = "restaurant-text">{{ DetailsVM.restaurant.contactEmail }}</h1>
 			<h1 class = "restaurant-text">{{ DetailsVM.restaurant.telephone }}</h1>
 			<h1 class = "restaurant-text">{{ DetailsVM.restaurant.address }}, {{ DetailsVM.restaurant.city }}</h1>		
-			<div data-ng-repeat = "cat in DetailsVM.allCategories">
+			<div data-ng-repeat = "cat in DetailsVM.restaurantCategories">
 				<span class = "restaurant-text">{{ cat.name }}</span>
 			</div>
 			<h4 class = "restaurant-text">Prices: (min: {{ DetailsVM.restaurant.minPrice }}€, max: {{ DetailsVM.restaurant.maxPrice }}€)</h4>
