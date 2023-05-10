@@ -16,7 +16,19 @@ angular.module ('JustEatDAO')
 					.then(function(response) {
 						return response.status;
 					});
+			},
+			
+			deleteCurrentUserFactory: function() {
+				console.log("Eliminando el perfil...");
+				var urldeleteUser = url + "deleteUser";
+				return $http.delete(urldeleteUser) //tiene dos parametros siempre (la url y el objeto a actualizar)
+					.then(function(response) {
+						return response.status;
+					});
 			}
+			
+			
+			
 		}
 		return userInterface;
 	}])
