@@ -26,9 +26,13 @@ public class LogOutServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession sesion = request.getSession();
+		
+		System.out.println("antes if");
 		if (sesion != null) {
 			sesion.invalidate();
 		}
+		System.out.println("tras if");
+
 		response.sendRedirect(request.getContextPath() + "/LoginServlet.do");
 	}
 
