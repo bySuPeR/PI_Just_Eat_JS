@@ -26,15 +26,6 @@
       <transport-guarantee>CONFIDENTIAL</transport-guarantee>
     </user-data-constraint>
   </security-constraint>
-  <filter>
-    <display-name>LoginFilter</display-name>
-    <filter-name>LoginFilter</filter-name>
-    <filter-class>es.unex.pi.filter.LoginFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>LoginFilter</filter-name>
-    <url-pattern>/LoginFilter</url-pattern>
-  </filter-mapping>
   <servlet>
     <description></description>
     <display-name>LoginServlet</display-name>
@@ -55,24 +46,6 @@
     <servlet-name>RegisterServlet</servlet-name>
     <url-pattern>/RegisterServlet.do</url-pattern>
   </servlet-mapping>
-  <filter>
-    <display-name>RestaurantFilter</display-name>
-    <filter-name>RestaurantFilter</filter-name>
-    <filter-class>es.unex.pi.filter.RestaurantFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>RestaurantFilter</filter-name>
-    <url-pattern>/RestaurantFilter</url-pattern>
-  </filter-mapping>
-  <filter>
-    <display-name>DishFilter</display-name>
-    <filter-name>DishFilter</filter-name>
-    <filter-class>es.unex.pi.filter.DishFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>DishFilter</filter-name>
-    <url-pattern>/DishFilter</url-pattern>
-  </filter-mapping>
   <servlet>
     <display-name>LogOutServlet</display-name>
     <servlet-name>LogOutServlet</servlet-name>
