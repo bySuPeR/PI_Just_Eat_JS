@@ -1,21 +1,17 @@
-        	<link rel = "stylesheet" href = "../css/res_details.css">
-        
-        <div class = "full-screen-container">
-            <div class = "main-page-container">
-            	<img data-ng-src = "../images/{{ DetailsVM.restaurant.restaurantPic }}" class = "restaurant-pic">
-				<div class = "restaurant-container">	
-					<h1 class = "restaurant-text">{{ DetailsVM.restaurant.name }}
-						<span class = "number-value" id = "grade-average">{{ DetailsVM.restaurant.gradesAverage }}</span>
-					</h1>
-					<h1 class = "restaurant-text">{{ DetailsVM.restaurant.contactEmail }}</h1>
-					<h1 class = "restaurant-text">{{ DetailsVM.restaurant.telephone }}</h1>
-					<h1 class = "restaurant-text">{{ DetailsVM.restaurant.address }}, {{ DetailsVM.restaurant.city }}</h1>
-					
-					<!--  <div data-ng-repeat = "rest in RestaurantVM.allRestaurants">
-					<c:forEach var = "category" items = "${categoryList}">
-						<span class = "restaurant-text">${category.name} </span>
-					</c:forEach>
-					-->
+<link rel = "stylesheet" href = "../css/res_details.css">
+<div class = "full-screen-container">
+	<div class = "main-page-container">
+    	<img data-ng-src = "../images/{{ DetailsVM.restaurant.restaurantPic }}" class = "restaurant-pic">
+		<div class = "restaurant-container">	
+			<h1 class = "restaurant-text">{{ DetailsVM.restaurant.name }}
+				<span class = "number-value" id = "grade-average">{{ DetailsVM.restaurant.gradesAverage }}</span>
+			</h1>
+			<h1 class = "restaurant-text">{{ DetailsVM.restaurant.contactEmail }}</h1>
+			<h1 class = "restaurant-text">{{ DetailsVM.restaurant.telephone }}</h1>
+			<h1 class = "restaurant-text">{{ DetailsVM.restaurant.address }}, {{ DetailsVM.restaurant.city }}</h1>		
+			<div data-ng-repeat = "cat in DetailsVM.allCategories">
+				<span class = "restaurant-text">{{ cat.name }}</span>
+			</div>
 					<h4 class = "restaurant-text">Prices: (min: {{ DetailsVM.restaurant.minPrice }}€, max: {{ DetailsVM.restaurant.maxPrice }}€)</h4>
 					<h1 class = "restaurant-text" id = "bike-parking-lot">Has bike parking lot?</h1>
 					

@@ -57,4 +57,21 @@ public class DetailsResource {
 		System.out.println(restID);
 		return restBD.get(restID);
 	}
+	
+	@GET
+	@Path ("/loadDetails/{restID}")
+	@Produces (MediaType.APPLICATION_JSON)
+	public ArrayList <Category> loadDetailsResource (@Context HttpServletRequest request, @PathParam ("restID") long restID) {
+		Connection conn = (Connection) sc.getAttribute("dbConn");
+		CategoryDAO catDAO = new JDBCCategoryDAOImpl ();
+		Restaurant_CategoryDAO restCatDAO = new JDBCRestaurant_CategoryDAOImpl ();
+		restCatDAO.setConnection (conn);
+		catDAO.setConnection (conn);
+		ArrayList <Restaurant_Category> restCatList = restCatDAO.getAllByRestaurant (restID);
+		ArrayList <Category> catList = new ArrayList <Category> ();
+		for (Restaurant_Category rc: restCatList) {
+			catList.add (catDAO.get (rc.getIdct ()));
+		}
+		return catList;
+	}
 }

@@ -6,9 +6,15 @@ angular.module('JustEatDAO')
 				var extraURL = url + restID;
 				return $http.get(extraURL)
 					.then(function(response) {
-						console.log("Factory: " + response.data.name);
 						return response.data;
 					});
+			},
+			loadRestaurantCategoriesFactory: function (restID) {
+				var extraUrl = url + "loadDetails/" + restID;
+				return $http.get (extraUrl)
+					.then (function (response) {
+						return response.data;
+					})
 			}
 		}
 		return detailsInterface;
