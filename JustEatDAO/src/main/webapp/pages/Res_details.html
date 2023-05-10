@@ -12,21 +12,20 @@
 			<div data-ng-repeat = "cat in DetailsVM.allCategories">
 				<span class = "restaurant-text">{{ cat.name }}</span>
 			</div>
-					<h4 class = "restaurant-text">Prices: (min: {{ DetailsVM.restaurant.minPrice }}€, max: {{ DetailsVM.restaurant.maxPrice }}€)</h4>
-					<h1 class = "restaurant-text" id = "bike-parking-lot">Has bike parking lot?</h1>
-					
-						<!--  <span class = "restaurant-text">
-							<c:if test = "${restaurant.bikeFriendly eq 1}">
-								Yes!
-							</c:if>
-							<c:if test = "${restaurant.bikeFriendly eq 0}">
-								Sorry, no :(
-							</c:if>
-						</span>
+			<h4 class = "restaurant-text">Prices: (min: {{ DetailsVM.restaurant.minPrice }}€, max: {{ DetailsVM.restaurant.maxPrice }}€)</h4>
+			<h1 class = "restaurant-text" id = "bike-parking-lot">Has bike parking lot?</h1>	
+			<div class = "restaurant-text">
+				<div data-ng-if = "DetailsVM.restaurant.bikeFriendly == 1">
+					Yes!
+				</div>
+				<div data-ng-if = "DetailsVM.restaurant.bikeFriendly == 0">
+					Sorry, no :(
+				</div>
+			</div>
 						
 						
 					
-					
+			<!--  		
 					<c:if test = "${restaurant.available eq 1}">
 						<h1 class = "restaurant-text" id = "take-orders">We take orders!</h1>
 					</c:if>
