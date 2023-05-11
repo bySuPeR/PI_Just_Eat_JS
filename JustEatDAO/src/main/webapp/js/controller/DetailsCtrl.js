@@ -74,7 +74,6 @@ angular.module('JustEatDAO')
 							console.log("Se ha producido un error al borrar el restaurante", response);
 						})
 			},
-			
 			createNewRestaurant: function() {
 					DetailsFactory.createNewRestaurantFactory(detailsViewModel.restaurant)
 					.then(function(response) {
@@ -95,11 +94,18 @@ angular.module('JustEatDAO')
 
 						console.log("Se ha producido un error al añadir un nuevo apartamento", response);
 					})
+			},
+			isCategoryMarked: function (catName) {
+				found = false;
+				console.log ("'isCategoryMarked': looking for marked categories: ", detailsViewModel.restaurantCategories);
+				for (let i = 0; (i < detailsViewModel.restaurantCategories.length) && (!found); i++) {
+					if (detailsViewModel.restaurantCategories [i].name === catName) {
+						console.log ("'catName' is found");
+						found = true;
+					}
+				}
+				return found;
 			}
-			
-			
-			
-			
 		}
 		detailsViewModel.functions.getRestaurant();
 		detailsViewModel.functions.loadRestaurantCategories ();

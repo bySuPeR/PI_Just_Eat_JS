@@ -34,7 +34,7 @@
                 <div data-ng-repeat = "cat in DetailsVM.allCategories">
                 	<div class = "category-container">
                 		<label for = "{{ cat.name }}" class = "features-text">{{ cat.name }}</label>
-                		<input type = "checkbox" value = "{{ cat.name }}" name = "selectedCategory">
+                		<input type = "checkbox" value = "{{ cat.name }}" name = "selectedCategory" data-ng-checked = "DetailsVM.functions.isCategoryMarked (cat.name)">
                 	</div>
                 </div>
             </div>
