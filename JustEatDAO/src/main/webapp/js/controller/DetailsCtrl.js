@@ -8,11 +8,19 @@ angular.module('JustEatDAO')
 		detailsViewModel.belongsToMe = false;
 		detailsViewModel.allDishes = [];
 		detailsViewModel.error = "";
+		detailsViewModel.isBikeFriendly = false;
+		detailsViewModel.isAvailable = false;
 		detailsViewModel.functions = {
 			getRestaurant: function() {
 				DetailsFactory.getRestaurantFact($routeParams.ID)
 					.then(function(response) {
 						detailsViewModel.restaurant = response;
+						if (detailsViewModel.restaurant.bikeFriendly == 1) {
+							detailsViewModel.isBikeFriendly = true;
+						}
+						if (detailsViewModel.restaurant.available) {
+							detailsViewModel.isAvailable = true;
+						}
 					}, function(response) {
 						console.log("'getRestaurant' could not be fetched:", response.status);
 					})

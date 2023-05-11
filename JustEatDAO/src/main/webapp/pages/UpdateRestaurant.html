@@ -41,13 +41,13 @@
             <div class = "input-group">
                 <h2 class = "login-title" id = "bike-parking-question">Do you have a bike parking lot?</h2>
                 <div class = "bike-friendly-checkbox">
-                    <input type = "checkbox" value = "yes-bike-friendly-value" name = "bike-friendly">
+                    <input type = "checkbox" value = "yes-bike-friendly-value" name = "bike-friendly" data-ng-checked = "DetailsVM.isBikeFriendly">
                 </div>
             </div>
             <div class = "input-group">
                 <h2 class = "login-title">Can you take orders?</h2>
                 <div class = "available-checkbox">
-                    <input type = "checkbox" value = "yes-available" name = "available">
+                    <input type = "checkbox" value = "yes-available" name = "available" data-ng-checked = "DetailsVM.isAvailable">
                 </div>
             </div>
             <a id = "manage-dishes-link" data-ng-href = "">Manage dishes</a>
