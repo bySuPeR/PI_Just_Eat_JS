@@ -10,16 +10,13 @@ angular.module ('JustEatDAO')
 					});
 			},
 			updateCurrentUserFactory: function(currentUser) {
-				console.log("Editando el perfil...");
 				var urlCurrentUser = url + currentUser.id;
 				return $http.put(urlCurrentUser,currentUser) //tiene dos parametros siempre (la url y el objeto a actualizar)
 					.then(function(response) {
 						return response.status;
 					});
 			},
-			
 			deleteCurrentUserFactory: function() {
-				console.log("Eliminando el perfil...");
 				var urldeleteUser = url + "deleteUser";
 				return $http.delete(urldeleteUser)
 					.then(function(response) {

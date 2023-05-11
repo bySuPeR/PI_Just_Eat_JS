@@ -17,7 +17,7 @@ angular.module ('JustEatDAO')
 			updateCurrentUser: function () {
 				UserFactory.updateCurrentUserFactory (userViewModel.currentUser)
 					.then (function () {
-						$location.path("/UpdateUser");
+						$location.path("/");
 				}, function (response) {
 					if(response.status==412){
 						userViewModel.error="El correo ya existe";
