@@ -21,7 +21,7 @@ angular.module ('JustEatDAO')
 			deleteCurrentUserFactory: function() {
 				console.log("Eliminando el perfil...");
 				var urldeleteUser = url + "deleteUser";
-				return $http.delete(urldeleteUser) //tiene dos parametros siempre (la url y el objeto a actualizar)
+				return $http.delete(urldeleteUser)
 					.then(function(response) {
 						return response.status;
 					});

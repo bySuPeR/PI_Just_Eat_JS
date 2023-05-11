@@ -32,8 +32,7 @@ angular.module ('JustEatDAO')
 			},
 			
 			deleteCurrentUser: function(){
-				
-					UserFactory.deleteCurrentUserFactory()
+				UserFactory.deleteCurrentUserFactory()
 				.then ( function (){
 					$window.location.href='/JustEatDAO/LogOutServlet.do';
 				}, function (response) {

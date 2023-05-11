@@ -46,13 +46,14 @@ public class UserResource {
 	@DELETE //Para los DELETE, POST y PUT se tiene que devolver un objeto Response.
 	@Path ("/deleteUser")
 	@Produces(MediaType.APPLICATION_JSON)
-	public void deleteCurrentUser (@Context HttpServletRequest request) {
+	public Response deleteCurrentUser (@Context HttpServletRequest request) {
 		HttpSession sesion = request.getSession();
 		User usuarioSesion = (User) sesion.getAttribute("user"); 
 		UserDAO usuarioBD = new JDBCUserDAOImpl();
 		Connection conn = (Connection)sc.getAttribute("dbConn");
 		usuarioBD.setConnection(conn); //debes hacer una conexion por cada DAO!
 		usuarioBD.delete(usuarioSesion.getId());
+		return Response.accepted(uriInfo.getAbsolutePathBuilder().build()).contentLocation(uriInfo.getAbsolutePathBuilder().build()).build();
 	}
 	
 	

@@ -21,23 +21,24 @@ label {
 
 input[type=submit], a {
 	position: absolute;
-	background-color: red;
 	color: white;
 	border-radius: 100px;
 	border: none;
 	font-size: 20px;
-	padding: 10px;
-	margin-top: 15vh;
+	padding: 1%;
 }
 
 input[type=submit] {
-	margin-left: 15vw;
+	background-color: red;
+	margin-top: 14vh;
+	margin-left: 18vw;
 }
 
 a {
 	text-decoration: none;
 	background-color: green;
-	margin-right: 15vw;
+	margin-top: 5vh;
+	margin-left: 8vw;
 }
 
 a:hover {
