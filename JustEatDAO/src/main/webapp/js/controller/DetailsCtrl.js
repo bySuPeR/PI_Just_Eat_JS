@@ -65,7 +65,31 @@ angular.module('JustEatDAO')
 						}, function(response) {
 							console.log("Se ha producido un error al borrar el restaurante", response);
 						})
+			},
+			
+			createNewRestaurant: function() {
+					DetailsFactory.createNewRestaurantFactory(detailsViewModel.restaurant)
+					.then(function(response) {
+						var restID = response;
+						console.log("Añadiendo nuevo restaurante...", response);
+						DetailsFactory.loadRestaurantCategoriesFactory(restID)
+							.then(function(response) {
+								console.log("Añadiendo nuevas categorias...", response);
+								detailsViewModel.restaurantCategories = [];
+								$location.path("/Restaurants");
+							}, function(response) {
+									apartamentosVistaModelo.functions.error("Tienes que poner al menos una categoria");
+									console.log("Error: Tiene que haber una categoria al menos para crear el apartamento");
+								console.log("Se ha producido un error a añadir las categorias", response);
+
+							})
+					}, function(response) {
+
+						console.log("Se ha producido un error al añadir un nuevo apartamento", response);
+					})
 			}
+			
+			
 			
 			
 		}

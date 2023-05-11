@@ -73,7 +73,35 @@ angular.module('JustEatDAO', ['ngRoute'])
                         return delay.promise;
                     }
                 }
+            }) 
+            
+            .when("/Restaurants", {
+                controller: "RestaurantCtrl",
+                controllerAs: "RestaurantVM",
+                templateUrl: "Restaurants.html",
+                resolve: {
+                    delay: function($q, $timeout) {
+                        var delay = $q.defer();
+                        $timeout(delay.resolve, 500);
+                        return delay.promise;
+                    }
+                }
             })
+            
+            .when("/AddRestaurant", {
+                controller: "RestaurantCtrl",
+                controllerAs: "RestaurantVM",
+                templateUrl: "AddRestaurant.html",
+                resolve: {
+                    delay: function($q, $timeout) {
+                        var delay = $q.defer();
+                        $timeout(delay.resolve, 500);
+                        return delay.promise;
+                    }
+                }
+            })
+            
+            
 		
 		
 		

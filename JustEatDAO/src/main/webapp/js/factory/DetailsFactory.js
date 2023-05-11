@@ -37,7 +37,18 @@ angular.module('JustEatDAO')
 					.then(function(response) {
 						return response.status;
 					});
+			},
+			
+			createNewRestaurantFactory: function(restaurant) {
+				console.log("Añadiendo nuevo apartamento...");
+				var urlNewRest = url + 'newRestaurant' ;
+				return $http.post(urlNewRest, restaurant)
+					.then(function(response) {
+						return response.data;
+					});
 			}
+			
+			
 		}
 		return detailsInterface;
 	}])

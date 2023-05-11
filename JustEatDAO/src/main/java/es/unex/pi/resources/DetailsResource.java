@@ -110,4 +110,48 @@ public class DetailsResource {
 		restBD.delete(restID);
 		}
 	
+	@POST
+	@Path("/AddRestaurant")
+	@Produces(MediaType.APPLICATION_JSON)
+	public long addRestaurant(@Context HttpServletRequest request,Restaurant rest) {
+		Connection conn = (Connection) sc.getAttribute("dbConn");
+		
+		RestaurantDAO restaurantBD = new JDBCRestaurantDAOImpl(); // base de datos
+		restaurantBD.setConnection(conn);
+		
+		rest.setAvailable (1);
+		rest.setGradesAverage (0.0);
+		rest.setMinPrice (0);
+		rest.setMaxPrice (0);
+		
+		if(rest.getRestaurantPic().equals("")|| rest.getRestaurantPic() == null) {
+			rest.setRestaurantPic ("default.png");
+		}
+		
+		String option = request.getParameter("bike-friendly");
+		
+		if(option.equals("yes")) {
+			rest.setBikeFriendly (1);
+		}else {
+			rest.setBikeFriendly (0);
+		}
+		
+		String availability = request.getParameter ("available");
+		if (availability.equals ("yes")) {
+			rest.setAvailable (1);
+		}
+		else if (availability.equals ("no")) {
+			rest.setAvailable (0);}
+	
+		
+		HttpSession sesion = request.getSession();
+		User currentUser = (User)sesion.getAttribute("user");
+		rest.setIdu ((int)currentUser.getId ()); //El nuevo alojamiento pertenece al usuario que ha iniciado sesión y que ha creado el nuevo alojamiento.
+		long newId = restaurantBD.add(rest); //Se añade a la BD.
+		rest.setId (newId);
+		return newId;
+		}
+	
+
+	
 }
