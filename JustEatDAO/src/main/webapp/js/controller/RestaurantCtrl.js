@@ -44,6 +44,7 @@ angular.module ('JustEatDAO')
 						console.log ("'searchByState' could not be fetched: ", response.status);
 					})
 			}
+			
 		}
 		restaurantViewModel.functions.loadAllCategories ();
 		restaurantViewModel.functions.searchByState ();

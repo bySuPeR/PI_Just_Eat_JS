@@ -99,4 +99,15 @@ public class DetailsResource {
 		dishDAO.setConnection (conn);
 		return dishDAO.getAllByRestaurant (restID);
 	}
+	
+	@DELETE
+	@Path("/deleteRestaurant/{restID}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public void borrarApartamento(@PathParam("restID") long restID , @Context HttpServletRequest request) {
+		RestaurantDAO restBD = new JDBCRestaurantDAOImpl();
+		Connection conn = (Connection)sc.getAttribute("dbConn");
+		restBD.setConnection(conn); //debes hacer una conexion por cada DAO!
+		restBD.delete(restID);
+		}
+	
 }

@@ -29,6 +29,14 @@ angular.module('JustEatDAO')
 					.then (function (response) {
 						return response.data;
 					})
+			},
+			deleteCurrentRestaurantFactory: function(restID) {
+				console.log("Eliminando mi restaurante...");
+				var urlRestDeleted = url + 'deleteRestaurant/' + restID;
+				return $http.delete(urlRestDeleted)
+					.then(function(response) {
+						return response.status;
+					});
 			}
 		}
 		return detailsInterface;

@@ -52,7 +52,7 @@
             </div>
             <a id = "manage-dishes-link" data-ng-href = "">Manage dishes</a>
             <input type = "submit" class = "login-button" value = "Update restaurant">
-            <a class = "delete-link" data-ng-href = "">Delete restaurant</a>
+            <a class = "delete-link" data-ng-href = "#!/deleteRestaurant/{{ DetailsVM.restaurant.id }}">Delete restaurant</a>
             <a class = "delete-link" data-ng-href = "#!/restaurantDetails/{{ DetailsVM.restaurant.id }}">Go back to restaurant page</a>
         </form>
         <p class = error>{{ DetailsVM.error }}</p>

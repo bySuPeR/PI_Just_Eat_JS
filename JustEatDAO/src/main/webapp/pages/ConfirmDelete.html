@@ -8,13 +8,12 @@
 			</form>
 			<a href="#!/UpdateUser">No, go back</a>
 		</div>
-		<div data-ng-if = "RestaurantVM.tipoBorrado == 0">
-			<form>
+		<div data-ng-if = "DetailsVM.tipoBorrado == 0">
+			<form data-ng-submit="DetailsVM.functions.deleteCurrentRestaurant()">
 				<label>Are you sure you want to delete this restaurant?</label> 
 				<input type="submit" value="Yes">
 			</form>
-			<a
-				href="">No,go back</a>
+			<a href="#!/UpdateRestaurant/{{ DetailsVM.restaurant.id }}">No,go back</a>
 		</div>
 		<div data-ng-if = "DishVM.tipoBorrado ==0">
 			<form>

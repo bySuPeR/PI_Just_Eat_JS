@@ -1,9 +1,10 @@
 angular.module('JustEatDAO')
-	.controller('DetailsCtrl', ['DetailsFactory','$routeParams', 'RestaurantFactory', function (DetailsFactory, $routeParams, RestaurantFactory) {
+	.controller('DetailsCtrl', ['DetailsFactory','$routeParams','$location', 'RestaurantFactory', function (DetailsFactory, $routeParams, $location, RestaurantFactory) {
 		var detailsViewModel = this;
 		detailsViewModel.restaurant = {};
 		detailsViewModel.allCategories = [];
 		detailsViewModel.restaurantCategories = [];
+		detailsViewModel.tipoBorrado=0;
 		detailsViewModel.belongsToMe = false;
 		detailsViewModel.allDishes = [];
 		detailsViewModel.error = "";
@@ -54,7 +55,19 @@ angular.module('JustEatDAO')
 					function (response) {
 						console.log ("'loadAllCategories' could not be fetched: ", response.status);
 					})
+			},
+			
+			deleteCurrentRestaurant: function() {
+					DetailsFactory.deleteCurrentRestaurantFactory($routeParams.ID)
+						.then(function(response) {
+							console.log("Eliminando el restaurante...", response);
+							$location.path('/');
+						}, function(response) {
+							console.log("Se ha producido un error al borrar el restaurante", response);
+						})
 			}
+			
+			
 		}
 		detailsViewModel.functions.getRestaurant();
 		detailsViewModel.functions.loadRestaurantCategories ();
