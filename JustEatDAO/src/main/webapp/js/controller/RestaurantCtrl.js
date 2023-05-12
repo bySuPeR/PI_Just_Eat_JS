@@ -49,7 +49,6 @@ angular.module ('JustEatDAO')
 			loadAllMyRestaurants: function() {
 				RestaurantFactory.loadAllMyRestaurantsFactory()
 					.then(function(response) {
-						console.log("Load my restaurants...", response);
 						restaurantViewModel.myRestaurants = response;
 					}, function(response) {
 						console.log("'loadAllMyRestaurants' could not be fetched: ", response);

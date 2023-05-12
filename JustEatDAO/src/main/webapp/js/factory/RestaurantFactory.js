@@ -32,7 +32,6 @@ angular.module ('JustEatDAO')
 			},
 			
 			loadAllMyRestaurantsFactory: function() {
-				console.log("Load my restaurants...");
 				var urlMyRests = url + 'myRestaurants';
 				return $http.get(urlMyRests)
 					.then(function(response) {

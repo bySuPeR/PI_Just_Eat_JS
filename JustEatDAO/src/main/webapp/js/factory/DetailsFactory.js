@@ -38,17 +38,34 @@ angular.module('JustEatDAO')
 						return response.status;
 					});
 			},
-			
 			createNewRestaurantFactory: function(restaurant) {
-				console.log("Añadiendo nuevo apartamento...");
 				var urlNewRest = url + 'newRestaurant' ;
 				return $http.post(urlNewRest, restaurant)
 					.then(function(response) {
 						return response.data;
 					});
+			},
+			addCategoryFactory: function (restaurantCategories, catName) {
+				var extraUrl = url + "addCategory/" + catName;
+				return $http.put (extraUrl, restaurantCategories)
+					.then (function (response) {
+						return response.data;
+					})
+			},
+			deleteCategoryFactory: function (restaurantCategories, pos) {
+				var extraUrl = url + "deleteCategory/" + pos;
+				return $http.put (extraUrl, restaurantCategories)
+					.then (function (response) {
+						return response.data;
+					})
+			},
+			updateCurrentRestaurantFactory: function (restaurant, restaurantCategories) {
+				var extraUrl = url + "updateCurrentRestaurant/" + restaurantCategories;
+				return $http.put (extraUrl, restaurant)
+					.then (function (response) {
+						return response.status;
+					})
 			}
-			
-			
 		}
 		return detailsInterface;
 	}])

@@ -44,7 +44,7 @@ import jakarta.ws.rs.core.UriInfo;
 
 @Path("/restaurantDetails")
 public class DetailsResource {
-
+	
 	@Context
 	ServletContext sc;
 	@Context
@@ -57,7 +57,6 @@ public class DetailsResource {
 		Connection conn = (Connection) sc.getAttribute("dbConn");
 		RestaurantDAO restBD = new JDBCRestaurantDAOImpl();
 		restBD.setConnection(conn);
-		System.out.println(restID);
 		return restBD.get(restID);
 	}
 	
@@ -113,45 +112,55 @@ public class DetailsResource {
 	@POST
 	@Path("/AddRestaurant")
 	@Produces(MediaType.APPLICATION_JSON)
-	public long addRestaurant(@Context HttpServletRequest request,Restaurant rest) {
+	public long addRestaurant (@Context HttpServletRequest request, Restaurant rest) {
+		return 1;
+	}
+	
+	@PUT
+	@Path ("/addCategory/{catName}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ArrayList <Category> addCategoryResource (@Context HttpServletRequest request, ArrayList <Category> restaurantCategories, @PathParam ("catName") String catName) {
 		Connection conn = (Connection) sc.getAttribute("dbConn");
-		
-		RestaurantDAO restaurantBD = new JDBCRestaurantDAOImpl(); // base de datos
-		restaurantBD.setConnection(conn);
-		
-		rest.setAvailable (1);
-		rest.setGradesAverage (0.0);
-		rest.setMinPrice (0);
-		rest.setMaxPrice (0);
-		
-		if(rest.getRestaurantPic().equals("")|| rest.getRestaurantPic() == null) {
-			rest.setRestaurantPic ("default.png");
+		CategoryDAO catDAO = new JDBCCategoryDAOImpl ();
+		catDAO.setConnection (conn);
+		if (restaurantCategories == null) {
+			restaurantCategories = new ArrayList <Category> ();
 		}
-		
-		String option = request.getParameter("bike-friendly");
-		
-		if(option.equals("yes")) {
-			rest.setBikeFriendly (1);
-		}else {
-			rest.setBikeFriendly (0);
-		}
-		
-		String availability = request.getParameter ("available");
-		if (availability.equals ("yes")) {
-			rest.setAvailable (1);
-		}
-		else if (availability.equals ("no")) {
-			rest.setAvailable (0);}
+		restaurantCategories.add (catDAO.get (catName));
+		return restaurantCategories;
+	}
 	
-		
-		HttpSession sesion = request.getSession();
-		User currentUser = (User)sesion.getAttribute("user");
-		rest.setIdu ((int)currentUser.getId ()); //El nuevo alojamiento pertenece al usuario que ha iniciado sesión y que ha creado el nuevo alojamiento.
-		long newId = restaurantBD.add(rest); //Se añade a la BD.
-		rest.setId (newId);
-		return newId;
+	@PUT
+	@Path ("/deleteCategory/{pos}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ArrayList <Category> deleteCategoryResource (@Context HttpServletRequest request, ArrayList <Category> restaurantCategories, @PathParam ("pos") int pos) {
+		restaurantCategories.remove (pos);
+		return restaurantCategories;
+	}
+	
+	@PUT
+	@Path ("/updateCurrentRestaurant/{restaurantCategories}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response updateCurrentRestaurantResource (@Context HttpServletRequest request, Restaurant restaurant, @PathParam ("restaurantCategories") String restaurantCategories) {
+		Connection conn = (Connection) sc.getAttribute("dbConn");
+		RestaurantDAO restDAO = new JDBCRestaurantDAOImpl ();
+		Restaurant_CategoryDAO restCatDAO = new JDBCRestaurant_CategoryDAOImpl ();
+		restDAO.setConnection (conn);
+		restCatDAO.setConnection (conn);
+		ArrayList <Restaurant_Category> restCatList = restCatDAO.getAllByRestaurant (restaurant.getId ());
+		for (Restaurant_Category rc: restCatList) {
+			restCatDAO.delete (rc.getIdr (), rc.getIdct ());
 		}
-	
-
-	
+		Restaurant_Category rc = new Restaurant_Category ();
+		String [] ids = restaurantCategories.split ("_");
+		for (String cat: ids) {
+			if (!cat.equals ("")) {
+				rc.setIdr (restaurant.getId ());
+				rc.setIdct (Long.parseLong (cat));
+				restCatDAO.add (rc);
+			}
+		}
+		restDAO.update (restaurant);
+		return Response.accepted(uriInfo.getAbsolutePathBuilder().build()).contentLocation(uriInfo.getAbsolutePathBuilder().build()).build();
+	}
 }

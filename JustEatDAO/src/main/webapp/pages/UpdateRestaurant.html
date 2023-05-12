@@ -27,27 +27,33 @@
             <div class = "input-group">	
   				<label for="image">Take a picture: </label>
   				<input type = "file" id = "image" name = "image">
-  				<a class = "delete-link" data-ng-href = "">Delete Picture</a><!-- TODO -->
+  				<a class = "delete-link" data-ng-href = "">Delete Picture</a>
             </div>
             <div class = "input-group">
                 <h2 class = "login-title" id = "bike-parking-question">What kind of food do you serve?</h2>
                 <div data-ng-repeat = "cat in DetailsVM.allCategories">
                 	<div class = "category-container">
                 		<label for = "{{ cat.name }}" class = "features-text">{{ cat.name }}</label>
-                		<input type = "checkbox" value = "{{ cat.name }}" name = "selectedCategory" data-ng-checked = "DetailsVM.functions.isCategoryMarked (cat.name)">
+                		<input type = "checkbox" value = "{{ cat.name }}" name = "selectedCategory"
+                			data-ng-checked = "DetailsVM.functions.isCategoryMarked (cat.name)"
+                			data-ng-click = "DetailsVM.functions.markCategory (cat.name)">
                 	</div>
                 </div>
             </div>
             <div class = "input-group">
                 <h2 class = "login-title" id = "bike-parking-question">Do you have a bike parking lot?</h2>
                 <div class = "bike-friendly-checkbox">
-                    <input type = "checkbox" value = "yes-bike-friendly-value" name = "bike-friendly" data-ng-checked = "DetailsVM.isBikeFriendly">
+                    <input type = "checkbox" value = "yes-bike-friendly-value" name = "bike-friendly"
+                    data-ng-checked = "DetailsVM.isBikeFriendly"
+                    data-ng-click = "DetailsVM.isBikeFriendly = true">
                 </div>
             </div>
             <div class = "input-group">
                 <h2 class = "login-title">Can you take orders?</h2>
                 <div class = "available-checkbox">
-                    <input type = "checkbox" value = "yes-available" name = "available" data-ng-checked = "DetailsVM.isAvailable">
+                    <input type = "checkbox" value = "yes-available" name = "available"
+                    data-ng-checked = "DetailsVM.isAvailable"
+                    data-ng-click = "DetailsVM.isAvailable = true">
                 </div>
             </div>
             <a id = "manage-dishes-link" data-ng-href = "#!/manageDishes/{{ DetailsVM.restaurant.id }}">Manage dishes</a>
