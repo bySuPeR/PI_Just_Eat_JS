@@ -1,71 +1,62 @@
 <link rel = "stylesheet" href = "../css/login.css">
 <link rel = "stylesheet" href = "../css/update-restaurant.css">
-<div class="full-screen-container">
-	<div class="login-container">
-		<h1 class="login-title">Create your restaurant</h1>
-		<form class="form" data-ng-submit="DetailsVM.functions.createNewRestaurant()">
-			<div class="input-group">
-				<label for="name">Name</label> 
-				<input type="text" name="name" required data-ng-model="DetailsVM.restaurant.name">
-			</div>
-			<div class="input-group">
-				<label for="address">Address</label>
-				<textarea name="address" required data-ng-model="DetailsVM.restaurant.address"></textarea>
-			</div>
-			<div class="input-group">
-				<label for="telephone">Telephone</label> 
-				<input type="tel" name="telephone" required data-ng-model="DetailsVM.restaurant.telephone">
-			</div>
-			<div class="input-group">
-				<label for="city">City</label> 
-				<input type="text" name="city" required data-ng-model="DetailsVM.restaurant.city">
-			</div>
-			<div class="input-group">
-				<label for="contactEmail">Email</label> 
-				<input type="email" name="contactEmail" id="email" required data-ng-model="DetailsVM.restaurant.contactEmail">
-			</div>
-			<div class="input-group">
-				<label for="image">Take a picture: </label> 
-				<input type="file" id="image" name="image" data-ng-model="DetailsVM.restaurant.restaurantPic">
-			</div>
-			<div class="input-group">
-				<h2 class="login-title" id="bike-parking-question">What kind of
-					food do you serve?</h2>
-					
-				<div data-ng-repeat = "cat in DetailsVM.allCategories">
-					<div class="category-container">
-						<label for="category-checkbox" class="features-text">{{ cat.name }}</label>
-						<input type="checkbox" value="{{ cat.name }}"
-							name="selectedCategory">
-					</div>
-				</div>
-			</div>
-			<div class="input-group">
-				<h2 class="login-title" id="bike-parking-question">Do you have
-					a bike parking lot?</h2>
-				<div class="bike-friendly-radio">
-					<label for="bike-friendly" class="features-text">Yes</label> 
-					<input type="radio" value="yes" name="bike-friendly" data-ng-model="DetailsVM.restaurant.bikeFriendly">
-				</div>
-				<div class="bike-friendly-radio">
-					<label for="bike-friendly" class="features-text">No</label> 
-					<input type="radio" value="no" name="bike-friendly" data-ng-model="DetailsVM.restaurant.bikeFriendly">
-				</div>
-			</div>
-			<div class="input-group">
-				<h2 class="login-title">Can you take orders?</h2>
-				<div class="available-radio">
-					<label for="available" class="features-text">Yes</label> 
-					<input type="radio" value="yes" name="available" data-ng-model="DetailsVM.restaurant.available">
-				</div>
-				<div class="bike-friendly-radio">
-					<label for="available" class="features-text">No</label> 
-					<input type="radio" value="no" name="available" data-ng-model="DetailsVM.restaurant.available">
-				</div>
-			</div>
-			<button type="submit" class="login-button">Create restaurant</button>
-			<a class="delete-link" href="#!/myRestaurants>">Go back to my restaurants page</a>
-		</form>
-		<p class=error></p>
+<div class = "full-screen-container">
+ 	<div class = "login-container">
+    	<h1 class = "login-title">Create your restaurant</h1>
+        <form class = "form" data-ng-submit = "DetailsVM.functions.createNewRestaurant ()">
+        	<div class = "input-group">
+            	<label for = "name">Name</label>
+                <input type = "text" name = "name" data-ng-model = "RestaurantVM.newRestaurant.name" required>
+            </div>
+            <div class = "input-group">
+                <label for = "address">Address</label>
+                <textarea name = "address" data-ng-model = "RestaurantVM.newRestaurant.address" required></textarea>
+            </div>
+           	<div class = "input-group">
+                <label for = "telephone">Telephone</label>
+                <input type = "tel" name = "telephone" data-ng-model = "RestaurantVM.newRestaurant.telephone" required>
+            </div>
+            <div class = "input-group">
+                <label for = "city">City</label>
+                <input type = "text" name = "city" data-ng-model = "RestaurantVM.newRestaurant.city" required>
+            </div>
+            <div class = "input-group">
+                <label for = "contactEmail">Email</label>
+                <input type = "email" name = "contactEmail" id = "email" data-ng-model = "RestaurantVM.newRestaurant.contactEmail" required>
+            </div>
+            <div class = "input-group">	
+  				<label for="image">Take a picture: </label>
+  				<input type = "file" id = "image" name = "image">
+  				<a class = "delete-link" data-ng-href = "">Delete Picture</a>
+            </div>
+            <div class = "input-group">
+                <h2 class = "login-title" id = "bike-parking-question">What kind of food do you serve?</h2>
+                <div data-ng-repeat = "cat in DetailsVM.allCategories">
+                	<div class = "category-container">
+                		<label for = "{{ cat.name }}" class = "features-text">{{ cat.name }}</label>
+                		<input type = "checkbox" value = "{{ cat.name }}" name = "selectedCategory"
+                			data-ng-checked = "DetailsVM.functions.isCategoryMarked (cat.name)"
+                			data-ng-click = "DetailsVM.functions.markCategory (cat.name)">
+                	</div>
+                </div>
+            </div>
+            <div class = "input-group">
+                <h2 class = "login-title" id = "bike-parking-question">Do you have a bike parking lot?</h2>
+                <div class = "bike-friendly-checkbox">
+                    <input type = "checkbox" value = "yes-bike-friendly-value" name = "bike-friendly"
+                    data-ng-click = "RestaurantVM.newRestaurant.bikeFriendly = 1">
+                </div>
+            </div>
+            <div class = "input-group">
+                <h2 class = "login-title">Can you take orders?</h2>
+                <div class = "available-checkbox">
+                    <input type = "checkbox" value = "yes-available" name = "available"
+                    data-ng-click = "DetailsVM.isAvailable = true">
+                </div>
+            </div>
+            <input type = "submit" class = "login-button" value = "Update restaurant">
+            <a class = "delete-link" data-ng-href = "#!/restaurantDetails/{{ DetailsVM.restaurant.id }}">Go back to restaurant page</a>
+        </form>
+        <p class = error>{{ DetailsVM.error }}</p>
 	</div>
 </div>

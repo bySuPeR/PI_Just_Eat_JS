@@ -122,6 +122,24 @@ angular.module('JustEatDAO')
 					string = string + "_" + detailsViewModel.restaurantCategories [i].id;
 				}
 				return string;
+			},
+			flipBike: function () {
+				detailsViewModel.isBikeFriendly = !detailsViewModel.isBikeFriendly;
+				if (detailsViewModel.isBikeFriendly) {
+					detailsViewModel.restaurant.bikeFriendly = 1;
+				}
+				else {
+					detailsViewModel.restaurant.bikeFriendly = 0;
+				}
+			},
+			flipAvailable: function () {
+				detailsViewModel.isAvailable = !detailsViewModel.isAvailable;
+				if (detailsViewModel.isAvailable) {
+					detailsViewModel.restaurant.available = 1;
+				}
+				else {
+					detailsViewModel.restaurant.available = 0;
+				}
 			}
 		}
 		detailsViewModel.functions.getRestaurant();

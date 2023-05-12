@@ -7,6 +7,7 @@ angular.module ('JustEatDAO')
 		restaurantViewModel.tipoBorrado=0;
 		restaurantViewModel.searchPrompt = "";
 		restaurantViewModel.restState = "all-restaurants";
+		restaurantViewModel.newRestaurant = {};
 		restaurantViewModel.functions = {
 			loadAllCategories: function () {
 				RestaurantFactory.loadAllCategoriesFactory ()
@@ -45,7 +46,6 @@ angular.module ('JustEatDAO')
 						console.log ("'searchByState' could not be fetched: ", response.status);
 					})
 			},
-			
 			loadAllMyRestaurants: function() {
 				RestaurantFactory.loadAllMyRestaurantsFactory()
 					.then(function(response) {
@@ -53,10 +53,10 @@ angular.module ('JustEatDAO')
 					}, function(response) {
 						console.log("'loadAllMyRestaurants' could not be fetched: ", response);
 					})
+			},
+			createNewRestaurant: function () {
+				
 			}
-			
-			
-			
 		}
 		restaurantViewModel.functions.loadAllCategories ();
 		restaurantViewModel.functions.loadAllMyRestaurants ();

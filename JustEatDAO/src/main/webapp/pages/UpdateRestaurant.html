@@ -45,7 +45,7 @@
                 <div class = "bike-friendly-checkbox">
                     <input type = "checkbox" value = "yes-bike-friendly-value" name = "bike-friendly"
                     data-ng-checked = "DetailsVM.isBikeFriendly"
-                    data-ng-click = "DetailsVM.isBikeFriendly = true">
+                    data-ng-click = "DetailsVM.functions.flipBike ()">
                 </div>
             </div>
             <div class = "input-group">
@@ -53,7 +53,7 @@
                 <div class = "available-checkbox">
                     <input type = "checkbox" value = "yes-available" name = "available"
                     data-ng-checked = "DetailsVM.isAvailable"
-                    data-ng-click = "DetailsVM.isAvailable = true">
+                    data-ng-click = "DetailsVM.functions.flipAvailable ()">
                 </div>
             </div>
             <a id = "manage-dishes-link" data-ng-href = "#!/manageDishes/{{ DetailsVM.restaurant.id }}">Manage dishes</a>
