@@ -101,6 +101,20 @@ angular.module('JustEatDAO', ['ngRoute'])
                 }
             })
             
+               .when("/manageDishes/:ID", {
+                controller: "DishCtrl",
+                controllerAs: "DishVM",
+                templateUrl: "UpdateDishes.html",
+                resolve: {
+                    delay: function($q, $timeout) {
+                        var delay = $q.defer();
+                        $timeout(delay.resolve, 500);
+                        return delay.promise;
+                    }
+                }
+            })
+            
+            
             
 		
 		

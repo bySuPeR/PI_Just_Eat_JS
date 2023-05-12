@@ -5,7 +5,7 @@
 		
 			<div data-ng-repeat = "rest in RestaurantVM.myRestaurants">
 				<div class="single-restaurant">
-					<a href=""><img
+					<a href="#!/restaurantDetails/{{ rest.id }}"><img
 						data-ng-src="../images/{{ rest.restaurantPic }}" class="restaurant-photo"></a>
 					<h3>{{ rest.name }}</h3>
 				</div>

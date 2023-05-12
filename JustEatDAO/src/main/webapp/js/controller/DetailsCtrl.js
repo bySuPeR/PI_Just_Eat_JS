@@ -83,9 +83,9 @@ angular.module('JustEatDAO')
 							.then(function(response) {
 								console.log("Añadiendo nuevas categorias...", response);
 								detailsViewModel.restaurantCategories = [];
-								$location.path("/Restaurants");
+								$location.path("/myRestaurants");
 							}, function(response) {
-									apartamentosVistaModelo.functions.error("Tienes que poner al menos una categoria");
+									detailsViewModel.error("Tienes que poner al menos una categoria");
 									console.log("Error: Tiene que haber una categoria al menos para crear el apartamento");
 								console.log("Se ha producido un error a añadir las categorias", response);
 
