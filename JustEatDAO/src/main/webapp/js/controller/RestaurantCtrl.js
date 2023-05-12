@@ -1,5 +1,5 @@
 angular.module ('JustEatDAO')
-	.controller ('RestaurantCtrl', ['RestaurantFactory', function (RestaurantFactory) {
+	.controller ('RestaurantCtrl', ['RestaurantFactory', '$location', function (RestaurantFactory, $location) {
 		var restaurantViewModel = this;
 		restaurantViewModel.allRestaurants = [];
 		restaurantViewModel.myRestaurants = [];
@@ -8,6 +8,10 @@ angular.module ('JustEatDAO')
 		restaurantViewModel.searchPrompt = "";
 		restaurantViewModel.restState = "all-restaurants";
 		restaurantViewModel.newRestaurant = {};
+		restaurantViewModel.newRestaurant.bikeFriendly = 0;
+		restaurantViewModel.newRestaurant.available = 0;
+		restaurantViewModel.categoryStr = [];
+		restaurantViewModel.error = "";
 		restaurantViewModel.functions = {
 			loadAllCategories: function () {
 				RestaurantFactory.loadAllCategoriesFactory ()
@@ -55,7 +59,61 @@ angular.module ('JustEatDAO')
 					})
 			},
 			createNewRestaurant: function () {
-				
+				var str = restaurantViewModel.functions.convertToString ();
+				if (str != "") {
+					RestaurantFactory.createNewRestaurantFactory (restaurantViewModel.newRestaurant, str)
+						.then (function (response) {
+							$location.path ("/myRestaurants");
+						},
+						function (response) {
+							console.log ("'createNewRestaurant': could not be created: ", response);
+						})
+				}
+				else {
+					restaurantViewModel.error = "Hay que añadir alguna categoría.";
+				}
+			},
+			flipBike: function () {
+				if (restaurantViewModel.newRestaurant.bikeFriendly == 0) {
+					restaurantViewModel.newRestaurant.bikeFriendly = 1;
+				}
+				else {
+					restaurantViewModel.newRestaurant.bikeFriendly = 0;
+				}
+			},
+			flipAvailable: function () {
+				if (restaurantViewModel.newRestaurant.available == 0) {
+					restaurantViewModel.newRestaurant.available = 1;
+				}
+				else {
+					restaurantViewModel.newRestaurant.available = 0;
+				}
+			},
+			markCategory: function (catID) {
+				found = false;
+				pos = -1;
+				for (let i = 0; i < restaurantViewModel.categoryStr.length; i++) {
+					if (restaurantViewModel.categoryStr [i] == catID) {
+						found = true;
+						pos = i;
+					}
+				}
+				if (found) {
+					while (pos < restaurantViewModel.categoryStr.length) {
+						restaurantViewModel.categoryStr [pos] = restaurantViewModel.categoryStr [pos + 1];
+						pos++;
+					}
+				}
+				else {
+					restaurantViewModel.categoryStr [restaurantViewModel.categoryStr.length] = catID;
+				}
+			},
+			convertToString: function () {
+				var str = "";
+				for (let i = 0; i < restaurantViewModel.categoryStr.length; i++) {
+					str = str + "_" + restaurantViewModel.categoryStr [i];
+				}
+				return str;
 			}
 		}
 		restaurantViewModel.functions.loadAllCategories ();

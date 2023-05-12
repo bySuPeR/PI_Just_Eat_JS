@@ -135,7 +135,6 @@ public class RestaurantResource {
 		return restList;
 	}
 	
-	
 	@GET
 	@Path("/myRestaurants")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -146,5 +145,34 @@ public class RestaurantResource {
 		RestaurantDAO restaurantBD = new JDBCRestaurantDAOImpl();
 		restaurantBD.setConnection(conn);
 		return restaurantBD.getAllByUser(currentUser.getId());
-	}	
+	}
+	
+	@POST
+	@Path ("/createNewRestaurant/{str}")
+	@Produces (MediaType.APPLICATION_JSON)
+	public Response createNewRestaurantResource (@Context HttpServletRequest request, Restaurant rest, @PathParam ("str") String cats) {
+		Connection conn = (Connection) sc.getAttribute("dbConn");
+		RestaurantDAO restDAO = new JDBCRestaurantDAOImpl ();
+		Restaurant_CategoryDAO restCatDAO = new JDBCRestaurant_CategoryDAOImpl ();
+		restDAO.setConnection (conn);
+		restCatDAO.setConnection (conn);
+		HttpSession session = request.getSession ();
+		User user = (User) session.getAttribute ("user");
+		rest.setGradesAverage (0.0);
+		rest.setMinPrice (0);
+		rest.setMaxPrice (0);
+		rest.setIdu (user.getId ());
+		rest.setRestaurantPic ("default.png");
+		long resID = restDAO.add (rest);
+		String [] selCats = cats.split ("_");
+		Restaurant_Category rc = new Restaurant_Category ();
+		for (String c: selCats) {
+			if (!c.equals ("")) {
+				rc.setIdr (resID);
+				rc.setIdct (Long.parseLong (c));
+				restCatDAO.add (rc);
+			}
+		}
+		return Response.accepted(uriInfo.getAbsolutePathBuilder().build()).contentLocation(uriInfo.getAbsolutePathBuilder().build()).build();
+	}
 }

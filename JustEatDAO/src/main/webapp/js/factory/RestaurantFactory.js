@@ -37,12 +37,14 @@ angular.module ('JustEatDAO')
 					.then(function(response) {
 						return response.data;
 					});
+			},
+			createNewRestaurantFactory: function (newRestaurant, str) {
+				var extraUrl = url + "createNewRestaurant/" + str;
+				return $http.post (extraUrl, newRestaurant)
+					.then (function (response) {
+						return response.status;
+					})
 			}
-			
-			
-			
-			
-			
 		}
 		return restaurantInterface;
 	}])
