@@ -23,13 +23,12 @@
 						<label for="image">Take a picture: </label> 
 						<input type="file" id="image" name="image"> <a class="delete-link" href="">Delete Picture</a>
 					</div>
-					<a class="delete-link" href="">Delete dish</a> <input type="submit" class="login-button" value="Update dish" id="update-dish">
+					<a class="delete-link" href="#!/deleteDish/{{ dish.id }}">Delete dish</a> 
+					<input type="submit" class="login-button" value="Update dish" id="update-dish">
 				</div>
 			</form>
 		</div>
-		<a id="manage-dishes-link"
-			href="<c:url value = 'AddDishServlet.do?idR=${restaurant.id}'/>">Add
-			new dish</a> <a class="delete-link" href="">Go back to update restaurante page</a>
+		<a id="manage-dishes-link" href="">Add new dish</a> <a class="delete-link" href="">Go back to update restaurante page</a>
 		<p class=error>${requestScope.error}</p>
 	</div>
 </div>

@@ -8,6 +8,14 @@ angular.module ('JustEatDAO')
 					.then (function (response) {
 						return response.data;
 					})
+			},
+			deleteCurrentDishFactory: function(dishID) {
+				console.log("Deleting dish...");
+				var urlDishDeleted = url + 'deleteDish/' + dishID;
+				return $http.delete(urlDishDeleted)
+					.then(function(response) {
+						return response.status;
+					});
 			}
 		}
 	return dishInterface;

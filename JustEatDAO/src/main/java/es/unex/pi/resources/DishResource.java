@@ -59,10 +59,18 @@ public class DishResource {
 		DishDAO dishBD = new JDBCDishDAOImpl ();
 		restaurantBD.setConnection (conn);
 		Restaurant currentRestaurant = restaurantBD.get (restID);
-		System.out.println("Restaurant:" + currentRestaurant.getId());
 		dishBD.setConnection (conn);
 		ArrayList <Dish> dishList = dishBD.getAllByRestaurant (currentRestaurant.getId ());
 		return dishList;
 	}
-
+	
+	@DELETE
+	@Path("/deleteDish/{dishID}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public void deleteDish(@PathParam("dishID") long dishID , @Context HttpServletRequest request) {
+		DishDAO dishBD = new JDBCDishDAOImpl();
+		Connection conn = (Connection)sc.getAttribute("dbConn");
+		dishBD.setConnection(conn); //debes hacer una conexion por cada DAO!
+		dishBD.delete(dishID);
+		}
 }
