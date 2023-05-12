@@ -128,6 +128,32 @@ angular.module('JustEatDAO', ['ngRoute'])
                 }
             })
             
+              .when("/MyOrders", {
+                controller: "OrderCtrl",
+                controllerAs: "OrderVM",
+                templateUrl: "MyOrders.html",
+                resolve: {
+                    delay: function($q, $timeout) {
+                        var delay = $q.defer();
+                        $timeout(delay.resolve, 500);
+                        return delay.promise;
+                    }
+                }
+            })
+            
+               .when("/checkOrder/:ID", {
+                controller: "OrderCtrl",
+                controllerAs: "OrderVM",
+                templateUrl: "CheckOrder.html",
+                resolve: {
+                    delay: function($q, $timeout) {
+                        var delay = $q.defer();
+                        $timeout(delay.resolve, 500);
+                        return delay.promise;
+                    }
+                }
+            })
+            
 		
 		
 		
