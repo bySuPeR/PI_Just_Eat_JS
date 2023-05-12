@@ -42,8 +42,16 @@
             <div class = "input-group">
                 <h2 class = "login-title" id = "bike-parking-question">Do you have a bike parking lot?</h2>
                 <div class = "bike-friendly-checkbox">
-                    <input type = "checkbox" value = "yes-bike-friendly-value" name = "bike-friendly"
-                    data-ng-click = "RestaurantVM.functions.flipBike ()">
+                	<label for = "bike-friendly">Yes</label>
+                    <input type = "radio" value = "yes-bike-friendly-value" name = "bike-friendly"
+                    data-ng-click = "RestaurantVM.functions.flipBike ()"
+                    id = "bike-friendly">
+                </div>
+                <div class = "bike-friendly-checkbox">
+                    <label for = "bike-friendly">No</label>
+                    <input type = "radio" value = "no-bike-friendly-value" name = "bike-friendly"
+                    data-ng-click = "RestaurantVM.functions.flipBike ()"
+                    id = "bike-friendly">
                 </div>
             </div>
             <div class = "input-group">

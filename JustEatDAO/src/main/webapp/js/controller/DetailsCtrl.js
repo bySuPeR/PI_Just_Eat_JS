@@ -8,7 +8,7 @@ angular.module('JustEatDAO')
 		detailsViewModel.belongsToMe = false;
 		detailsViewModel.allDishes = [];
 		detailsViewModel.error = "";
-		detailsViewModel.isBikeFriendly = false;
+		detailsViewModel.isBikeFriendly = "no-bike-friendly-value";
 		detailsViewModel.isAvailable = false;
 		detailsViewModel.functions = {
 			getRestaurant: function() {
@@ -16,7 +16,7 @@ angular.module('JustEatDAO')
 					.then(function(response) {
 						detailsViewModel.restaurant = response;
 						if (detailsViewModel.restaurant.bikeFriendly == 1) {
-							detailsViewModel.isBikeFriendly = true;
+							detailsViewModel.isBikeFriendly = "yes-bike-friendly-value";
 						}
 						if (detailsViewModel.restaurant.available) {
 							detailsViewModel.isAvailable = true;
@@ -124,12 +124,11 @@ angular.module('JustEatDAO')
 				return string;
 			},
 			flipBike: function () {
-				detailsViewModel.isBikeFriendly = !detailsViewModel.isBikeFriendly;
-				if (detailsViewModel.isBikeFriendly) {
-					detailsViewModel.restaurant.bikeFriendly = 1;
+				if (detailsViewModel.isBikeFriendly == "no-bike-friendly-value") {
+					detailsViewModel.isBikeFriendly = "yes-bike-friendly-value";
 				}
-				else {
-					detailsViewModel.restaurant.bikeFriendly = 0;
+				if (detailsViewModel.isBikeFriendly == "yes-bike-friendly-value") {
+					detailsViewModel.isBikeFriendly = "no-bike-friendly-value";
 				}
 			},
 			flipAvailable: function () {
