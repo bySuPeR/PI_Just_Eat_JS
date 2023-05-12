@@ -115,6 +115,18 @@ angular.module('JustEatDAO', ['ngRoute'])
             })
             
             
+            .when("/deleteDish/:ID", {
+                controller: "DishCtrl",
+                controllerAs: "DishVM",
+                templateUrl: "ConfirmDelete.html",
+                resolve: {
+                    delay: function($q, $timeout) {
+                        var delay = $q.defer();
+                        $timeout(delay.resolve, 500);
+                        return delay.promise;
+                    }
+                }
+            })
             
 		
 		
