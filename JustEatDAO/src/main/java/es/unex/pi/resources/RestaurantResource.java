@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 import es.unex.pi.model.Restaurant;
 import es.unex.pi.model.Category;
@@ -134,5 +135,16 @@ public class RestaurantResource {
 		return restList;
 	}
 	
-		
+	
+	@GET
+	@Path("/myRestaurants")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Restaurant> getMyRestaurants(@Context HttpServletRequest request) {
+		Connection conn = (Connection) sc.getAttribute("dbConn");
+		HttpSession session = request.getSession();
+		User currentUser = (User) session.getAttribute("user");
+		RestaurantDAO restaurantBD = new JDBCRestaurantDAOImpl();
+		restaurantBD.setConnection(conn);
+		return restaurantBD.getAllByUser(currentUser.getId());
+	}	
 }

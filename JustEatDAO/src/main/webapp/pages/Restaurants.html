@@ -3,11 +3,11 @@
 	<div class="main-page-container">
 		<div class="restaurants-grid">
 		
-			<div data-ng-repeat = "rest in RestaurantVM.allRestaurants">
+			<div data-ng-repeat = "rest in RestaurantVM.myRestaurants">
 				<div class="single-restaurant">
 					<a href=""><img
-						src="images/${restaurant.restaurantPic}" class="restaurant-photo"></a>
-					<h3>${restaurant.name}</h3>
+						data-ng-src="../images/{{ rest.restaurantPic }}" class="restaurant-photo"></a>
+					<h3>{{ rest.name }}</h3>
 				</div>
 			</div>
 			

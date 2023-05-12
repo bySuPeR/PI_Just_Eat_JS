@@ -2,6 +2,7 @@ angular.module ('JustEatDAO')
 	.controller ('RestaurantCtrl', ['RestaurantFactory', function (RestaurantFactory) {
 		var restaurantViewModel = this;
 		restaurantViewModel.allRestaurants = [];
+		restaurantViewModel.myRestaurants = [];
 		restaurantViewModel.allCategories = [];
 		restaurantViewModel.tipoBorrado=0;
 		restaurantViewModel.searchPrompt = "";
@@ -43,9 +44,22 @@ angular.module ('JustEatDAO')
 					function (response) {
 						console.log ("'searchByState' could not be fetched: ", response.status);
 					})
+			},
+			
+			loadAllMyRestaurants: function() {
+				RestaurantFactory.loadAllMyRestaurantsFactory()
+					.then(function(response) {
+						console.log("Load my restaurants...", response);
+						restaurantViewModel.myRestaurants = response;
+					}, function(response) {
+						console.log("'loadAllMyRestaurants' could not be fetched: ", response);
+					})
 			}
+			
+			
 			
 		}
 		restaurantViewModel.functions.loadAllCategories ();
+		restaurantViewModel.functions.loadAllMyRestaurants ();
 		restaurantViewModel.functions.searchByState ();
 	}])
