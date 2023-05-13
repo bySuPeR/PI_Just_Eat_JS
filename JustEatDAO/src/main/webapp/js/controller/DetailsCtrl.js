@@ -89,7 +89,6 @@ angular.module('JustEatDAO')
 					})
 			},
 			deleteCurrentRestaurant: function() {
-					detailsViewModel.tipoBorrado=0;
 					DetailsFactory.deleteCurrentRestaurantFactory($routeParams.ID)
 						.then(function(response) {
 							console.log("Eliminando el restaurante...", response);
@@ -155,13 +154,10 @@ angular.module('JustEatDAO')
 						console.log ("'loadAllReviews' could not be fetched: ", response.status);
 					})
 			},
-			
 			deleteCurrentReview: function() {
-					detailsViewModel.tipoBorrado=1;
-					DetailsFactory.deleteCurrentReviewFactory($routeParams.ID)
+					DetailsFactory.deleteCurrentReviewFactory ($routeParams.ID)
 						.then(function(response) {
-							console.log("Deleting review...", response);
-							$location.path('/');
+							$location.path('/loadReviews/' + detailsViewModel.restaurant.id);
 						}, function(response) {
 							console.log("'deleteCurrentReview' could not be fetched: ", response);
 						})
@@ -218,6 +214,12 @@ angular.module('JustEatDAO')
 			detailsViewModel.functions.loadRestaurantReviews ();
 			detailsViewModel.functions.getCurrentUser ();
 		}
+		if ($location.absUrl ().includes ("/deleteRestaurant/")) {
+			detailsViewModel.tipoBorrado = 0;
+		}
+		if ($location.absUrl ().includes ("/deleteReview/")) {
+			detailsViewModel.tipoBorrado = 1;
+		}
 		if ($location.absUrl ().includes ("/restaurantDetails/")) {
 			detailsViewModel.functions.loadRestaurantCategories ();
 			detailsViewModel.functions.loadBelongsToMe ();
@@ -225,6 +227,7 @@ angular.module('JustEatDAO')
 			detailsViewModel.functions.loadAllCategories ();
 		}
 		if ($location.absUrl ().includes ("/rateRestaurant/")) {
+			detailsViewModel.tipoBorrado = 1;
 			detailsViewModel.functions.loadCurrentReview ();
 		}
 	}])

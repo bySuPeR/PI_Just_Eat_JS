@@ -73,8 +73,7 @@ angular.module('JustEatDAO')
 						return response.data;
 					})
 			},
-			deleteCurrentReviewFactory: function(restID) {
-				console.log("Deleting review...");
+			deleteCurrentReviewFactory: function (restID) {
 				var urlRestDeleted = url + 'deleteReview/' + restID;
 				return $http.delete(urlRestDeleted)
 					.then(function(response) {

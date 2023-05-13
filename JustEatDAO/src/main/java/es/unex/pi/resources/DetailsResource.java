@@ -184,13 +184,13 @@ public class DetailsResource {
 	@DELETE
 	@Path("/deleteReview/{restID}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public void deleteReview(@PathParam("restID") long restID , @Context HttpServletRequest request) {
-		Restaurant_UserDAO reviewBD = new JDBCRestaurant_UserDAOImpl();
+	public void deleteReview(@PathParam("restID") long restID, @Context HttpServletRequest request) {
 		Connection conn = (Connection)sc.getAttribute("dbConn");
-		reviewBD.setConnection(conn); //debes hacer una conexion por cada DAO!
+		Restaurant_UserDAO reviewBD = new JDBCRestaurant_UserDAOImpl();
+		reviewBD.setConnection (conn);
 		HttpSession session = request.getSession();
 		User currentUser = (User) session.getAttribute("user"); 
-		reviewBD.delete(restID, currentUser.getId());
+		reviewBD.delete (restID, currentUser.getId());
 	}
 	
 	@GET
