@@ -231,6 +231,56 @@ public class DetailsResource {
 		User currentUser = (User) session.getAttribute ("user");
 		return restUserDAO.get (restID, currentUser.getId ());
 	}
+
+	@GET
+	@Path("/like/{restID}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public int getLikeApartamento(@PathParam("restID") long restID, @Context HttpServletRequest request) {
+		Connection conn = (Connection) sc.getAttribute("dbConn");
+		int like;
+		FavoritoDAO favBD = new JDBCFavoritoDAOImpl();
+		favBD.setConnection(conn);
+		HttpSession session = request.getSession();
+		User currentUser = (User) session.getAttribute("user");
+		Favorito fav = favBD.get(restID,currentUser.getId());
+		if(fav==null) {
+			like=0;
+		}
+		else {
+			like=1;
+		}
+		return like;
+	}
+	
+	@PUT
+	@Path("/giveLike/{restID}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response darLikeApartamento(@PathParam("restID") long restID, @Context HttpServletRequest request, Restaurant restaurant) {
+		Connection conn = (Connection) sc.getAttribute("dbConn");
+		FavoritoDAO favBD = new JDBCFavoritoDAOImpl();
+		favBD.setConnection(conn);
+		HttpSession session = request.getSession();
+		User currentUser = (User) session.getAttribute("user");
+		Favorito fav = new Favorito();
+		fav.setidRestaurant(restaurant.getId());
+		fav.setidUser(currentUser.getId());
+		favBD.add(fav);
+		return Response.accepted(uriInfo.getAbsolutePathBuilder().build()).contentLocation(uriInfo.getAbsolutePathBuilder().build()).build();
+	}
+	
+	@PUT
+	@Path("/removeLike/{restID}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response quitarLikeApartamento(@PathParam("restID") long restID, @Context HttpServletRequest request, Restaurant restaurant) {
+		Connection conn = (Connection) sc.getAttribute("dbConn");
+		FavoritoDAO favBD = new JDBCFavoritoDAOImpl();
+		favBD.setConnection(conn);
+		HttpSession session = request.getSession();
+		User currentUser = (User) session.getAttribute("user");
+		favBD.delete(restaurant.getId(), currentUser.getId());
+		return Response.accepted(uriInfo.getAbsolutePathBuilder().build()).contentLocation(uriInfo.getAbsolutePathBuilder().build()).build();
+	}
+	
 	
 	@PUT
 	@Path ("/updateCurrentReview/{restID}")

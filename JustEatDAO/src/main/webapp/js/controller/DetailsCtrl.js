@@ -178,7 +178,37 @@ angular.module('JustEatDAO')
 					.then(function(response) {
 						detailsViewModel.reviewUser = response; //Lista de usuarios que han hecho review en el restaurante.
 					}, function(response) {
-						console.log("'getUser' could not be fetched:", response.status);
+						console.log("'getUser' could not be fetched: ", response.status);
+					})
+			},
+			
+			getLikeRestaurant: function() {
+				DetailsFactory.getLikeRestaurantFactory($routeParams.ID)
+					.then(function(response) {
+						console.log("Getting apartament's like...", response);
+						detailsViewModel.like = response;
+					}, function(response) {
+						console.log("'getLikeRestaurant' could not be fetched: ", response);
+					})
+			},
+			giveLike: function() {
+			detailsViewModel.like=1;
+				DetailsFactory.giveLikeFactory(detailsViewModel.restaurant)
+					.then(function(response) {
+						$window.location.reload();
+						console.log("Giving like...", response);
+					}, function(response) {
+						console.log("'giveLike' could not be fetched: ", response);
+					})
+			},
+			removeLike: function() {
+				detailsViewModel.like=0;
+				DetailsFactory.removeLikeFactory(detailsViewModel.restaurant)
+					.then(function(response) {
+						$window.location.reload();
+						console.log("Removing like...", response);
+					}, function(response) {
+						console.log("'removeLike' could not be fetched: ", response);
 					})
 			},
 			getCurrentUser: function () {
@@ -251,4 +281,11 @@ angular.module('JustEatDAO')
 			detailsViewModel.tipoBorrado = 1;
 			detailsViewModel.functions.loadCurrentReview ();
 		}
+		detailsViewModel.functions.loadRestaurantCategories ();
+		detailsViewModel.functions.loadBelongsToMe ();
+		detailsViewModel.functions.loadAllDishes ();
+		detailsViewModel.functions.loadAllCategories ();
+		detailsViewModel.functions.rateRestaurant();
+		detailsViewModel.functions.loadRestaurantReviews ();
+		detailsViewModel.functions.getLikeRestaurant ();
 	}])
