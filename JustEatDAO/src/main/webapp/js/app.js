@@ -66,4 +66,9 @@ angular.module('JustEatDAO', ['ngRoute'])
 			controllerAs: "DishVM",
 			templateUrl: "AddDish.html"
 		})
+		.when ("/AddOrder/:ID", {
+			controller: "OrderCtrl",
+			controllerAs: "OrderVM",
+			templateUrl: "NewOrder.html"
+		})
     })

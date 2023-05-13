@@ -59,7 +59,9 @@
 		<div class = "manage-restaurant" id = "manage-reviews" data-ng-if = "DetailsVM.belongsToMe == true">
 			<a data-ng-href = "">Rate this restaurant</a>
 		</div>
-		<a class = "manage-restaurant" id = "make-order-button" data-ng-href = "">Make order</a>
+		<div class = "manage-restaurant" id = "make-order-button" data-ng-if = "DetailsVM.restaurant.available == 1">
+			<a data-ng-href = "#!/AddOrder/{{ DetailsVM.restaurant.id }}" id = "text-decorator">Make order</a>
+		</div>
 		<!--
 		<h1 id = "related-title">You could also be interested in:</h1>
 		<form class = "restaurant-state-radio" action = "RelatedRestaurantsServlet.do?idR=${restaurant.id}" method = "post">

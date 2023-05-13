@@ -14,6 +14,13 @@ angular.module ('JustEatDAO')
 					.then(function(response) {
 						return response.data;
 					});
+			},
+			makeOrderFactory: function (orderedDishes) {
+				var extraUrl = url + "makeOrder/" + orderedDishes;
+				return $http.post (extraUrl)
+					.then (function (response) {
+						return response;
+					})
 			}
 		}
 	return orderInterface;

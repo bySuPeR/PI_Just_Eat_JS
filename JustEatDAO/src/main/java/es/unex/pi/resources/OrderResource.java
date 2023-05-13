@@ -92,5 +92,38 @@ public class OrderResource {
 		return dishList;
 	}
 	
-	
+	@POST
+	@Path ("/makeOrder/{orderedDishes}")
+	@Produces (MediaType.APPLICATION_JSON)
+	public Response makeOrderResource (@Context HttpServletRequest request, @PathParam ("orderedDishes") String orderedDishes) {
+		Connection conn = (Connection) sc.getAttribute ("dbConn");
+		OrderDAO orderDAO = new JDBCOrderDAOImpl ();
+		Order_DishDAO orderDishDAO = new JDBCOrder_DishDAOImpl ();
+		DishDAO dishDAO = new JDBCDishDAOImpl ();
+		orderDAO.setConnection (conn);
+		orderDishDAO.setConnection (conn);
+		dishDAO.setConnection (conn);
+		Order newOrder = new Order ();
+		HttpSession session = request.getSession ();
+		User user = (User) session.getAttribute ("user");
+		int totalPrice = 0;
+		newOrder.setIdu (user.getId ());
+		newOrder.setTotalPrice (totalPrice);
+		long orderID = orderDAO.add (newOrder);
+		String [] selectedDishes = orderedDishes.split ("_");
+		Dish dish = null;
+		Order_Dish orderDish = new Order_Dish ();
+		for (int i = 0; i < selectedDishes.length; i++) {
+			if (!selectedDishes [i].equals ("")) {
+				orderDish.setIddi (Long.parseLong (selectedDishes [i]));
+				orderDish.setIdo (orderID);
+				orderDishDAO.add (orderDish);
+				dish = dishDAO.get (Long.parseLong (selectedDishes [i]));
+				totalPrice += dish.getPrice ();
+			}
+		}
+		newOrder.setTotalPrice (totalPrice);
+		orderDAO.update (newOrder);
+		return Response.accepted(uriInfo.getAbsolutePathBuilder().build()).contentLocation(uriInfo.getAbsolutePathBuilder().build()).build();
+	}
 }

@@ -219,7 +219,7 @@ h1 {
 	background-color: hsl(var(--button-hsl), 0.7);
 }
 
-#manage-restaurant-link {
+#manage-restaurant-link, #text-decorator {
 	text-decoration: none;
 	color: white;
 }
