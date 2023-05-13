@@ -219,4 +219,31 @@ public class DetailsResource {
 		}
 		return userList;
 	}
+	
+	@GET
+	@Path ("/loadCurrentReview/{restID}")
+	@Produces (MediaType.APPLICATION_JSON)
+	public Restaurant_User loadCurrentReviewResource (@Context HttpServletRequest request, @PathParam ("restID") long restID) {
+		Connection conn = (Connection) sc.getAttribute ("dbConn");
+		Restaurant_UserDAO restUserDAO = new JDBCRestaurant_UserDAOImpl ();
+		restUserDAO.setConnection (conn);
+		HttpSession session = request.getSession ();
+		User currentUser = (User) session.getAttribute ("user");
+		return restUserDAO.get (restID, currentUser.getId ());
+	}
+	
+	@PUT
+	@Path ("/updateCurrentReview/{restID}")
+	@Produces (MediaType.APPLICATION_JSON)
+	public Response updateCurrentReviewResource (@Context HttpServletRequest request, Restaurant_User currentReview, @PathParam ("restID") long restID) {
+		Connection conn = (Connection) sc.getAttribute ("dbConn");
+		Restaurant_UserDAO restUserDAO = new JDBCRestaurant_UserDAOImpl ();
+		restUserDAO.setConnection (conn);
+		HttpSession session = request.getSession ();
+		User currentUser = (User) session.getAttribute ("user");
+		currentReview.setIdr (restID);
+		currentReview.setIdu (currentUser.getId ());
+		restUserDAO.update (currentReview);
+		return Response.accepted(uriInfo.getAbsolutePathBuilder().build()).contentLocation(uriInfo.getAbsolutePathBuilder().build()).build();
+	}
 }

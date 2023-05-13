@@ -76,7 +76,6 @@ angular.module('JustEatDAO', ['ngRoute'])
             controllerAs: "DetailsVM",
             templateUrl: "UpdateReview.html",
         })
-        
         .when("/deleteReview/:ID", {
         	controller: "DetailsCtrl",
             controllerAs: "DetailsVM",

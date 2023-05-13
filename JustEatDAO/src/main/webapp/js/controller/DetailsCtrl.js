@@ -14,6 +14,7 @@ angular.module('JustEatDAO')
 		detailsViewModel.isBikeFriendly = "no-bike-friendly-value";
 		detailsViewModel.isAvailable = false;
 		detailsViewModel.currentUser = {};
+		detailsViewModel.currentReview = {};
 		detailsViewModel.functions = {
 			getRestaurant: function() {
 				DetailsFactory.getRestaurantFact($routeParams.ID)
@@ -191,19 +192,39 @@ angular.module('JustEatDAO')
 					function (response) {
 						console.log ("'getCurrentUser' could not be fetched ", response.status);
 					})
+			},
+			loadCurrentReview: function () {
+				DetailsFactory.loadCurrentReviewFactory ($routeParams.ID)
+					.then (function (response) {
+						detailsViewModel.currentReview = response;
+					},
+					function (response) {
+						console.log ("'loadCurrentReview' could not be fetched", response.status);
+					})
+			},
+			updateCurrentReview: function () {
+				DetailsFactory.updateCurrentReviewFactory (detailsViewModel.currentReview, $routeParams.ID)
+					.then (function (response) {
+						$location.path('/loadReviews/' + detailsViewModel.restaurant.id);
+					},
+					function (response) {
+						console.log ("'updateCurrentReview' could not be updated ", response.status);
+					})
 			}
 		}
+		detailsViewModel.functions.getRestaurant();
 		if ($location.absUrl ().includes ("/loadReviews/")) {
-			detailsViewModel.functions.getRestaurant();
 			detailsViewModel.functions.rateRestaurant ();
 			detailsViewModel.functions.loadRestaurantReviews ();
 			detailsViewModel.functions.getCurrentUser ();
 		}
 		if ($location.absUrl ().includes ("/restaurantDetails/")) {
-			detailsViewModel.functions.getRestaurant();
 			detailsViewModel.functions.loadRestaurantCategories ();
 			detailsViewModel.functions.loadBelongsToMe ();
 			detailsViewModel.functions.loadAllDishes ();
 			detailsViewModel.functions.loadAllCategories ();
+		}
+		if ($location.absUrl ().includes ("/rateRestaurant/")) {
+			detailsViewModel.functions.loadCurrentReview ();
 		}
 	}])

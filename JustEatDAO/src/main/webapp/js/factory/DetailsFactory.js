@@ -86,7 +86,7 @@ angular.module('JustEatDAO')
 				return $http.get (extraUrl)
 					.then (function (response) {
 						return response.data;
-					})
+					});
 			},
 			getUserFactory: function(reviewList) {
 				var extraURL = url + 'reviewList';
@@ -94,14 +94,21 @@ angular.module('JustEatDAO')
 					.then(function(response) {
 						return response.data;
 					});
+			},
+			loadCurrentReviewFactory: function (restID) {
+				var extraUrl = url + "loadCurrentReview/" + restID;
+				return $http.get (extraUrl)
+					.then(function(response) {
+						return response.data;
+					});
+			},
+			updateCurrentReviewFactory: function (currentReview, restID) {
+				var extraUrl = url + "updateCurrentReview/" + restID;
+				return $http.put (extraUrl, currentReview)
+					.then (function (response) {
+						return response;
+					})
 			}
-			
-			
 		}
 		return detailsInterface;
 	}])
-	
-
-
-
-
