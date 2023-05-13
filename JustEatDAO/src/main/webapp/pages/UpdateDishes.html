@@ -5,7 +5,7 @@
 	<div class="login-container">
 		<h1 class="login-title">Manage your dishes</h1>
 	 	<div class="oferta" data-ng-repeat="dish in DishVM.dishesList">
-			<form class="form" >
+			<form class = "form">
 				<div class="invidivual-dish-input">
 					<div class="input-group">
 						<label for="name">Name</label> 
@@ -23,12 +23,13 @@
 						<label for="image">Take a picture: </label> 
 						<input type="file" id="image" name="image"> <a class="delete-link" href="">Delete Picture</a>
 					</div>
-					<a class="delete-link" href="#!/deleteDish/{{ dish.id }}">Delete dish</a> 
+					<a class="delete-link" href="#!/deleteDish/{{ dish.id }}">Delete dish</a>
 					<input type="submit" class="login-button" value="Update dish" id="update-dish">
 				</div>
 			</form>
 		</div>
-		<a id="manage-dishes-link" href="">Add new dish</a> <a class="delete-link" href="">Go back to update restaurante page</a>
-		<p class=error>${requestScope.error}</p>
+		<a id="manage-dishes-link" href="">Add new dish</a>
+		<a class="delete-link" data-ng-href="#!/UpdateRestaurant/{{ DishVM.restID }}">Go back to restaurant update page</a>
+		<p class = error>{{ DishVM.error }}</p>
 	</div>
 </div>

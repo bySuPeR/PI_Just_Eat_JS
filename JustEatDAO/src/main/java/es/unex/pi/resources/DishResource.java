@@ -55,12 +55,9 @@ public class DishResource {
 	@Produces (MediaType.APPLICATION_JSON)
 	public ArrayList <Dish> getRestaurantDishes (@Context HttpServletRequest request,  @PathParam("restID") long restID) {
 		Connection conn = (Connection) sc.getAttribute ("dbConn");
-		RestaurantDAO restaurantBD = new JDBCRestaurantDAOImpl ();
 		DishDAO dishBD = new JDBCDishDAOImpl ();
-		restaurantBD.setConnection (conn);
-		Restaurant currentRestaurant = restaurantBD.get (restID);
 		dishBD.setConnection (conn);
-		ArrayList <Dish> dishList = dishBD.getAllByRestaurant (currentRestaurant.getId ());
+		ArrayList <Dish> dishList = dishBD.getAllByRestaurant (restID);
 		return dishList;
 	}
 	

@@ -4,157 +4,61 @@ angular.module('JustEatDAO', ['ngRoute'])
     	.when("/", {
     		controller: "RestaurantCtrl",
     		controllerAs: "RestaurantVM",
-    		templateUrl: "Search.html",
-    		resolve: {
-    			delay: function($q, $timeout) {
-    				var delay = $q.defer();
-    				$timeout(delay.resolve, 500);
-    				return delay.promise;
-    			}
-    		}
+    		templateUrl: "Search.html"
 		})
 		.when("/restaurantDetails/:ID", {
         	controller: "DetailsCtrl",
             controllerAs: "DetailsVM",
-            templateUrl: "Res_details.html",
-            resolve: {
-            	delay: function($q, $timeout) {
-                	var delay = $q.defer();
-                    $timeout(delay.resolve,0);
-                    return delay.promise;
-                }
-            }
+            templateUrl: "Res_details.html"
         })    
         .when("/UpdateUser", {
         	controller: "UserCtrl",
             controllerAs: "UserVM",
-            templateUrl: "UpdateUser.html",
-            resolve: {
-            	delay: function($q, $timeout) {
-                	var delay = $q.defer();
-                    $timeout(delay.resolve,0);
-                    return delay.promise;
-                }
-            }
+            templateUrl: "UpdateUser.html"
         })
         .when ("/UpdateRestaurant/:ID", {
 			controller: "DetailsCtrl",
 			controllerAs: "DetailsVM",
-			templateUrl: "UpdateRestaurant.html",
-			resolve: {
-				delay: function ($q, $timeout) {
-					var delay = $q.defer ();
-					$timeout (delay.resolve, 0);
-					return delay.promise;
-				}
-			}
+			templateUrl: "UpdateRestaurant.html"
 		})
 		.when("/deleteUser", {
 			controller: "UserCtrl",
 			controllerAs: "UserVM",
-			templateUrl: "ConfirmDelete.html",
-			resolve: {
-				delay: function($q, $timeout) {
-					var delay = $q.defer();
-					$timeout(delay.resolve,0);
-					return delay.promise;
-				}
-			}
+			templateUrl: "ConfirmDelete.html"
 		})
-		
-		 .when("/deleteRestaurant/:ID", {
-                controller: "DetailsCtrl",
-                controllerAs: "DetailsVM",
-                templateUrl: "ConfirmDelete.html",
-                resolve: {
-                    delay: function($q, $timeout) {
-                        var delay = $q.defer();
-                        $timeout(delay.resolve, 500);
-                        return delay.promise;
-                    }
-                }
-            }) 
-            
-            .when("/myRestaurants", {
-                controller: "RestaurantCtrl",
-                controllerAs: "RestaurantVM",
-                templateUrl: "Restaurants.html",
-                resolve: {
-                    delay: function($q, $timeout) {
-                        var delay = $q.defer();
-                        $timeout(delay.resolve, 500);
-                        return delay.promise;
-                    }
-                }
-            })
-            
-            .when("/AddRestaurant", {
-                controller: "RestaurantCtrl",
-                controllerAs: "RestaurantVM",
-                templateUrl: "AddRestaurant.html",
-                resolve: {
-                    delay: function($q, $timeout) {
-                        var delay = $q.defer();
-                        $timeout(delay.resolve, 500);
-                        return delay.promise;
-                    }
-                }
-            })
-            
-               .when("/manageDishes/:ID", {
-                controller: "DishCtrl",
-                controllerAs: "DishVM",
-                templateUrl: "UpdateDishes.html",
-                resolve: {
-                    delay: function($q, $timeout) {
-                        var delay = $q.defer();
-                        $timeout(delay.resolve, 500);
-                        return delay.promise;
-                    }
-                }
-            })
-            
-            
-            .when("/deleteDish/:ID", {
-                controller: "DishCtrl",
-                controllerAs: "DishVM",
-                templateUrl: "ConfirmDelete.html",
-                resolve: {
-                    delay: function($q, $timeout) {
-                        var delay = $q.defer();
-                        $timeout(delay.resolve, 500);
-                        return delay.promise;
-                    }
-                }
-            })
-            
-              .when("/MyOrders", {
-                controller: "OrderCtrl",
-                controllerAs: "OrderVM",
-                templateUrl: "MyOrders.html",
-                resolve: {
-                    delay: function($q, $timeout) {
-                        var delay = $q.defer();
-                        $timeout(delay.resolve, 500);
-                        return delay.promise;
-                    }
-                }
-            })
-            
-               .when("/checkOrder/:ID", {
-                controller: "OrderCtrl",
-                controllerAs: "OrderVM",
-                templateUrl: "CheckOrder.html",
-                resolve: {
-                    delay: function($q, $timeout) {
-                        var delay = $q.defer();
-                        $timeout(delay.resolve, 500);
-                        return delay.promise;
-                    }
-                }
-            })
-            
-		
-		
-		
+		.when("/deleteRestaurant/:ID", {
+         	controller: "DetailsCtrl",
+            controllerAs: "DetailsVM",
+            templateUrl: "ConfirmDelete.html"
+        }) 
+        .when("/myRestaurants", {
+        	controller: "RestaurantCtrl",
+            controllerAs: "RestaurantVM",
+            templateUrl: "Restaurants.html"
+        })
+        .when("/AddRestaurant", {
+        	controller: "RestaurantCtrl",
+            controllerAs: "RestaurantVM",
+            templateUrl: "AddRestaurant.html"
+        })
+        .when("/manageDishes/:ID", {
+        	controller: "DishCtrl",
+            controllerAs: "DishVM",
+            templateUrl: "UpdateDishes.html"
+        })
+        .when("/deleteDish/:ID", {
+        	controller: "DishCtrl",
+            controllerAs: "DishVM",
+            templateUrl: "ConfirmDelete.html"
+        })
+        .when("/MyOrders", {
+        	controller: "OrderCtrl",
+            controllerAs: "OrderVM",
+            templateUrl: "MyOrders.html"
+        })
+        .when("/checkOrder/:ID", {
+        	controller: "OrderCtrl",
+            controllerAs: "OrderVM",
+            templateUrl: "CheckOrder.html",
+        })
     })
