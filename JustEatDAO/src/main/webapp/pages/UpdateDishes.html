@@ -5,7 +5,7 @@
 	<div class="login-container">
 		<h1 class="login-title">Manage your dishes</h1>
 	 	<div class="oferta" data-ng-repeat="dish in DishVM.dishesList">
-			<form class = "form">
+			<form class = "form" data-ng-submit = "DishVM.functions.updateDish (dish.id)">
 				<div class="invidivual-dish-input">
 					<div class="input-group">
 						<label for="name">Name</label> 
@@ -28,7 +28,7 @@
 				</div>
 			</form>
 		</div>
-		<a id="manage-dishes-link" href="">Add new dish</a>
+		<a id="manage-dishes-link" data-ng-href="">Add new dish</a>
 		<a class="delete-link" data-ng-href="#!/UpdateRestaurant/{{ DishVM.restID }}">Go back to restaurant update page</a>
 		<p class = error>{{ DishVM.error }}</p>
 	</div>

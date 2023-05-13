@@ -69,5 +69,16 @@ public class DishResource {
 		Connection conn = (Connection)sc.getAttribute("dbConn");
 		dishBD.setConnection(conn); //debes hacer una conexion por cada DAO!
 		dishBD.delete(dishID);
-		}
+	}
+	
+	@PUT
+	@Path ("/UpdateDish/{dishID}")
+	@Produces (MediaType.APPLICATION_JSON)
+	public Response UpdateDishResoure (@Context HttpServletRequest request, Dish dish, @PathParam ("dishID") long dishID) {
+		Connection conn = (Connection)sc.getAttribute("dbConn");
+		DishDAO dishDAO = new JDBCDishDAOImpl ();
+		dishDAO.setConnection (conn);
+		dishDAO.update (dish);
+		return Response.accepted(uriInfo.getAbsolutePathBuilder().build()).contentLocation(uriInfo.getAbsolutePathBuilder().build()).build();
+	}
 }
