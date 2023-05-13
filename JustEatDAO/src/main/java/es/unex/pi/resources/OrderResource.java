@@ -123,6 +123,7 @@ public class OrderResource {
 			}
 		}
 		newOrder.setTotalPrice (totalPrice);
+		newOrder.setId(orderID);
 		orderDAO.update (newOrder);
 		return Response.accepted(uriInfo.getAbsolutePathBuilder().build()).contentLocation(uriInfo.getAbsolutePathBuilder().build()).build();
 	}

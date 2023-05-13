@@ -9,7 +9,7 @@
 					 <span class="number-value">{{ review.grade }}</span>
 				</h1>
 				<h2>{{ review.review }}</h2>
-				<div class = "manage-restaurant" id = "manage-reviews" data-ng-if = "DetailsVM.belongsToMe != true">
+				<div class = "manage-restaurant" id = "manage-reviews" data-ng-if = "DetailsVM.belongsToMe == true">
 					<a class="delete-link" id="update-review" href="#!/rateRestaurant/{{ DetailsVM.restaurant.id }}">Update review</a>
 				</div>
 			</div>
