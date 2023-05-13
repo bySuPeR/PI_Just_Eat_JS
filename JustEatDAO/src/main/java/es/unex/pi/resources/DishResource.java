@@ -81,4 +81,16 @@ public class DishResource {
 		dishDAO.update (dish);
 		return Response.accepted(uriInfo.getAbsolutePathBuilder().build()).contentLocation(uriInfo.getAbsolutePathBuilder().build()).build();
 	}
+	
+	@POST
+	@Path ("/AddDish")
+	@Produces (MediaType.APPLICATION_JSON)
+	public Response AddDishResource (@Context HttpServletRequest request, Dish dish) {
+		Connection conn = (Connection)sc.getAttribute("dbConn");
+		DishDAO dishDAO = new JDBCDishDAOImpl ();
+		dishDAO.setConnection (conn);
+		dish.setDishPic ("default.png");
+		dishDAO.add (dish);
+		return Response.accepted(uriInfo.getAbsolutePathBuilder().build()).contentLocation(uriInfo.getAbsolutePathBuilder().build()).build();
+	}
 }

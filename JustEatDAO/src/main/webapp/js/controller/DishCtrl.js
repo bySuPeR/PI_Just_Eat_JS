@@ -4,7 +4,6 @@ angular.module ('JustEatDAO')
 		dishViewModel.restID = $routeParams.ID;
 		dishViewModel.dishesList = [];
 		dishViewModel.tipoBorrado = 0;
-		dishViewModel.error = "";
 		dishViewModel.newDish = {};
 		dishViewModel.functions = {
 			getDishesbyRestaurant: function() {
@@ -43,6 +42,16 @@ angular.module ('JustEatDAO')
 					}
 				}
 				return dishViewModel.dishesList [pos];
+			},
+			createNewDish: function () {
+				dishViewModel.newDish.idr = $routeParams.ID;
+				DishFactory.createNewDishFactory (dishViewModel.newDish)
+					.then (function (response) {
+						$location.path ("/myRestaurants")
+					},
+					function (response) {
+						console.log ("'createNewDish' could not be created: ", response.status);
+					})
 			}
 		}
 		dishViewModel.functions.getDishesbyRestaurant ();

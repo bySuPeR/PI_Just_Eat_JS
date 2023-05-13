@@ -28,8 +28,7 @@
 				</div>
 			</form>
 		</div>
-		<a id="manage-dishes-link" data-ng-href="">Add new dish</a>
+		<a id="manage-dishes-link" data-ng-href="#!/AddDish/{{ DishVM.restID }}">Add new dish</a>
 		<a class="delete-link" data-ng-href="#!/UpdateRestaurant/{{ DishVM.restID }}">Go back to restaurant update page</a>
-		<p class = error>{{ DishVM.error }}</p>
 	</div>
 </div>

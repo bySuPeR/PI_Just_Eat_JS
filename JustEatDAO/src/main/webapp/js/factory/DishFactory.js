@@ -22,6 +22,13 @@ angular.module ('JustEatDAO')
 					.then (function (response) {
 						return response;
 					})
+			},
+			createNewDishFactory: function (dish) {
+				var extraUrl = url + "AddDish";
+				return $http.post (extraUrl, dish)
+					.then (function (response) {
+						return response;
+					})
 			}
 		}
 	return dishInterface;
