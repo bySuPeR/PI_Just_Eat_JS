@@ -61,4 +61,22 @@ angular.module('JustEatDAO', ['ngRoute'])
             controllerAs: "OrderVM",
             templateUrl: "CheckOrder.html",
         })
+        .when("/rateRestaurant/:ID", {
+        	controller: "DetailsCtrl",
+            controllerAs: "DetailsVM",
+            templateUrl: "UpdateReview.html",
+        })
+        
+        .when("/deleteReview/:ID", {
+        	controller: "DetailsCtrl",
+            controllerAs: "DetailsVM",
+            templateUrl: "ConfirmDelete.html"
+        })
+        
+         .when("/loadReviews/:ID", {
+        	controller: "DetailsCtrl",
+            controllerAs: "DetailsVM",
+            templateUrl: "LoadReviews.html"
+        })
+        
     })
