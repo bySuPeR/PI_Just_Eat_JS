@@ -246,4 +246,37 @@ public class DetailsResource {
 		restUserDAO.update (currentReview);
 		return Response.accepted(uriInfo.getAbsolutePathBuilder().build()).contentLocation(uriInfo.getAbsolutePathBuilder().build()).build();
 	}
+	
+	@POST
+	@Path ("/addReview/{restID}")
+	@Produces (MediaType.APPLICATION_JSON)
+	public Response addReviewResource (@Context HttpServletRequest request, Restaurant_User currentReview, @PathParam ("restID") long restID) {
+		Connection conn = (Connection) sc.getAttribute ("dbConn");
+		Restaurant_UserDAO restUserDAO = new JDBCRestaurant_UserDAOImpl ();
+		restUserDAO.setConnection (conn);
+		HttpSession session = request.getSession ();
+		User currentUser = (User) session.getAttribute ("user");
+		currentReview.setIdr (restID);
+		currentReview.setIdu (currentUser.getId ());
+		restUserDAO.add (currentReview);
+		return Response.accepted(uriInfo.getAbsolutePathBuilder().build()).contentLocation(uriInfo.getAbsolutePathBuilder().build()).build();
+	}
+	
+	@GET
+	@Path ("/isAlreadyReviewed/{restID}")
+	public boolean isAlreadyReviewedResource (@Context HttpServletRequest request, @PathParam ("restID") long restID) {
+		boolean found = false;
+		Connection conn = (Connection) sc.getAttribute ("dbConn");
+		Restaurant_UserDAO restUserDAO = new JDBCRestaurant_UserDAOImpl ();
+		restUserDAO.setConnection (conn);
+		HttpSession session = request.getSession ();
+		User currentUser = (User) session.getAttribute ("user");
+		ArrayList <Restaurant_User> restUserList = restUserDAO.getAllByRestaurant (restID);
+		for (int i = 0; (i < restUserList.size ()) && (!found); i++) {
+			if (restUserList.get (i).getIdu () == currentUser.getId ()) {
+				found = true;
+			}
+		}
+		return found;
+	}
 }

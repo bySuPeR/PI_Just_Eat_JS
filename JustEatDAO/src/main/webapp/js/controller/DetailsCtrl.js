@@ -1,5 +1,5 @@
 angular.module('JustEatDAO')
-	.controller('DetailsCtrl', ['DetailsFactory', 'UserFactory', '$routeParams','$location', 'RestaurantFactory', function (DetailsFactory, UserFactory, $routeParams, $location, RestaurantFactory) {
+	.controller('DetailsCtrl', ['DetailsFactory', 'UserFactory', '$routeParams','$location', '$window', 'RestaurantFactory', function (DetailsFactory, UserFactory, $routeParams, $location, $window, RestaurantFactory) {
 		var detailsViewModel = this;
 		detailsViewModel.restaurant = {};
 		detailsViewModel.allCategories = [];
@@ -15,6 +15,7 @@ angular.module('JustEatDAO')
 		detailsViewModel.isAvailable = false;
 		detailsViewModel.currentUser = {};
 		detailsViewModel.currentReview = {};
+		detailsViewModel.alreadyReviewed = false;
 		detailsViewModel.functions = {
 			getRestaurant: function() {
 				DetailsFactory.getRestaurantFact($routeParams.ID)
@@ -206,13 +207,34 @@ angular.module('JustEatDAO')
 					function (response) {
 						console.log ("'updateCurrentReview' could not be updated ", response.status);
 					})
+			},
+			addReview: function () {
+				DetailsFactory.addReviewFactory (detailsViewModel.currentReview, $routeParams.ID)
+					.then (function (response) {
+						$window.location.reload();
+						detailsViewModel.alreadyReviewed = true;
+					},
+					function (response) {
+						console.log ("'addReview' could not be added ", response.status);
+					})
+			},
+			isAlreadyReviewed: function () {
+				DetailsFactory.isAlreadyReviewedFactory ($routeParams.ID)
+					.then (function (response) {
+						detailsViewModel.alreadyReviewed = response;
+					},
+					function (response) {
+						console.log ("'isAlreadyReviewed' could not be fetched ", response.status);
+					})
 			}
 		}
 		detailsViewModel.functions.getRestaurant();
 		if ($location.absUrl ().includes ("/loadReviews/")) {
 			detailsViewModel.functions.rateRestaurant ();
-			detailsViewModel.functions.loadRestaurantReviews ();
 			detailsViewModel.functions.getCurrentUser ();
+			detailsViewModel.functions.loadRestaurantReviews ();
+			detailsViewModel.functions.loadBelongsToMe ();
+			detailsViewModel.functions.isAlreadyReviewed ();
 		}
 		if ($location.absUrl ().includes ("/deleteRestaurant/")) {
 			detailsViewModel.tipoBorrado = 0;
@@ -222,7 +244,6 @@ angular.module('JustEatDAO')
 		}
 		if ($location.absUrl ().includes ("/restaurantDetails/")) {
 			detailsViewModel.functions.loadRestaurantCategories ();
-			detailsViewModel.functions.loadBelongsToMe ();
 			detailsViewModel.functions.loadAllDishes ();
 			detailsViewModel.functions.loadAllCategories ();
 		}

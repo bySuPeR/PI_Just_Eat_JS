@@ -107,6 +107,20 @@ angular.module('JustEatDAO')
 					.then (function (response) {
 						return response;
 					})
+			},
+			addReviewFactory: function (currentReview, restID) {
+				var extraUrl = url + "addReview/" + restID;
+				return $http.post (extraUrl, currentReview)
+					.then (function (response) {
+						return response;
+					})
+			},
+			isAlreadyReviewedFactory: function (restID) {
+				var extraUrl = url + "isAlreadyReviewed/" + restID;
+				return $http.get (extraUrl)
+					.then (function (response) {
+						return response.data;
+					})
 			}
 		}
 		return detailsInterface;
