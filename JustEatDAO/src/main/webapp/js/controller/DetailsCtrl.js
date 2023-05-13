@@ -1,5 +1,5 @@
 angular.module('JustEatDAO')
-	.controller('DetailsCtrl', ['DetailsFactory','$routeParams','$location', 'RestaurantFactory', function (DetailsFactory, $routeParams, $location, RestaurantFactory) {
+	.controller('DetailsCtrl', ['DetailsFactory','$routeParams','$location','$window', 'RestaurantFactory', function (DetailsFactory, $routeParams, $location, $window, RestaurantFactory) {
 		var detailsViewModel = this;
 		detailsViewModel.restaurant = {};
 		detailsViewModel.allCategories = [];
@@ -13,6 +13,7 @@ angular.module('JustEatDAO')
 		detailsViewModel.error = "";
 		detailsViewModel.isBikeFriendly = "no-bike-friendly-value";
 		detailsViewModel.isAvailable = false;
+		detailsViewModel.like;
 		detailsViewModel.functions = {
 			getRestaurant: function() {
 				DetailsFactory.getRestaurantFact($routeParams.ID)
@@ -184,7 +185,37 @@ angular.module('JustEatDAO')
 					.then(function(response) {
 						detailsViewModel.reviewUser = response;
 					}, function(response) {
-						console.log("'getUser' could not be fetched:", response.status);
+						console.log("'getUser' could not be fetched: ", response.status);
+					})
+			},
+			
+			getLikeRestaurant: function() {
+				DetailsFactory.getLikeRestaurantFactory($routeParams.ID)
+					.then(function(response) {
+						console.log("Getting apartament's like...", response);
+						detailsViewModel.like = response;
+					}, function(response) {
+						console.log("'getLikeRestaurant' could not be fetched: ", response);
+					})
+			},
+			giveLike: function() {
+			detailsViewModel.like=1;
+				DetailsFactory.giveLikeFactory(detailsViewModel.restaurant)
+					.then(function(response) {
+						$window.location.reload();
+						console.log("Giving like...", response);
+					}, function(response) {
+						console.log("'giveLike' could not be fetched: ", response);
+					})
+			},
+			removeLike: function() {
+				detailsViewModel.like=0;
+				DetailsFactory.removeLikeFactory(detailsViewModel.restaurant)
+					.then(function(response) {
+						$window.location.reload();
+						console.log("Removing like...", response);
+					}, function(response) {
+						console.log("'removeLike' could not be fetched: ", response);
 					})
 			}
 			
@@ -198,4 +229,5 @@ angular.module('JustEatDAO')
 		detailsViewModel.functions.loadAllCategories ();
 		detailsViewModel.functions.rateRestaurant();
 		detailsViewModel.functions.loadRestaurantReviews ();
+		detailsViewModel.functions.getLikeRestaurant ();
 	}])

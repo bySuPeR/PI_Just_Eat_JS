@@ -35,6 +35,7 @@ angular.module ('JustEatDAO')
 				console.log ("Searching restaurants by ", searchCategoryID, "...")
 				RestaurantFactory.searchByCategoryFactory (searchCategoryID)
 					.then (function (response) {
+						restaurantViewModel.restState="";
 						restaurantViewModel.allRestaurants = response;
 					},
 					function (response) {

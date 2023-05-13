@@ -94,6 +94,33 @@ angular.module('JustEatDAO')
 					.then(function(response) {
 						return response.data;
 					});
+			},
+			
+			getLikeRestaurantFactory: function(restID) {
+				console.log("Getting apartament's like...");
+				var urlLike = url + 'like/' + restID;
+				return $http.get(urlLike)
+					.then(function(response) {
+						return response.data;
+					});
+			},
+			
+			giveLikeFactory: function(rest) {
+				console.log("Giving like...");
+				var urlGiveLike = url + 'giveLike/' + rest.id;
+				return $http.put(urlGiveLike,rest)
+					.then(function(response) {
+						return response.status;
+					});
+			},
+			
+			removeLikeFactory: function(rest) {
+				console.log("Removing like...");
+				var urlRemoveLike = url + 'removeLike/'+ rest.id;
+				return $http.put(urlRemoveLike,rest)
+					.then(function(response) {
+						return response.status;
+					});
 			}
 			
 			

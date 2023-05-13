@@ -27,19 +27,13 @@
 			</div>
 			<div data-ng-if = "DetailsVM.restaurant.available == 0">
 				<h1 class = "restaurant-text">Sorry, no orders now</h1>
-			</div>		
-			<!--
-			<form method = "post" action = "?">
-				<c:choose>
-          			<c:when test = "${requestScope.like eq 'emptyH'}">
-          				<button><img src = "images/notlike.png" id = "like"></button>
-          			</c:when>
-          			<c:otherwise>
-          				<button><img src = "images/like.png " id = "like"></button>
-          			</c:otherwise>
-          		</c:choose>
-			</form>
-			-->
+			</div>	
+				
+			 <div class="Fav">
+          		<button data-ng-if="DetailsVM.like==0" data-ng-click="DetailsVM.functions.giveLike()"><img  src = "../images/notlike.png" id = "like"></button>
+          		<button data-ng-if="DetailsVM.like==1" data-ng-click="DetailsVM.functions.removeLike()"><img src = "../images/like.png " id = "like"></button>
+         	</div>
+			
 			<div class = "manage-restaurant" data-ng-if = "DetailsVM.belongsToMe == true">
 				<a data-ng-href = "#!/UpdateRestaurant/{{ DetailsVM.restaurant.id }}" id = "manage-restaurant-link">Manage restaurant</a>
 			</div>
