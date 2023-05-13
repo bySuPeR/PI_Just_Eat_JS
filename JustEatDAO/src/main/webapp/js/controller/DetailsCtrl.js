@@ -3,8 +3,11 @@ angular.module('JustEatDAO')
 		var detailsViewModel = this;
 		detailsViewModel.restaurant = {};
 		detailsViewModel.allCategories = [];
+		detailsViewModel.restaurantReviews = [];
+		detailsViewModel.reviewUser = [];
+		detailsViewModel.rateReviewUser = {};
 		detailsViewModel.restaurantCategories = [];
-		detailsViewModel.tipoBorrado=0;
+		detailsViewModel.tipoBorrado;
 		detailsViewModel.belongsToMe = false;
 		detailsViewModel.allDishes = [];
 		detailsViewModel.error = "";
@@ -84,6 +87,7 @@ angular.module('JustEatDAO')
 					})
 			},
 			deleteCurrentRestaurant: function() {
+					detailsViewModel.tipoBorrado=0;
 					DetailsFactory.deleteCurrentRestaurantFactory($routeParams.ID)
 						.then(function(response) {
 							console.log("Eliminando el restaurante...", response);
@@ -139,11 +143,59 @@ angular.module('JustEatDAO')
 				else {
 					detailsViewModel.restaurant.available = 0;
 				}
+			},
+			
+			rateRestaurant: function () {
+				DetailsFactory.rateRestaurantFactory ($routeParams.ID)
+					.then (function (response) {
+						detailsViewModel.rateReviewUser = response;
+					},
+					function (response) {
+						console.log ("'loadAllReviews' could not be fetched: ", response.status);
+					})
+			},
+			
+			deleteCurrentReview: function() {
+					detailsViewModel.tipoBorrado=1;
+					DetailsFactory.deleteCurrentReviewFactory($routeParams.ID)
+						.then(function(response) {
+							console.log("Deleting review...", response);
+							$location.path('/');
+						}, function(response) {
+							console.log("'deleteCurrentReview' could not be fetched: ", response);
+						})
+			},
+			
+			loadRestaurantReviews: function () {
+				DetailsFactory.loadRestaurantReviews ($routeParams.ID)
+					.then (function (response) {
+						detailsViewModel.restaurantReviews = response;
+						for (let i = 0; i < detailsViewModel.restaurantReviews.length ; i++) {
+    						detailsViewModel.functions.getUser(detailsViewModel.restaurantReviews);
+						}
+					},
+					function (response) {
+						console.log ("'loadAllCategories' could not be fetched: ", response.status);
+					})
+			},
+			
+			getUser: function(reviewList) {
+				DetailsFactory.getUserFactory(reviewList)
+					.then(function(response) {
+						detailsViewModel.reviewUser = response;
+					}, function(response) {
+						console.log("'getUser' could not be fetched:", response.status);
+					})
 			}
+			
+			
+			
 		}
 		detailsViewModel.functions.getRestaurant();
 		detailsViewModel.functions.loadRestaurantCategories ();
 		detailsViewModel.functions.loadBelongsToMe ();
 		detailsViewModel.functions.loadAllDishes ();
 		detailsViewModel.functions.loadAllCategories ();
+		detailsViewModel.functions.rateRestaurant();
+		detailsViewModel.functions.loadRestaurantReviews ();
 	}])

@@ -10,20 +10,25 @@ import es.unex.pi.model.Restaurant;
 import es.unex.pi.model.Category;
 import es.unex.pi.model.Favorito;
 import es.unex.pi.model.Restaurant_Category;
+import es.unex.pi.model.Restaurant_User;
 import es.unex.pi.model.User;
 import es.unex.pi.model.Dish;
 import es.unex.pi.dao.RestaurantDAO;
 import es.unex.pi.dao.CategoryDAO;
 import es.unex.pi.dao.Restaurant_CategoryDAO;
+import es.unex.pi.dao.Restaurant_UserDAO;
+import es.unex.pi.dao.UserDAO;
 import es.unex.pi.dao.FavoritoDAO;
 import es.unex.pi.dao.DishDAO;
 import es.unex.pi.dao.JDBCRestaurantDAOImpl;
 import es.unex.pi.dao.JDBCCategoryDAOImpl;
 import es.unex.pi.dao.JDBCRestaurant_CategoryDAOImpl;
+import es.unex.pi.dao.JDBCRestaurant_UserDAOImpl;
+import es.unex.pi.dao.JDBCUserDAOImpl;
 import es.unex.pi.dao.JDBCFavoritoDAOImpl;
 import es.unex.pi.dao.JDBCDishDAOImpl;
 import es.unex.pi.util.RestaurantComparator;
-
+import es.unex.pi.util.Triplet;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
@@ -163,4 +168,80 @@ public class DetailsResource {
 		restDAO.update (restaurant);
 		return Response.accepted(uriInfo.getAbsolutePathBuilder().build()).contentLocation(uriInfo.getAbsolutePathBuilder().build()).build();
 	}
+	
+
+	@GET
+	@Path ("/rateRestaurant/{restID}")
+	@Produces (MediaType.APPLICATION_JSON)
+	public Restaurant_User loadReviewUser (@Context HttpServletRequest request, @PathParam ("restID") long restID) {
+		Connection conn = (Connection) sc.getAttribute ("dbConn");
+		RestaurantDAO restaurantBD = new JDBCRestaurantDAOImpl ();
+		Restaurant_UserDAO restaurantUserBD = new JDBCRestaurant_UserDAOImpl ();
+		restaurantBD.setConnection (conn);
+		restaurantUserBD.setConnection (conn);
+		User currentUser = (User) request.getSession ().getAttribute ("user");
+		Restaurant_User reviewUser = restaurantUserBD.get(restID, currentUser.getId());
+		return reviewUser;
+	}
+	
+	@DELETE
+	@Path("/deleteReview/{restID}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public void deleteReview(@PathParam("restID") long restID , @Context HttpServletRequest request) {
+		Restaurant_UserDAO reviewBD = new JDBCRestaurant_UserDAOImpl();
+		Connection conn = (Connection)sc.getAttribute("dbConn");
+		reviewBD.setConnection(conn); //debes hacer una conexion por cada DAO!
+		HttpSession session = request.getSession();
+		User currentUser = (User) session.getAttribute("user"); 
+		reviewBD.delete(restID, currentUser.getId());
+	}
+	
+	@GET
+	@Path ("/loadReviews/{restID}")
+	@Produces (MediaType.APPLICATION_JSON)
+	public ArrayList <Restaurant_User> loadRestaurantReviews (@Context HttpServletRequest request, @PathParam ("restID") long restID) {
+		Connection conn = (Connection) sc.getAttribute ("dbConn");
+		RestaurantDAO restaurantBD = new JDBCRestaurantDAOImpl ();
+		Restaurant_UserDAO restaurantUserBD = new JDBCRestaurant_UserDAOImpl ();
+		UserDAO userBD = new JDBCUserDAOImpl ();
+
+		User currentUser = (User) request.getSession ().getAttribute ("user");
+		
+		restaurantBD.setConnection (conn);
+		
+		Triplet <User, Restaurant_User, Restaurant> avoid = null;
+		Triplet <User, Restaurant_User, Restaurant> singleComment = null;
+		restaurantUserBD.setConnection (conn);
+		userBD.setConnection (conn);
+		ArrayList <Restaurant_User> restaurantUserList = restaurantUserBD.getAllByRestaurant (restID);
+		ArrayList <Triplet <User, Restaurant_User, Restaurant>> triplet = new ArrayList <Triplet <User, Restaurant_User, Restaurant>> ();
+		for (Restaurant_User ru: restaurantUserList) {
+			singleComment = new Triplet <User, Restaurant_User, Restaurant> (userBD.get (ru.getIdu ()), ru, restaurantBD.get (ru.getIdr ()));
+			if (ru.getIdu () == currentUser.getId ()) {
+				avoid = singleComment;
+			}
+			triplet.add (singleComment);
+		}
+		return restaurantUserList;
+	}
+
+
+	@PUT
+	@Path ("/reviewList")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ArrayList<User> loadUserReviews (@Context HttpServletRequest request,  ArrayList <Restaurant_User> reviewsList) {
+		UserDAO userBD = new JDBCUserDAOImpl();
+		Connection conn = (Connection) sc.getAttribute ("dbConn");
+		userBD.setConnection(conn);
+		ArrayList <User> userList = new ArrayList <User> ();
+		User user;
+		for (Restaurant_User ru: reviewsList) {
+			user=userBD.get(ru.getIdu());
+			userList.add(user);
+		}
+		return userList;
+	}
+	
+	
+	
 }

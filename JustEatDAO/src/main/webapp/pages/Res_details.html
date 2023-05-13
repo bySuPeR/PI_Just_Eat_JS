@@ -56,9 +56,7 @@
 			</div>
 		</div>
 		<a class = "manage-restaurant" id = "back-to-my-restaurants" data-ng-href = "#!/">Back</a>
-		<div class = "manage-restaurant" id = "manage-reviews" data-ng-if = "DetailsVM.belongsToMe == true">
-			<a data-ng-href = "">Rate this restaurant</a>
-		</div>
+		<a class = "manage-restaurant" id = "manage-reviews" data-ng-href = "#!/loadReviews/{{ DetailsVM.restaurant.id }}">Restaurant Reviews</a>
 		<div class = "manage-restaurant" id = "make-order-button" data-ng-if = "DetailsVM.restaurant.available == 1">
 			<a data-ng-href = "#!/AddOrder/{{ DetailsVM.restaurant.id }}" id = "text-decorator">Make order</a>
 		</div>
