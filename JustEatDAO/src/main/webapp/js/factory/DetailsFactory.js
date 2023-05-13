@@ -65,7 +65,38 @@ angular.module('JustEatDAO')
 					.then (function (response) {
 						return response.status;
 					})
+			},
+			rateRestaurantFactory: function (restID) {
+				var extraUrl = url + "rateRestaurant/" + restID;
+				return $http.get (extraUrl)
+					.then (function (response) {
+						return response.data;
+					})
+			},
+			deleteCurrentReviewFactory: function(restID) {
+				console.log("Deleting review...");
+				var urlRestDeleted = url + 'deleteReview/' + restID;
+				return $http.delete(urlRestDeleted)
+					.then(function(response) {
+						return response.status;
+					});
+			},
+			loadRestaurantReviews: function (restID) {
+				var extraUrl = url + "loadReviews/" + restID;
+				return $http.get (extraUrl)
+					.then (function (response) {
+						return response.data;
+					})
+			},
+			getUserFactory: function(reviewList) {
+				var extraURL = url + 'reviewList';
+				return $http.put(extraURL,reviewList)
+					.then(function(response) {
+						return response.data;
+					});
 			}
+			
+			
 		}
 		return detailsInterface;
 	}])

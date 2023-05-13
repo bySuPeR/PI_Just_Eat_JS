@@ -22,10 +22,10 @@
 			</form>
 			<a href="#!/myRestaurants">No, go back</a>
 		</div>
-		<div data-ng-if = "ReviewVM.tipoBorrado == 0">
-			<form>
+		<div data-ng-if = "DetailsVM.tipoBorrado == 1">
+			<form data-ng-submit="DetailsVM.functions.deleteCurrentReview()">
 				<label>Are you sure you want to delete this review?</label> 
-				<input type="submit" value="Yes" data-ng-model="">
+				<input type="submit" value="Yes">
 			</form>
 			<a href="">No,go back</a>
 		</div>
