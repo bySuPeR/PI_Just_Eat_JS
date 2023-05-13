@@ -3,7 +3,6 @@ angular.module ('JustEatDAO')
 		var url = 'https://localhost:8443/JustEatDAO/rest/UpdateUser/';
 		var userInterface = {
 			getCurrentUserFactory: function () {
-				url = url + "get";
 				return $http.get (url)
 					.then (function (response) {
 						return response.data;
@@ -23,9 +22,6 @@ angular.module ('JustEatDAO')
 						return response.status;
 					});
 			}
-			
-			
-			
 		}
 		return userInterface;
 	}])

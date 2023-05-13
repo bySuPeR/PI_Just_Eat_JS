@@ -2,27 +2,26 @@
 <link rel="stylesheet" href="../css/load_review.css">
 <div class="full-screen-container">
 	<div class="login-container">
-		<h1 class="login-title">Welcome</h1>
+		<h1 class="login-title">Valoraciones</h1>
 		<div class="oferta" data-ng-repeat="review in DetailsVM.restaurantReviews">
 			<div class="single-comment">
 				<h1 class="restaurant-text"> {{ DetailsVM.reviewUser[$index].name }}
 					 <span class="number-value">{{ review.grade }}</span>
 				</h1>
 				<h2>{{ review.review }}</h2>
-				<div class = "manage-restaurant" id = "manage-reviews" data-ng-if = "DetailsVM.belongsToMe == true">
-					<a class="delete-link" id="update-review" href="#!/rateRestaurant/{{ DetailsVM.restaurant.id }}">Update review</a>
+				<div class = "delete-link" id = "update-review" data-ng-if = "DetailsVM.reviewUser [$index].id == DetailsVM.currentUser.id">
+					<a href="#!/rateRestaurant/{{ DetailsVM.restaurant.id }}">Update review</a>
 				</div>
 			</div>
 		</div>
 		<div data-ng-if = "DetailsVM.belongsToMe != true">
-			<form class="form" >
+			<form class="form">
 				<div class="input-group">
-					<label for="review">Review</label> <input type="text" name="review"
-						required>
+					<label for="review">Review</label> <input type="text" name="review" required>
 				</div>
 				<div class="input-group">
-					<label for="grade">Grade</label> <input type="range" name="grade"
-						min="1.0" max="5.0" step="0.1" value="5.0">
+					<label for="grade">Grade</label>
+					<input type="range" name="grade" min = "1.0" max = "5.0" step = "0.1" value = "5.0">
 				</div>
 				<input type="submit" class="login-button" value="Add review">
 			</form>

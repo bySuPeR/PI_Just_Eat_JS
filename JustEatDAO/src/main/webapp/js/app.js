@@ -82,8 +82,7 @@ angular.module('JustEatDAO', ['ngRoute'])
             controllerAs: "DetailsVM",
             templateUrl: "ConfirmDelete.html"
         })
-        
-         .when("/loadReviews/:ID", {
+        .when("/loadReviews/:ID", {
         	controller: "DetailsCtrl",
             controllerAs: "DetailsVM",
             templateUrl: "LoadReviews.html"

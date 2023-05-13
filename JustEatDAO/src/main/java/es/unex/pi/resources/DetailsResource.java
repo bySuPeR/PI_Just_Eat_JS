@@ -169,15 +169,12 @@ public class DetailsResource {
 		return Response.accepted(uriInfo.getAbsolutePathBuilder().build()).contentLocation(uriInfo.getAbsolutePathBuilder().build()).build();
 	}
 	
-
 	@GET
 	@Path ("/rateRestaurant/{restID}")
 	@Produces (MediaType.APPLICATION_JSON)
 	public Restaurant_User loadReviewUser (@Context HttpServletRequest request, @PathParam ("restID") long restID) {
 		Connection conn = (Connection) sc.getAttribute ("dbConn");
-		RestaurantDAO restaurantBD = new JDBCRestaurantDAOImpl ();
 		Restaurant_UserDAO restaurantUserBD = new JDBCRestaurant_UserDAOImpl ();
-		restaurantBD.setConnection (conn);
 		restaurantUserBD.setConnection (conn);
 		User currentUser = (User) request.getSession ().getAttribute ("user");
 		Restaurant_User reviewUser = restaurantUserBD.get(restID, currentUser.getId());
@@ -201,35 +198,16 @@ public class DetailsResource {
 	@Produces (MediaType.APPLICATION_JSON)
 	public ArrayList <Restaurant_User> loadRestaurantReviews (@Context HttpServletRequest request, @PathParam ("restID") long restID) {
 		Connection conn = (Connection) sc.getAttribute ("dbConn");
-		RestaurantDAO restaurantBD = new JDBCRestaurantDAOImpl ();
 		Restaurant_UserDAO restaurantUserBD = new JDBCRestaurant_UserDAOImpl ();
-		UserDAO userBD = new JDBCUserDAOImpl ();
-
-		User currentUser = (User) request.getSession ().getAttribute ("user");
-		
-		restaurantBD.setConnection (conn);
-		
-		Triplet <User, Restaurant_User, Restaurant> avoid = null;
-		Triplet <User, Restaurant_User, Restaurant> singleComment = null;
 		restaurantUserBD.setConnection (conn);
-		userBD.setConnection (conn);
 		ArrayList <Restaurant_User> restaurantUserList = restaurantUserBD.getAllByRestaurant (restID);
-		ArrayList <Triplet <User, Restaurant_User, Restaurant>> triplet = new ArrayList <Triplet <User, Restaurant_User, Restaurant>> ();
-		for (Restaurant_User ru: restaurantUserList) {
-			singleComment = new Triplet <User, Restaurant_User, Restaurant> (userBD.get (ru.getIdu ()), ru, restaurantBD.get (ru.getIdr ()));
-			if (ru.getIdu () == currentUser.getId ()) {
-				avoid = singleComment;
-			}
-			triplet.add (singleComment);
-		}
 		return restaurantUserList;
 	}
-
 
 	@PUT
 	@Path ("/reviewList")
 	@Produces(MediaType.APPLICATION_JSON)
-	public ArrayList<User> loadUserReviews (@Context HttpServletRequest request,  ArrayList <Restaurant_User> reviewsList) {
+	public ArrayList <User> loadUserReviews (@Context HttpServletRequest request,  ArrayList <Restaurant_User> reviewsList) {
 		UserDAO userBD = new JDBCUserDAOImpl();
 		Connection conn = (Connection) sc.getAttribute ("dbConn");
 		userBD.setConnection(conn);
@@ -241,7 +219,4 @@ public class DetailsResource {
 		}
 		return userList;
 	}
-	
-	
-	
 }

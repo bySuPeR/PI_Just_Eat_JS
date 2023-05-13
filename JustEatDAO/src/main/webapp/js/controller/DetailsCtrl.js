@@ -1,5 +1,5 @@
 angular.module('JustEatDAO')
-	.controller('DetailsCtrl', ['DetailsFactory','$routeParams','$location', 'RestaurantFactory', function (DetailsFactory, $routeParams, $location, RestaurantFactory) {
+	.controller('DetailsCtrl', ['DetailsFactory', 'UserFactory', '$routeParams','$location', 'RestaurantFactory', function (DetailsFactory, UserFactory, $routeParams, $location, RestaurantFactory) {
 		var detailsViewModel = this;
 		detailsViewModel.restaurant = {};
 		detailsViewModel.allCategories = [];
@@ -13,6 +13,7 @@ angular.module('JustEatDAO')
 		detailsViewModel.error = "";
 		detailsViewModel.isBikeFriendly = "no-bike-friendly-value";
 		detailsViewModel.isAvailable = false;
+		detailsViewModel.currentUser = {};
 		detailsViewModel.functions = {
 			getRestaurant: function() {
 				DetailsFactory.getRestaurantFact($routeParams.ID)
@@ -144,7 +145,6 @@ angular.module('JustEatDAO')
 					detailsViewModel.restaurant.available = 0;
 				}
 			},
-			
 			rateRestaurant: function () {
 				DetailsFactory.rateRestaurantFactory ($routeParams.ID)
 					.then (function (response) {
@@ -165,37 +165,45 @@ angular.module('JustEatDAO')
 							console.log("'deleteCurrentReview' could not be fetched: ", response);
 						})
 			},
-			
 			loadRestaurantReviews: function () {
 				DetailsFactory.loadRestaurantReviews ($routeParams.ID)
 					.then (function (response) {
 						detailsViewModel.restaurantReviews = response;
-						for (let i = 0; i < detailsViewModel.restaurantReviews.length ; i++) {
-    						detailsViewModel.functions.getUser(detailsViewModel.restaurantReviews);
-						}
+						detailsViewModel.functions.getUserList (detailsViewModel.restaurantReviews);
 					},
 					function (response) {
 						console.log ("'loadAllCategories' could not be fetched: ", response.status);
 					})
 			},
-			
-			getUser: function(reviewList) {
+			getUserList: function(reviewList) {
 				DetailsFactory.getUserFactory(reviewList)
 					.then(function(response) {
-						detailsViewModel.reviewUser = response;
+						detailsViewModel.reviewUser = response; //Lista de usuarios que han hecho review en el restaurante.
 					}, function(response) {
 						console.log("'getUser' could not be fetched:", response.status);
 					})
+			},
+			getCurrentUser: function () {
+				UserFactory.getCurrentUserFactory ()
+					.then (function (response) {
+						detailsViewModel.currentUser = response;
+					},
+					function (response) {
+						console.log ("'getCurrentUser' could not be fetched ", response.status);
+					})
 			}
-			
-			
-			
 		}
-		detailsViewModel.functions.getRestaurant();
-		detailsViewModel.functions.loadRestaurantCategories ();
-		detailsViewModel.functions.loadBelongsToMe ();
-		detailsViewModel.functions.loadAllDishes ();
-		detailsViewModel.functions.loadAllCategories ();
-		detailsViewModel.functions.rateRestaurant();
-		detailsViewModel.functions.loadRestaurantReviews ();
+		if ($location.absUrl ().includes ("/loadReviews/")) {
+			detailsViewModel.functions.getRestaurant();
+			detailsViewModel.functions.rateRestaurant ();
+			detailsViewModel.functions.loadRestaurantReviews ();
+			detailsViewModel.functions.getCurrentUser ();
+		}
+		if ($location.absUrl ().includes ("/restaurantDetails/")) {
+			detailsViewModel.functions.getRestaurant();
+			detailsViewModel.functions.loadRestaurantCategories ();
+			detailsViewModel.functions.loadBelongsToMe ();
+			detailsViewModel.functions.loadAllDishes ();
+			detailsViewModel.functions.loadAllCategories ();
+		}
 	}])

@@ -34,7 +34,7 @@ public class UserResource {
 	
 	
 	@GET
-	@Path ("/get")
+	@Path ("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public User loadUserResource (@Context HttpServletRequest request) {
 		HttpSession session = request.getSession();
