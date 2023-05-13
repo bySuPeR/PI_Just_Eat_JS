@@ -81,9 +81,7 @@ public class OrderResource {
 		dishBD.setConnection (conn);
 		restaurantBD.setConnection (conn);
 		
-		
-		Dish dish = new Dish();
-		Restaurant rest = new Restaurant(); 
+		Dish dish = new Dish(); 
 		
 		ArrayList <Order_Dish> orderDishList = orderDishBD.getAllByOrder (orderID);
 		ArrayList <Dish> dishList = new ArrayList <Dish> ();

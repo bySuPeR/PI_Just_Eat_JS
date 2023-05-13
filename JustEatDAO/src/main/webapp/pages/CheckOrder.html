@@ -4,12 +4,10 @@
 <div class="full-screen-container">
 	<div class="login-container">
 		<h1 class="login-title">This is what you asked</h1>
-		<h2>${restaurant}</h2>
+		<h2>{{ OrderVM.restName}}</h2>
 		<div class="order-container">
 			<div data-ng-repeat = "dish in OrderVM.dishList">
-
 				<h3>{{ dish.name }} {{ dish.price }}</h3>
-
 			</div>
 		</div>
 		<a class="delete-link" href="#!/MyOrders">Go back to My Orders</a>
