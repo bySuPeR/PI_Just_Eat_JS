@@ -127,4 +127,17 @@ public class OrderResource {
 		orderDAO.update (newOrder);
 		return Response.accepted(uriInfo.getAbsolutePathBuilder().build()).contentLocation(uriInfo.getAbsolutePathBuilder().build()).build();
 	}
+	
+	
+	@GET
+	@Path("/{orderID}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Order getRestaurant(@Context HttpServletRequest request, @PathParam("orderID") long orderID) {
+		Connection conn = (Connection) sc.getAttribute("dbConn");
+		OrderDAO orderBD = new JDBCOrderDAOImpl();
+		orderBD.setConnection(conn);
+		return orderBD.get(orderID);
+	}
+	
+	
 }

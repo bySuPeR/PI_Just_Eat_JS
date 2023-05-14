@@ -259,9 +259,10 @@ angular.module('JustEatDAO')
 			}
 		}
 		detailsViewModel.functions.getRestaurant();
+		detailsViewModel.functions.getCurrentUser ();
+		detailsViewModel.functions.loadRestaurantReviews ();
 		if ($location.absUrl ().includes ("/loadReviews/")) {
 			detailsViewModel.functions.rateRestaurant ();
-			detailsViewModel.functions.getCurrentUser ();
 			detailsViewModel.functions.loadRestaurantReviews ();
 			detailsViewModel.functions.loadBelongsToMe ();
 			detailsViewModel.functions.isAlreadyReviewed ();
@@ -279,13 +280,11 @@ angular.module('JustEatDAO')
 		}
 		if ($location.absUrl ().includes ("/rateRestaurant/")) {
 			detailsViewModel.tipoBorrado = 1;
-			detailsViewModel.functions.loadCurrentReview ();
 		}
 		detailsViewModel.functions.loadRestaurantCategories ();
 		detailsViewModel.functions.loadBelongsToMe ();
 		detailsViewModel.functions.loadAllDishes ();
 		detailsViewModel.functions.loadAllCategories ();
 		detailsViewModel.functions.rateRestaurant();
-		detailsViewModel.functions.loadRestaurantReviews ();
 		detailsViewModel.functions.getLikeRestaurant ();
 	}])

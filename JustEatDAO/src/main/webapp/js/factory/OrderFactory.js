@@ -21,6 +21,13 @@ angular.module ('JustEatDAO')
 					.then (function (response) {
 						return response;
 					})
+			},
+			getOrderFactory: function(orderID) {
+				var extraURL = url + orderID;
+				return $http.get(extraURL)
+					.then(function(response) {
+						return response.data;
+					});
 			}
 		}
 	return orderInterface;

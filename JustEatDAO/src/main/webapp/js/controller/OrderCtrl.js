@@ -1,7 +1,9 @@
 angular.module ('JustEatDAO')
-	.controller ('OrderCtrl', ['OrderFactory', 'DetailsFactory', '$routeParams','$location', function (OrderFactory, DetailsFactory, $routeParams,$location) {
+	.controller ('OrderCtrl', ['OrderFactory', 'DetailsFactory','UserFactory', '$routeParams','$location', function (OrderFactory, DetailsFactory,UserFactory, $routeParams,$location) {
 		var orderViewModel = this;
+		orderViewModel.order={};
 		orderViewModel.myOrders= [];
+		orderViewModel.currentUser={};
 		orderViewModel.dishList = [];
 		orderViewModel.tipoBorrado = 0;
 		orderViewModel.restName = "";
@@ -90,11 +92,32 @@ angular.module ('JustEatDAO')
 				else {
 					orderViewModel.error = "Se debe escoger, al menos, un plato."
 				}
+			},
+			getCurrentUser: function () {
+				UserFactory.getCurrentUserFactory ()
+					.then (function (response) {
+						orderViewModel.currentUser = response;
+					},
+					function (response) {
+						console.log ("'getCurrentUser' could not be fetched ", response.status);
+					})
+			},
+			getOrder: function() {
+				OrderFactory.getOrderFactory($routeParams.ID)
+					.then(function(response) {
+						orderViewModel.order = response;
+					}, function(response) {
+						console.log("'getRestaurant' could not be fetched:", response.status);
+					})
 			}
+			
+			
 		}
 		orderViewModel.functions.loadAllMyOrders ();
 		if ($routeParams.ID != null && ($location.absUrl ().includes ("/checkOrder/"))) {
 			orderViewModel.functions.checkOrder ($routeParams.ID);
+			orderViewModel.functions.getCurrentUser();
+			orderViewModel.functions.getOrder();
 		}
 		if ($routeParams.ID != null && ($location.absUrl ().includes ("/AddOrder/"))) {
 			orderViewModel.functions.loadNewOrderRestaurant ();

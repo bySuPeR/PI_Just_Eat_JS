@@ -1,4 +1,4 @@
-/**
+
 package es.unex.pi.filter;
 
 import java.io.IOException;
@@ -12,12 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebFilter(urlPatterns = {"/AddDishServlet.do", "/AddRestaurantServlet.do","/CategoryServlet.do","/DeleteDishPictureServlet.do",
-		"/DeleteRestaurantPictureServlet.do","/DeleteDishServlet.do", "/DeleteRestaurantServlet.do", "/DeleteUserServlet.do",
-		"/DeleteReviewServlet.do","/ListRestaurantServlet.do", "/LoadReviewsServlet.do", 
-		"/MakeOrderServlet.do","/MyRestaurantsServlet.do", "/MyOrdersServlet.do", "/MyRestaurantsServlet.do", "/RelatedRestaurantsServlet.do",
-		"/RestaurantDetailsServlet.do", "/SearchServlet.do", "/StateServlet.do","/UpdateDishesServlet.do", 
-		"/UpdateRestaurantServlet.do", "/UpdateReviewServlet.do","/UpdateUserServlet.do" })
+@WebFilter(urlPatterns = {"/pages/*" })
 																	
 
 public class LoginFilter  implements jakarta.servlet.Filter {
@@ -32,16 +27,16 @@ public class LoginFilter  implements jakarta.servlet.Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 
-//		HttpServletRequest req = (HttpServletRequest) request;
-//		HttpServletResponse res = (HttpServletResponse) response;
-//
-//		HttpSession session = req.getSession(true);
-//
-//		if (session.getAttribute("user") == null) {
-//			res.sendRedirect(req.getContextPath() + "/LoginServlet.do");
-//		} else {
-//			chain.doFilter(request, response);
-//		}
+		HttpServletRequest req = (HttpServletRequest) request;
+		HttpServletResponse res = (HttpServletResponse) response;
+
+		HttpSession session = req.getSession(true);
+
+		if (session.getAttribute("user") == null) {
+			res.sendRedirect(req.getContextPath() + "/LoginServlet.do");
+		} else {
+			chain.doFilter(request, response);
+		}
 
 
 	}
@@ -50,4 +45,3 @@ public class LoginFilter  implements jakarta.servlet.Filter {
 	}
 
 }
-**/

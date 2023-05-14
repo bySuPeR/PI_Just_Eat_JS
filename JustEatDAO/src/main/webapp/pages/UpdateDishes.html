@@ -1,34 +1,48 @@
-<link rel = "stylesheet" href = "../css/login.css">
-<link rel = "stylesheet" href = "../css/update-restaurant.css">
-<link rel = "stylesheet" href = "../css/update-dishes.css">
+<link rel="stylesheet" href="../css/login.css">
+<link rel="stylesheet" href="../css/update-restaurant.css">
+<link rel="stylesheet" href="../css/update-dishes.css">
 <div class="full-screen-container">
 	<div class="login-container">
-		<h1 class="login-title">Manage your dishes</h1>
-	 	<div class="oferta" data-ng-repeat="dish in DishVM.dishesList">
-			<form class = "form" data-ng-submit = "DishVM.functions.updateDish (dish.id)">
-				<div class="invidivual-dish-input">
-					<div class="input-group">
-						<label for="name">Name</label> 
-						<input type="text" name="name" required data-ng-model="dish.name">
+		<div data-ng-if="DishVM.restaurant.idu == DishVM.currentUser.id">
+			<h1 class="login-title">Manage your dishes</h1>
+			<div class="oferta" data-ng-repeat="dish in DishVM.dishesList">
+				<form class="form"
+					data-ng-submit="DishVM.functions.updateDish (dish.id)">
+					<div class="invidivual-dish-input">
+						<div class="input-group">
+							<label for="name">Name</label> <input type="text" name="name"
+								required data-ng-model="dish.name">
+						</div>
+						<div class="input-group">
+							<label for="price">Price</label> <input type="number"
+								name="price" required data-ng-model="dish.price">
+						</div>
+						<div class="input-group">
+							<label for="description">Description</label>
+							<textarea name="description" required
+								data-ng-model="dish.description"></textarea>
+						</div>
+						<div class="input-group">
+							<label for="image">Take a picture: </label> <input type="file"
+								id="image" name="image"> <a class="delete-link" href="">Delete
+								Picture</a>
+						</div>
+						<a class="delete-link" href="#!/deleteDish/{{ dish.id }}">Delete
+							dish</a> <input type="submit" class="login-button"
+							value="Update dish" id="update-dish">
 					</div>
-					<div class="input-group">
-						<label for="price">Price</label> 
-						<input type="number" name="price" required data-ng-model="dish.price">
-					</div>
-					<div class="input-group">
-						<label for="description">Description</label>
-						<textarea name="description" required data-ng-model="dish.description"></textarea>
-					</div>
-					<div class="input-group">
-						<label for="image">Take a picture: </label> 
-						<input type="file" id="image" name="image"> <a class="delete-link" href="">Delete Picture</a>
-					</div>
-					<a class="delete-link" href="#!/deleteDish/{{ dish.id }}">Delete dish</a>
-					<input type="submit" class="login-button" value="Update dish" id="update-dish">
-				</div>
-			</form>
+				</form>
+			</div>
+			<a id="manage-dishes-link" data-ng-href="#!/AddDish/{{ DishVM.restID }}">Add new dish</a>
 		</div>
-		<a id="manage-dishes-link" data-ng-href="#!/AddDish/{{ DishVM.restID }}">Add new dish</a>
-		<a class="delete-link" data-ng-href="#!/UpdateRestaurant/{{ DishVM.restID }}">Go back to restaurant update page</a>
+
+		<div data-ng-if="DishVM.restaurant.idu != DishVM.currentUser.id">
+			<div class="formulario_error">
+				<h2 class="fuera">No puedes editar un plato que no es tuyo</h2>
+				<a href="#!/editarMisApartamentos"></a>
+			</div>
+		</div>
+		<a class="delete-link"
+			data-ng-href="#!/UpdateRestaurant/{{ DishVM.restID }}">Go back to restaurant update page</a>
 	</div>
 </div>

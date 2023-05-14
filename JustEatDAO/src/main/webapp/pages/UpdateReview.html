@@ -2,6 +2,7 @@
 <link rel="stylesheet" href="../css/load_review.css">
 <div class = "full-screen-container">
 	<div class = "login-container">
+		<div data-ng-if="">
     	<h1 class = "login-title">Update your review</h1>
         <form class = "form" data-ng-submit = "DetailsVM.functions.updateCurrentReview ()">
         	<div class = "input-group">
@@ -15,6 +16,14 @@
             <input type = "submit" class = "login-button" value = "Update review">
         </form>
         <a class = "delete-link" href = "#!/deleteReview/{{ DetailsVM.restaurant.id }}">Delete review</a>
-        <a class = "delete-link" href = "#!/loadReviews/{{ DetailsVM.restaurant.id }}">Go back</a>
+       </div> 
+       
+       <div data-ng-if="">
+			<div class="formulario_error">
+			<h2 class="fuera"> No puedes editar una review que no es tuya </h2>
+			<a href="#!/myRestaurants"></a>
+			</div>
+	</div>
+	        <a class = "delete-link" href = "#!/loadReviews/{{ DetailsVM.restaurant.id }}">Go back</a>
     </div>
 </div>

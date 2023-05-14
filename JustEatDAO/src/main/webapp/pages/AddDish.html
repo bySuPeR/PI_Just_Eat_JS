@@ -1,31 +1,38 @@
-<link rel = "stylesheet" href = "../css/login.css">
-<link rel = "stylesheet" href = "../css/update-restaurant.css">
-<link rel = "stylesheet" href = "../css/update-dishes.css">
-<div class = "full-screen-container">
-	<div class = "login-container">
-    	<h1 class = "login-title">Create your dish</h1>
-        <form class = "form" data-ng-submit = "DishVM.functions.createNewDish ()">
-        	<div class = "invidivual-dish-input">
-            	<div class = "input-group">
-                	<label for = "name">Name</label>
-                	<input type = "text" name = "name" required
-                		data-ng-model = "DishVM.newDish.name">
-                </div>
-                <div class = "input-group">
-                	<label for = "price">Price</label>
-                	<input type = "number" name = "price" required
-                		data-ng-model = "DishVM.newDish.price">
-                </div>
-                <div class = "input-group">
-                	<label for = "description">Description</label>
-                	<textarea name = "description" required data-ng-model = "DishVM.newDish.description"></textarea>
-                </div>
-                <div class = "input-group">	
-  					<label for="image">Take a picture: </label>
-  					<input type="file" id="image" name="image">
-                </div>
-            </div>
-            <input type = "submit" class = "login-button" value = "Add dish">
-        </form>
+<link rel="stylesheet" href="../css/login.css">
+<link rel="stylesheet" href="../css/update-restaurant.css">
+<link rel="stylesheet" href="../css/update-dishes.css">
+<div class="full-screen-container">
+	<div class="login-container">
+		<div data-ng-if="DishVM.restaurant.idu == DishVM.currentUser.id">
+			<h1 class="login-title">Create your dish</h1>
+			<form class="form" data-ng-submit="DishVM.functions.createNewDish ()">
+				<div class="invidivual-dish-input">
+					<div class="input-group">
+						<label for="name">Name</label> <input type="text" name="name"
+							required data-ng-model="DishVM.newDish.name">
+					</div>
+					<div class="input-group">
+						<label for="price">Price</label> <input type="number" name="price"
+							required data-ng-model="DishVM.newDish.price">
+					</div>
+					<div class="input-group">
+						<label for="description">Description</label>
+						<textarea name="description" required
+							data-ng-model="DishVM.newDish.description"></textarea>
+					</div>
+					<div class="input-group">
+						<label for="image">Take a picture: </label> <input type="file"
+							id="image" name="image">
+					</div>
+				</div>
+				<input type="submit" class="login-button" value="Add dish">
+			</form>
+		</div>
+		<div data-ng-if="DishVM.restaurant.idu != DishVM.currentUser.id">
+			<div class="formulario_error">
+				<h2 class="fuera">No puedes añadir un plato a un restaurante que no es tuyo</h2>
+				<a href="#!/manageDishes/{{ DishVM.restaurant.id }}">Go back</a>
+			</div>
+		</div>
 	</div>
 </div>

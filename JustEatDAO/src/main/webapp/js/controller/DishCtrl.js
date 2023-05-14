@@ -1,10 +1,12 @@
 angular.module ('JustEatDAO')
-	.controller ('DishCtrl', ['DishFactory','DetailsFactory', '$routeParams','$location', function (DishFactory,DetailsFactory, $routeParams,$location) {
+	.controller ('DishCtrl', ['DishFactory','DetailsFactory','UserFactory', '$routeParams','$location', function (DishFactory,DetailsFactory,UserFactory, $routeParams,$location) {
 		var dishViewModel = this;
 		dishViewModel.restID = $routeParams.ID;
 		dishViewModel.dishesList = [];
 		dishViewModel.tipoBorrado = 0;
 		dishViewModel.newDish = {};
+		dishViewModel.restaurant={};
+		dishViewModel.currentUser={};
 		dishViewModel.functions = {
 			getDishesbyRestaurant: function() {
 				DishFactory.getDishesbyRestaurantFactory ($routeParams.ID)
@@ -52,7 +54,32 @@ angular.module ('JustEatDAO')
 					function (response) {
 						console.log ("'createNewDish' could not be created: ", response.status);
 					})
+			},
+			getCurrentUser: function () {
+				UserFactory.getCurrentUserFactory ()
+					.then (function (response) {
+						dishViewModel.currentUser = response;
+					},
+					function (response) {
+						console.log ("'getCurrentUser' could not be fetched ", response.status);
+					})
+			},
+			getRestaurant: function() {
+				DetailsFactory.getRestaurantFact(dishViewModel.restID)
+					.then(function(response) {
+						dishViewModel.restaurant = response;
+						if (dishViewModel.restaurant.bikeFriendly == 1) {
+							dishViewModel.isBikeFriendly = "yes-bike-friendly-value";
+						}
+						if (dishViewModel.restaurant.available) {
+							dishViewModel.isAvailable = true;
+						}
+					}, function(response) {
+						console.log("'getRestaurant' could not be fetched:", response.status);
+					})
 			}
 		}
 		dishViewModel.functions.getDishesbyRestaurant ();
+		dishViewModel.functions.getRestaurant();
+		dishViewModel.functions.getCurrentUser();
 }])
