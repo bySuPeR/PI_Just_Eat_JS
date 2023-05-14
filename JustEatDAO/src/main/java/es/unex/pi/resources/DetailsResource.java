@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 
 import es.unex.pi.model.Restaurant;
 import es.unex.pi.model.Category;
@@ -314,6 +315,7 @@ public class DetailsResource {
 	
 	@GET
 	@Path ("/isAlreadyReviewed/{restID}")
+	@Produces (MediaType.APPLICATION_JSON)
 	public boolean isAlreadyReviewedResource (@Context HttpServletRequest request, @PathParam ("restID") long restID) {
 		boolean found = false;
 		Connection conn = (Connection) sc.getAttribute ("dbConn");
@@ -328,5 +330,98 @@ public class DetailsResource {
 			}
 		}
 		return found;
+	}
+	
+	@PUT
+	@Path ("/searchRelated/{restID}")
+	@Produces (MediaType.APPLICATION_JSON)
+	public ArrayList <Restaurant> searchRelatedResource (@Context HttpServletRequest request, String relateSearch, @PathParam ("restID") long restID) {
+		Connection conn = (Connection) sc.getAttribute ("dbConn");
+		RestaurantDAO restaurantDAO = new JDBCRestaurantDAOImpl ();
+		CategoryDAO categoryDAO = new JDBCCategoryDAOImpl ();
+		Restaurant_CategoryDAO restaurantCategoryDAO = new JDBCRestaurant_CategoryDAOImpl ();
+		restaurantDAO.setConnection (conn);
+		categoryDAO.setConnection (conn);
+		restaurantCategoryDAO.setConnection (conn);
+		
+		Restaurant currentRestaurant = restaurantDAO.get (restID);
+		ArrayList <Restaurant> relatedRestaurants = new ArrayList <Restaurant> ();
+		ArrayList <Restaurant> allRestaurants = restaurantDAO.getAll ();
+		if (relateSearch.equals ("category-related")) {
+			ArrayList <Category> allCategoryList = new ArrayList <Category> ();
+			ArrayList <Category> thisCategoryList = null;
+			ArrayList <Long> relatedIDs = new ArrayList <Long> ();
+			HashMap <Long, ArrayList <Category>> restaurant_categoryList_Map = new HashMap <Long, ArrayList <Category>> ();
+			ArrayList <Restaurant_Category> restaurant_Category_List = null;
+			for (Restaurant r: allRestaurants) {
+				restaurant_Category_List = restaurantCategoryDAO.getAllByRestaurant (r.getId ());
+				for (Restaurant_Category rc: restaurant_Category_List) {
+					allCategoryList.add (categoryDAO.get (rc.getIdct()));
+				}
+				restaurant_categoryList_Map.put (r.getId (), allCategoryList);
+				allCategoryList = new ArrayList <Category> ();
+				if (r.getId () == restID) {
+					thisCategoryList = restaurant_categoryList_Map.get (r.getId ());
+					restaurant_categoryList_Map.remove (r.getId ());
+				}
+			}
+			for (Long rID: restaurant_categoryList_Map.keySet ()) {
+				for (Category c: restaurant_categoryList_Map.get (rID)) {
+					for (Category d: thisCategoryList) {
+						if ((d.getId () == c.getId ()) && (!relatedIDs.contains (rID))) {
+							relatedIDs.add (rID);
+						}
+						if (relatedIDs.contains (rID)) {
+							break;
+						}
+					}
+				}
+			}
+			for (Long rID: relatedIDs) {
+				relatedRestaurants.add (restaurantDAO.get (rID));
+			}
+		}
+		if (relateSearch.equals ("location-related")) {
+			for (Restaurant r: allRestaurants) {
+				if (r.getCity ().equals (currentRestaurant.getCity ()) && !relatedRestaurants.contains (r) && (r.getId () != currentRestaurant.getId ())) {
+					relatedRestaurants.add (r);
+				}
+			}
+		}
+		if (relateSearch.equals ("price-related")) {
+			for (Restaurant r: allRestaurants) {
+				if (this.priceRelated (currentRestaurant, r) && !relatedRestaurants.contains (r) && (r.getId () != currentRestaurant.getId ())) {
+					relatedRestaurants.add (r);
+				}
+			}
+		}
+		if (relateSearch.equals ("grade-related")) {
+			for (Restaurant r: allRestaurants) {
+				if (this.gradeRelated (currentRestaurant, r) && !relatedRestaurants.contains (r) && (r.getId () != currentRestaurant.getId ())) {
+					relatedRestaurants.add (r);
+				}
+			}
+		}
+		return relatedRestaurants;
+	}
+	
+	private boolean priceRelated (Restaurant current, Restaurant r) {
+		boolean result = false;
+		int minPrice = current.getMinPrice () - 1;
+		int maxPrice = current.getMaxPrice () + 1;
+		if ((minPrice <= r.getMinPrice ()) && (maxPrice >= r.getMaxPrice ())) {
+			result = true;
+		}
+		return result;
+	}
+	
+	private boolean gradeRelated (Restaurant current, Restaurant r) {
+		boolean result = false;
+		double minGrade = current.getGradesAverage () - 0.5;
+		double maxGrade = current.getGradesAverage () + 0.5;
+		if ((minGrade <= r.getGradesAverage ()) && (maxGrade >= r.getGradesAverage ())) {
+			result = true;
+		}
+		return result;
 	}
 }

@@ -16,6 +16,8 @@ angular.module('JustEatDAO')
 		detailsViewModel.currentUser = {};
 		detailsViewModel.currentReview = {};
 		detailsViewModel.alreadyReviewed = false;
+		detailsViewModel.relateSearch = "";
+		detailsViewModel.relatedRestaurants = [];
 		detailsViewModel.functions = {
 			getRestaurant: function() {
 				DetailsFactory.getRestaurantFact($routeParams.ID)
@@ -181,11 +183,9 @@ angular.module('JustEatDAO')
 						console.log("'getUser' could not be fetched: ", response.status);
 					})
 			},
-			
 			getLikeRestaurant: function() {
 				DetailsFactory.getLikeRestaurantFactory($routeParams.ID)
 					.then(function(response) {
-						console.log("Getting apartament's like...", response);
 						detailsViewModel.like = response;
 					}, function(response) {
 						console.log("'getLikeRestaurant' could not be fetched: ", response);
@@ -255,6 +255,16 @@ angular.module('JustEatDAO')
 					},
 					function (response) {
 						console.log ("'isAlreadyReviewed' could not be fetched ", response.status);
+					})
+			},
+			searchRelated: function () {
+				DetailsFactory.searchRelated ($routeParams.ID, detailsViewModel.relateSearch)
+					.then (function (response) {
+						detailsViewModel.relatedRestaurants = response;
+						detailsViewModel.relateSearch = "";
+					},
+					function (response) {
+						console.log ("'searchRelated' could not be fetched ", response.status)
 					})
 			}
 		}

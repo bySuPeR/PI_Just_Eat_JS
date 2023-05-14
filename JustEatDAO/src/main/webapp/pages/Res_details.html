@@ -51,38 +51,38 @@
 		</div>
 		<a class = "manage-restaurant" id = "back-to-my-restaurants" data-ng-href = "#!/">Back</a>
 		<a class = "manage-restaurant" id = "manage-reviews" data-ng-href = "#!/loadReviews/{{ DetailsVM.restaurant.id }}">Restaurant Reviews</a>
-		<div class = "manage-restaurant" id = "make-order-button" data-ng-if = "DetailsVM.restaurant.available == 1">
-			<a data-ng-href = "#!/AddOrder/{{ DetailsVM.restaurant.id }}" id = "text-decorator">Make order</a>
+		<div class = "manage-restaurant" id = "make-order-button">
+			<div data-ng-if = "DetailsVM.restaurant.available == 1">
+				<a data-ng-href = "#!/AddOrder/{{ DetailsVM.restaurant.id }}" id = "text-decorator">Make order</a>
+			</div>
 		</div>
-		<!--
 		<h1 id = "related-title">You could also be interested in:</h1>
-		<form class = "restaurant-state-radio" action = "RelatedRestaurantsServlet.do?idR=${restaurant.id}" method = "post">
-	    	<div class = "state-entry">
-            	<label class = "state-label" for = "state-value">Category</label>
-        	    <input type = "radio" value = "category-related" name = "state-value" ${categoryrelated}>
-    	    </div>
-	        <div class = "state-entry">
+		<form class = "restaurant-state-radio" data-ng-submit = "DetailsVM.functions.searchRelated ()">
+			<div class = "state-entry">
+				<label class = "state-label" for = "state-value">Category</label>
+				<input type = "radio" value = "category-related" name = "state-value" data-ng-model = "DetailsVM.relateSearch">
+			</div>
+			<div class = "state-entry">
             	<label class = "state-label" for = "state-value">Location</label>
-            	<input type = "radio" value = "location-related" name = "state-value" ${locationrelated}>
+            	<input type = "radio" value = "location-related" name = "state-value" data-ng-model = "DetailsVM.relateSearch">
         	</div>
     	    <div class = "state-entry">
 	        	<label class = "state-label" for = "state-value">Price</label>
-                <input type = radio value = "price-related" name = "state-value" ${pricerelated}>
+                <input type = radio value = "price-related" name = "state-value" data-ng-model = "DetailsVM.relateSearch">
             </div>
         	<div class = "state-entry">
     	    	<label class = "state-label" for = "state-value">Grade</label>
-	            <input type = "radio" value = "grade-related" name = "state-value" ${graderelated}>
+	            <input type = "radio" value = "grade-related" name = "state-value" data-ng-model = "DetailsVM.relateSearch">
             </div>
            	<input type = "submit" value = "Search" class = "search-state" id = "related-search">
 		</form>
-        <div class = "restaurant-grid-container">
-        	<c:forEach var = "restaurant" items = "${relatedRestaurants}">
-            	<div class = "single-restaurant">
-                	<a href = "RestaurantDetailsServlet.do?id=${restaurant.id}"><img src = "images/${restaurant.restaurantPic}" class = "restaurant-photo"></a>
-                    <h3>${restaurant.name}</h3>
-                </div>
-            </c:forEach>
-        </div>
-		-->
-	</div>   
+		<div class = "restaurant-grid-container">
+			<div data-ng-repeat = "rest in DetailsVM.relatedRestaurants">
+				<div class = "single-restaurant">
+        			<a data-ng-href = "#!/restaurantDetails/{{ rest.id }}"><img data-ng-src = "../images/{{ rest.restaurantPic }}" class = "restaurant-photo"></a>
+        			<h3>{{ rest.name }}</h3>
+        		</div>
+			</div>
+		</div>
+	</div>
 </div>
