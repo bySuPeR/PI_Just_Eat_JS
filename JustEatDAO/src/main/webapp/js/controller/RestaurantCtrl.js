@@ -8,8 +8,9 @@ angular.module ('JustEatDAO')
 		restaurantViewModel.searchPrompt = "";
 		restaurantViewModel.restState = "all-restaurants";
 		restaurantViewModel.newRestaurant = {};
-		restaurantViewModel.newRestaurant.bikeFriendly = 0;
+		restaurantViewModel.newRestaurant.bikeFriendly=0;
 		restaurantViewModel.newRestaurant.available = 0;
+		restaurantViewModel.isBikeFriendly = "";
 		restaurantViewModel.categoryStr = [];
 		restaurantViewModel.error = "";
 		restaurantViewModel.functions = {
@@ -62,6 +63,12 @@ angular.module ('JustEatDAO')
 			createNewRestaurant: function () {
 				var str = restaurantViewModel.functions.convertToString ();
 				if (str != "") {
+					if (restaurantViewModel.isBikeFriendly == "yes-bike-friendly-value") {
+						restaurantViewModel.newRestaurant.bikeFriendly = 1;
+					}
+					else {
+						restaurantViewModel.newRestaurant.bikeFriendly = 0;
+					}
 					RestaurantFactory.createNewRestaurantFactory (restaurantViewModel.newRestaurant, str)
 						.then (function (response) {
 							$location.path ("/myRestaurants");
@@ -72,14 +79,6 @@ angular.module ('JustEatDAO')
 				}
 				else {
 					restaurantViewModel.error = "Hay que añadir alguna categoría.";
-				}
-			},
-			flipBike: function () {
-				if (restaurantViewModel.newRestaurant.bikeFriendly == 0) {
-					restaurantViewModel.newRestaurant.bikeFriendly = 1;
-				}
-				else {
-					restaurantViewModel.newRestaurant.bikeFriendly = 0;
 				}
 			},
 			flipAvailable: function () {
