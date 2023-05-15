@@ -7,7 +7,7 @@
 		<div data-ng-repeat = "order in OrderVM.myOrders">
 			<form class="invidivual-dish-input" id="order-form" data-ng-submit="OrderVM.functions.loadOrder(order.id)">
 				<h1>Pedido {{ $index+1 }}</h1>
-				<h2>{{ order.totalPrice }}</h2>
+				<h2>{{ order.totalPrice }}€</h2>
 				<input type="submit" class="login-button" value="Check it out">
 			</form>
 		</div>

@@ -159,7 +159,7 @@ public class RestaurantResource {
 		HttpSession session = request.getSession ();
 		User user = (User) session.getAttribute ("user");
 		rest.setGradesAverage (0.0);
-		rest.setMinPrice (0);
+		rest.setMinPrice (-1);
 		rest.setMaxPrice (0);
 		rest.setIdu (user.getId ());
 		rest.setRestaurantPic ("default.png");

@@ -65,10 +65,28 @@ public class DishResource {
 	@Path("/deleteDish/{dishID}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public void deleteDish(@PathParam("dishID") long dishID , @Context HttpServletRequest request) {
-		DishDAO dishBD = new JDBCDishDAOImpl();
 		Connection conn = (Connection)sc.getAttribute("dbConn");
-		dishBD.setConnection(conn); //debes hacer una conexion por cada DAO!
-		dishBD.delete(dishID);
+		DishDAO dishBD = new JDBCDishDAOImpl();
+		RestaurantDAO resDAO = new JDBCRestaurantDAOImpl ();
+		dishBD.setConnection(conn);
+		resDAO.setConnection (conn);
+		Dish dish = dishBD.get (dishID);
+		dishBD.delete (dishID);
+		Restaurant res = resDAO.get (dish.getIdr ());
+		ArrayList <Dish> allDishes = dishBD.getAllByRestaurant (dish.getIdr ());
+		int minPrice = Integer.MAX_VALUE;
+		int maxPrice = Integer.MIN_VALUE;
+		for (Dish d: allDishes) {
+			if (d.getPrice () < minPrice) {
+				minPrice = d.getPrice ();
+			}
+			if (d.getPrice () > maxPrice) {
+				maxPrice = d.getPrice ();
+			}
+		}
+		res.setMinPrice (minPrice);
+		res.setMaxPrice (maxPrice);
+		resDAO.update (res);
 	}
 	
 	@PUT
@@ -77,8 +95,25 @@ public class DishResource {
 	public Response UpdateDishResoure (@Context HttpServletRequest request, Dish dish, @PathParam ("dishID") long dishID) {
 		Connection conn = (Connection)sc.getAttribute("dbConn");
 		DishDAO dishDAO = new JDBCDishDAOImpl ();
+		RestaurantDAO resDAO = new JDBCRestaurantDAOImpl ();
 		dishDAO.setConnection (conn);
+		resDAO.setConnection (conn);
 		dishDAO.update (dish);
+		Restaurant res = resDAO.get (dish.getIdr ());
+		ArrayList <Dish> allDishes = dishDAO.getAllByRestaurant (dish.getIdr ());
+		int minPrice = Integer.MAX_VALUE;
+		int maxPrice = Integer.MIN_VALUE;
+		for (Dish d: allDishes) {
+			if (d.getPrice () < minPrice) {
+				minPrice = d.getPrice ();
+			}
+			if (d.getPrice () > maxPrice) {
+				maxPrice = d.getPrice ();
+			}
+		}
+		res.setMinPrice (minPrice);
+		res.setMaxPrice (maxPrice);
+		resDAO.update (res);
 		return Response.accepted(uriInfo.getAbsolutePathBuilder().build()).contentLocation(uriInfo.getAbsolutePathBuilder().build()).build();
 	}
 	
@@ -88,9 +123,29 @@ public class DishResource {
 	public Response AddDishResource (@Context HttpServletRequest request, Dish dish) {
 		Connection conn = (Connection)sc.getAttribute("dbConn");
 		DishDAO dishDAO = new JDBCDishDAOImpl ();
+		RestaurantDAO resDAO = new JDBCRestaurantDAOImpl ();
 		dishDAO.setConnection (conn);
+		resDAO.setConnection (conn);
 		dish.setDishPic ("default.png");
 		dishDAO.add (dish);
+		Restaurant res = resDAO.get (dish.getIdr ());
+		if ((res.getMinPrice () > dish.getPrice ()) || (res.getMinPrice () == -1)) {
+			res.setMinPrice (dish.getPrice ());
+		}
+		if (res.getMaxPrice () < dish.getPrice ()) {
+			res.setMaxPrice (dish.getPrice ());
+		}
+		resDAO.update (res);
 		return Response.accepted(uriInfo.getAbsolutePathBuilder().build()).contentLocation(uriInfo.getAbsolutePathBuilder().build()).build();
+	}
+	
+	@GET
+	@Path ("/getDish/{dishID}")
+	@Produces (MediaType.APPLICATION_JSON)
+	public Dish getDishResource (@Context HttpServletRequest request, @PathParam ("dishID") long dishID) {
+		Connection conn = (Connection)sc.getAttribute("dbConn");
+		DishDAO dishDAO = new JDBCDishDAOImpl ();
+		dishDAO.setConnection (conn);
+		return dishDAO.get (dishID);
 	}
 }

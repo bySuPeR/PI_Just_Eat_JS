@@ -192,6 +192,17 @@ public class DetailsResource {
 		HttpSession session = request.getSession();
 		User currentUser = (User) session.getAttribute("user"); 
 		reviewBD.delete (restID, currentUser.getId());
+		
+		RestaurantDAO resDAO = new JDBCRestaurantDAOImpl ();
+		resDAO.setConnection (conn);
+		Restaurant r = resDAO.get (restID);
+		ArrayList <Restaurant_User> reviews = reviewBD.getAllByRestaurant (restID);
+		double comments = 0.0;
+		for (Restaurant_User ru: reviews) {
+			comments += ru.getGrade ();
+		}
+		r.setGradesAverage (truncate (comments / reviews.size (), 1));
+		resDAO.update (r);
 	}
 	
 	@GET
@@ -295,6 +306,16 @@ public class DetailsResource {
 		currentReview.setIdr (restID);
 		currentReview.setIdu (currentUser.getId ());
 		restUserDAO.update (currentReview);
+		RestaurantDAO resDAO = new JDBCRestaurantDAOImpl ();
+		resDAO.setConnection (conn);
+		Restaurant r = resDAO.get (restID);
+		ArrayList <Restaurant_User> reviews = restUserDAO.getAllByRestaurant (restID);
+		double comments = 0.0;
+		for (Restaurant_User ru: reviews) {
+			comments += ru.getGrade ();
+		}
+		r.setGradesAverage (truncate (comments / reviews.size (), 1));
+		resDAO.update (r);
 		return Response.accepted(uriInfo.getAbsolutePathBuilder().build()).contentLocation(uriInfo.getAbsolutePathBuilder().build()).build();
 	}
 	
@@ -310,7 +331,26 @@ public class DetailsResource {
 		currentReview.setIdr (restID);
 		currentReview.setIdu (currentUser.getId ());
 		restUserDAO.add (currentReview);
+		
+		RestaurantDAO resDAO = new JDBCRestaurantDAOImpl ();
+		resDAO.setConnection (conn);
+		Restaurant r = resDAO.get (restID);
+		ArrayList <Restaurant_User> reviews = restUserDAO.getAllByRestaurant (restID);
+		double comments = 0.0;
+		for (Restaurant_User ru: reviews) {
+			comments += ru.getGrade ();
+		}
+		r.setGradesAverage (truncate (comments / reviews.size (), 1));
+		resDAO.update (r);
+		
 		return Response.accepted(uriInfo.getAbsolutePathBuilder().build()).contentLocation(uriInfo.getAbsolutePathBuilder().build()).build();
+	}
+	
+	private double truncate (double number, int places) {
+		number = number * Math.pow (10, places);
+		number = Math.floor (number);
+		number = number / Math.pow (10, places);
+		return number;
 	}
 	
 	@GET

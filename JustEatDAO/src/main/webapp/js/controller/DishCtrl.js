@@ -1,12 +1,13 @@
 angular.module ('JustEatDAO')
 	.controller ('DishCtrl', ['DishFactory','DetailsFactory','UserFactory', '$routeParams','$location', function (DishFactory,DetailsFactory,UserFactory, $routeParams,$location) {
 		var dishViewModel = this;
-		dishViewModel.restID = $routeParams.ID;
+		dishViewModel.restID = -1;
 		dishViewModel.dishesList = [];
 		dishViewModel.tipoBorrado = 0;
 		dishViewModel.newDish = {};
 		dishViewModel.restaurant={};
 		dishViewModel.currentUser={};
+		dishViewModel.currentDish = {};
 		dishViewModel.functions = {
 			getDishesbyRestaurant: function() {
 				DishFactory.getDishesbyRestaurantFactory ($routeParams.ID)
@@ -77,9 +78,27 @@ angular.module ('JustEatDAO')
 					}, function(response) {
 						console.log("'getRestaurant' could not be fetched:", response.status);
 					})
+			},
+			getDish: function (dishID) {
+				DishFactory.getDishFactory (dishID)
+					.then (function (response) {
+						dishViewModel.currentDish = response;
+						dishViewModel.restID = dishViewModel.currentDish.idr;
+						dishViewModel.functions.getRestaurant ();
+					},
+					function (response) {
+						console.log ("'getDish' could not be fetched: ", response.status);
+					})
 			}
 		}
-		dishViewModel.functions.getDishesbyRestaurant ();
-		dishViewModel.functions.getRestaurant();
-		dishViewModel.functions.getCurrentUser();
+		if ($location.absUrl ().includes ("/deleteDish/")) {
+			dishViewModel.functions.getDish ($routeParams.ID);
+			dishViewModel.functions.getCurrentUser ();
+		}
+		if ($location.absUrl ().includes ("/manageDishes/") || $location.absUrl ().includes ("/AddDish/")) {
+			dishViewModel.functions.getDishesbyRestaurant ();
+			dishViewModel.restID = $routeParams.ID;
+			dishViewModel.functions.getRestaurant();
+			dishViewModel.functions.getCurrentUser();
+		}
 }])
