@@ -26,6 +26,9 @@ angular.module('JustEatDAO')
 						if (detailsViewModel.restaurant.bikeFriendly == 1) {
 							detailsViewModel.isBikeFriendly = "yes-bike-friendly-value";
 						}
+						if (detailsViewModel.restaurant.bikeFriendly == 0) {
+							detailsViewModel.isBikeFriendly = "no-bike-friendly-value";
+						}
 						if (detailsViewModel.restaurant.available) {
 							detailsViewModel.isAvailable = true;
 						}
@@ -132,11 +135,14 @@ angular.module('JustEatDAO')
 				return string;
 			},
 			flipBike: function () {
+				console.log (detailsViewModel.isBikeFriendly);
 				if (detailsViewModel.isBikeFriendly == "no-bike-friendly-value") {
 					detailsViewModel.isBikeFriendly = "yes-bike-friendly-value";
+					detailsViewModel.restaurant.bikeFriendly = 1;
 				}
 				if (detailsViewModel.isBikeFriendly == "yes-bike-friendly-value") {
 					detailsViewModel.isBikeFriendly = "no-bike-friendly-value";
+					detailsViewModel.restaurant.bikeFriendly = 0;
 				}
 			},
 			flipAvailable: function () {
@@ -261,7 +267,6 @@ angular.module('JustEatDAO')
 				DetailsFactory.searchRelated ($routeParams.ID, detailsViewModel.relateSearch)
 					.then (function (response) {
 						detailsViewModel.relatedRestaurants = response;
-						detailsViewModel.relateSearch = "";
 					},
 					function (response) {
 						console.log ("'searchRelated' could not be fetched ", response.status)
@@ -270,7 +275,6 @@ angular.module('JustEatDAO')
 		}
 		detailsViewModel.functions.getRestaurant();
 		detailsViewModel.functions.getCurrentUser ();
-		detailsViewModel.functions.loadRestaurantReviews ();
 		if ($location.absUrl ().includes ("/loadReviews/")) {
 			detailsViewModel.functions.rateRestaurant ();
 			detailsViewModel.functions.loadRestaurantReviews ();
@@ -281,6 +285,7 @@ angular.module('JustEatDAO')
 			detailsViewModel.tipoBorrado = 0;
 		}
 		if ($location.absUrl ().includes ("/deleteReview/")) {
+			detailsViewModel.functions.loadCurrentReview ();
 			detailsViewModel.tipoBorrado = 1;
 		}
 		if ($location.absUrl ().includes ("/restaurantDetails/")) {
@@ -289,6 +294,7 @@ angular.module('JustEatDAO')
 			detailsViewModel.functions.loadAllCategories ();
 		}
 		if ($location.absUrl ().includes ("/rateRestaurant/")) {
+			detailsViewModel.functions.loadCurrentReview ();
 			detailsViewModel.tipoBorrado = 1;
 		}
 		detailsViewModel.functions.loadRestaurantCategories ();

@@ -26,11 +26,6 @@
                 <label for = "contactEmail">Email</label>
                 <input type = "email" name = "contactEmail" id = "email" data-ng-model = "DetailsVM.restaurant.contactEmail" required>
             </div>
-            <div class = "input-group">	
-  				<label for="image">Take a picture: </label>
-  				<input type = "file" id = "image" name = "image">
-  				<a class = "delete-link" data-ng-href = "">Delete Picture</a>
-            </div>
             <div class = "input-group">
                 <h2 class = "login-title" id = "bike-parking-question">What kind of food do you serve?</h2>
                 <div data-ng-repeat = "cat in DetailsVM.allCategories">
@@ -43,21 +38,21 @@
                 </div>
             </div>
             <div class = "input-group">
-                <h2 class = "login-title" id = "bike-parking-question">Do you have a bike parking lot?</h2>
-                <div class = "bike-friendly-checkbox">
-                	<label for = "bike-friendly">Yes</label>
-                    <input type = "radio" value = "yes-bike-friendly-value" name = "bike-friendly"
-                    data-ng-model = "DetailsVM.isBikeFriendly"
-                    data-ng-click = "DetailsVM.functions.flipBike ()"
-                    id = "bike-friendly">
-                </div>
-                <div class = "bike-friendly-checkbox">
-                	<label for = "bike-friendly">No</label>
-                	<input type = "radio" value = "no-bike-friendly-value" name = "bike-friendly"
-                    data-ng-model = "DetailsVM.isBikeFriendly"
-                    data-ng-click = "DetailsVM.functions.flipBike ()"
-                    id = "bike-friendly">
-                </div>
+				<h2 class="login-title" id="bike-parking-question">Do you have a bike parking lot?</h2>
+					<div class="bike-friendly-checkbox">
+						<label for="bike-friendly">Yes</label> <input type="radio"
+							value="yes-bike-friendly-value" name="bike-friendly"
+							data-ng-model = "DetailsVM.isBikeFriendly"
+							data-ng-click="DetailsVM.functions.flipBike ()"
+							id="bike-friendly">
+					</div>
+					<div class="bike-friendly-checkbox">
+						<label for="bike-friendly">No</label> <input type="radio"
+							value="no-bike-friendly-value" name="bike-friendly"
+							data-ng-model = "DetailsVM.isBikeFriendly"
+							data-ng-click="DetailsVM.functions.flipBike ()"
+							id="bike-friendly">
+					</div>
             </div>
             <div class = "input-group">
                 <h2 class = "login-title">Can you take orders?</h2>
